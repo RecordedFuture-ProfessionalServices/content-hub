@@ -39,7 +39,7 @@ def validate_response(response):
 
         try:
             response.json()
-            error = response.json().get("error", []).get("message")
+            error = response.json().get("error", {}).get("message")
         except AttributeError:
             pass
 

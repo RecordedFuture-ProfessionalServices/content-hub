@@ -106,7 +106,6 @@ class RecordedFutureCommon:
                 verify_ssl=self.verify_ssl,
                 siemplify=self.siemplify,
             )
-            recorded_future_manager.test_connectivity()
 
             successful_entities = []
             failed_entities = []

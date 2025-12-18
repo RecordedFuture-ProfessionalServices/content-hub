@@ -111,8 +111,8 @@ class RFIndicator(BaseModel):
         """Returns Links Details in table format."""
         return [
             {
-                "Entity": entity["name"],
-                "Type": entity["type"],
+                "Entity": entity.name,
+                "Type": entity.type_,
                 "Relationship": section_name,
             }
             for section_name, entities in self.links.items()

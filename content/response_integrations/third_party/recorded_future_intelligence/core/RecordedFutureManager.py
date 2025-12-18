@@ -64,12 +64,6 @@ from .version import __version__
 
 # IP used for testing the connection to API
 DUMMY_IP = "8.8.8.8"
-ENDPOINTS = {
-    "alerts": "v2/alert/search",
-    "alert": "v2/alert/{alert_id}",
-    "analyst_note": "v2/analystnote/publish",
-    "update_alert": "/v2/alert/update",
-}
 
 
 class RecordedFutureManager:

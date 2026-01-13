@@ -439,7 +439,7 @@ wheels = [
 
 [[package]]
 name = "psengine"
-version = "2.3.1"
+version = "2.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonpath-ng" },
@@ -451,9 +451,9 @@ dependencies = [
     { name = "requests" },
     { name = "stix2" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/10/e7/834e4e4a47ee10a7e0d9f5d4b6183facceb3552836c8471ec6bee3547086/psengine-2.3.1.tar.gz", hash = "sha256:586a1f05a41a26894b3d9cb72e60603068228f4b49297975de9dde9d298b3304", size = 124644, upload-time = "2025-10-24T12:54:14.046Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2e/92/d84274ba077ab2de63dbc95265e937ca1f1ed59711683d9e2864ed0d5dfa/psengine-2.4.0.tar.gz", hash = "sha256:7f6ec8dc54a00aac81760b08a2f7133312ffad4ca462009dd626ff1ce593e63e", size = 125060, upload-time = "2025-12-04T11:00:56.319Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f4/5e/6d3a5350386919e847c3cda29a6671f3603d710e1b617892fc663903b627/psengine-2.3.1-py3-none-any.whl", hash = "sha256:ffef948b7466aece899d8a470c7988ba412bf785d8bb97a258936f238d9e687e", size = 225545, upload-time = "2025-10-24T12:54:08.641Z" },
+    { url = "https://files.pythonhosted.org/packages/be/da/80f1ec74451964e3113a02b6ba9ad03985d5f9ca46bc3d1beb159f4c6001/psengine-2.4.0-py3-none-any.whl", hash = "sha256:33a4a1ecc48cfe7432f146425be30c2ebf873330e3973b4838c43472e5934fa5", size = 225980, upload-time = "2025-12-04T11:00:54.977Z" },
 ]
 
 [[package]]
@@ -702,7 +702,7 @@ requires-dist = [
     { name = "antlr4-python3-runtime", url = "https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d19459005ca000b6e7012f2f1ca597746cbcd1fbfe5e/antlr4-python3-runtime-4.9.3.tar.gz" },
     { name = "environmentcommon", path = "../../../../packages/envcommon/EnvironmentCommon-1.0.2/EnvironmentCommon-1.0.2-py2.py3-none-any.whl" },
     { name = "hatching-triage", url = "https://files.pythonhosted.org/packages/e2/f7/7396282c8d786dee9f73574fa84aeba0f4b198390ffeb4ef12f332dc1ee7/hatching-triage-0.2.0.tar.gz" },
-    { name = "psengine", specifier = ">=2.3.0,<2.4.0" },
+    { name = "psengine", specifier = ">=2.4.0,<3.0.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "setuptools", specifier = ">=79.0.0" },
     { name = "tipcommon", path = "../../../../packages/tipcommon/TIPCommon-2.2.7/TIPCommon-2.2.7-py2.py3-none-any.whl" },

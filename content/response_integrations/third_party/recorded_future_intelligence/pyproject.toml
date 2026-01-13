@@ -7,7 +7,7 @@ dependencies = [
     "antlr4-python3-runtime",
     "environmentcommon",
     "hatching-triage",
-    "psengine>=2.3.0,<2.4.0",
+    "psengine>=2.4.0,<3.0.0",
     "requests>=2.32.3",
     "setuptools>=79.0.0",
     "tipcommon",

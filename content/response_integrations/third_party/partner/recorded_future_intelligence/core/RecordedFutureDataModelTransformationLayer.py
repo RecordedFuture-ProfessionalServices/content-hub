@@ -16,7 +16,14 @@ from itertools import chain
 from typing import TYPE_CHECKING
 
 from psengine.constants import TIMESTAMP_STR
-from psengine.enrich import SOAREnrichedEntity
+from psengine.enrich import (
+    EnrichedDomain,
+    EnrichedHash,
+    EnrichedIP,
+    EnrichedURL,
+    EnrichedVulnerability,
+    SOAREnrichedEntity,
+)
 from psengine.malware_intel import SandboxReport
 from psengine.playbook_alerts import PBA_Generic, PBA_IdentityNovelExposure
 
@@ -69,7 +76,7 @@ SOAR_ENTITY_DATAMODEL_MAP = {
 }
 
 def dump_model(model, **kwargs):
-    return model.model_dump(by_alias=True, mode="json", **kwargs)
+    return model.model_dump(by_alias=True, mode="json", exclude_none=True, exclude_unset=True, **kwargs)
 
 
 def build_links(links):
@@ -89,109 +96,42 @@ def build_links(links):
     return new_links
 
 
-def build_siemplify_ip_object(report: EnrichedIP, entity):
-    if report:
-        return IP(
-            raw_data=dump_model(report),
-            entity_id=report.entity.id_,
-            score=report.risk.score,
-            riskString=report.risk.risk_string,
-            firstSeen=report.timestamps.first_seen,
-            lastSeen=report.timestamps.last_seen,
-            city=report.location.location.city,
-            country=report.location.location.country,
-            asn=report.location.asn,
-            organization=report.location.organization,
-            intelCard=report.intel_card,
-            criticality=report.risk.criticality,
-            links=build_links(report.links),
-            evidence_details=[dump_model(e) for e in report.risk.evidence_details],
-        )
+def build_siemplify_object(
+    enriched_entity: EnrichedIP
+    | EnrichedVulnerability
+    | EnrichedHash
+    | EnrichedDomain
+    | EnrichedURL,
+) -> CVE | HASH | HOST | IP | URL:
+    """Create enriched entity datamodel object.
 
-    raise RecordedFutureDataModelTransformationLayerError(
-        f"Unable to get reputation for {entity}",
-    )
+    Args:
+        enriched_entity (Enriched*): psengine enriched entity model
 
-
-def build_siemplify_cve_object(report: EnrichedVulnerability, entity):
-    if report:
-        return CVE(
-            raw_data=dump_model(report),
-            entity_id=report.entity.id_,
-            score=report.risk.score,
-            riskString=report.risk.risk_string,
-            firstSeen=report.timestamps.first_seen,
-            lastSeen=report.timestamps.last_seen,
-            intelCard=report.intel_card,
-            criticality=report.risk.criticality,
-            links=build_links(report.links),
-            evidence_details=[dump_model(e) for e in report.risk.evidence_details],
-        )
-
-    raise RecordedFutureDataModelTransformationLayerError(
-        f"Unable to get reputation for {entity}",
-    )
-
-
-def build_siemplify_hash_object(report: EnrichedHash, entity):
-    if report:
-        return HASH(
-            raw_data=dump_model(report),
-            entity_id=report.entity.id_,
-            score=report.risk.score,
-            riskString=report.risk.risk_string,
-            firstSeen=report.timestamps.first_seen,
-            lastSeen=report.timestamps.last_seen,
-            intelCard=report.intel_card,
-            criticality=report.risk.criticality,
-            links=build_links(report.links),
-            evidence_details=[dump_model(e) for e in report.risk.evidence_details],
-            hashAlgorithm=report.hash_algorithm,
-        )
-
-    raise RecordedFutureDataModelTransformationLayerError(
-        f"Unable to get reputation for {entity}",
-    )
-
-
-def build_siemplify_host_object(report: EnrichedDomain, entity):
-    if report:
-        return HOST(
-            raw_data=dump_model(report),
-            entity_id=report.entity.id_,
-            score=report.risk.score,
-            riskString=report.risk.risk_string,
-            firstSeen=report.timestamps.first_seen,
-            lastSeen=report.timestamps.last_seen,
-            intelCard=report.intel_card,
-            criticality=report.risk.criticality,
-            links=build_links(report.links),
-            evidence_details=[dump_model(e) for e in report.risk.evidence_details],
-        )
-
-    raise RecordedFutureDataModelTransformationLayerError(
-        f"Unable to get reputation for {entity}",
-    )
-
-
-def build_siemplify_url_object(report, entity):
-    if report:
-        return URL(
-            raw_data=dump_model(report),
-            entity_id=report.entity.id_,
-            score=report.risk.score,
-            riskString=report.risk.risk_string,
-            firstSeen=report.timestamps.first_seen,
-            lastSeen=report.timestamps.last_seen,
-            intelCard=report.intel_card,
-            criticality=report.risk.criticality,
-            links=build_links(report.links),
-            evidence_details=[dump_model(e) for e in report.risk.evidence_details],
-        )
-
-    raise RecordedFutureDataModelTransformationLayerError(
-        f"Unable to get reputation for {entity}",
-    )
+    Returns
+    -------
+        entity (CVE | HASH | HOST | IP | URL): SecOps enriched entity object
+    """
+    entity_data = {
+        'raw_data': dump_model(enriched_entity.content),
+        'entity_id': enriched_entity.content.entity.id_,
+        'score': enriched_entity.content.risk.score,
+        'riskString': enriched_entity.content.risk.risk_string,
+        'firstSeen': enriched_entity.content.timestamps.first_seen,
+        'lastSeen': enriched_entity.content.timestamps.last_seen,
+        'intelCard': enriched_entity.content.intel_card,
+        'criticality': enriched_entity.content.risk.criticality,
+        'links': build_links(enriched_entity.content.links),
+        'evidence_details': [dump_model(e) for e in enriched_entity.content.risk.evidence_details],
+    }
+    if enriched_entity.entity_type == 'ip' and enriched_entity.content.location is not None:
+        entity_data['city'] = enriched_entity.content.location.location.city
+        entity_data['country'] = enriched_entity.content.location.location.country
+        entity_data['asn'] = enriched_entity.content.location.asn
+        entity_data['organization'] = enriched_entity.content.location.organization
+    if enriched_entity.entity_type == 'hash':
+        entity_data['hashAlgorithm'] = enriched_entity.content.hash_algorithm
+    return ENTITY_DATAMODEL_MAP[enriched_entity.entity_type](**entity_data)
 
 
 def build_siemplify_soar_object(soar_enriched: SOAREnrichedEntity) -> CVE | HASH | HOST | IP | URL:

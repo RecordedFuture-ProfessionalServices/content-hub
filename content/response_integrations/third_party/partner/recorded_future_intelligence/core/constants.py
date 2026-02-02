@@ -52,6 +52,9 @@ STORED_IDS_LIMIT = 3000
 ALERT_ID_FIELD = "id"
 CSV_DELIMETER = ","
 
+# Ping requirement
+PING_IP = "8.8.8.8"
+
 # Collective Insights
 CI_DETECTION_TYPE = 'playbook'
 CI_INCIDENT_TYPE = 'google-secops-threat-detection'

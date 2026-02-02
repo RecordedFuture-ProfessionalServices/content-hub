@@ -24,7 +24,17 @@ from psengine.collective_insights import (
     Insight,
 )
 from psengine.config import Config
-from psengine.enrich import EnrichmentLookupError, LookupMgr, EnrichmentSoarError, SoarMgr
+from psengine.enrich import (
+    EnrichedDomain,
+    EnrichedHash,
+    EnrichedIP,
+    EnrichedURL,
+    EnrichedVulnerability,
+    EnrichmentLookupError,
+    EnrichmentSoarError,
+    LookupMgr,
+    SoarMgr,
+)
 from psengine.malware_intel import MalwareIntelMgr, MalwareIntelReportError
 from psengine.playbook_alerts import (
     PBA_DomainAbuse,
@@ -44,9 +54,17 @@ from .constants import (
     CLASSIC_ALERT_DEFAULT_STATUSES,
     CONNECTOR_DATETIME_FORMAT,
     ENTITY_PREFIX_TYPE_MAP,
+    PING_IP,
     PLAYBOOK_ALERT_API_LIMIT,
 )
-from .datamodels import HashReport
+from .datamodels import (
+    CVE,
+    HASH,
+    HOST,
+    IP,
+    URL,
+    HashReport,
+)
 from .exceptions import (
     RecordedFutureDataModelTransformationLayerError,
     RecordedFutureManagerError,
@@ -57,26 +75,11 @@ from .RecordedFutureDataModelTransformationLayer import (
     build_playbook_alert,
     build_siemplify_alert_object,
     build_siemplify_analyst_note_object,
-    build_siemplify_cve_object,
-    build_siemplify_hash_object,
-    build_siemplify_host_object,
-    build_siemplify_ip_object,
-    build_siemplify_url_object,
+    build_siemplify_object,
     build_siemplify_hash_report_object,
     build_siemplify_soar_object,
 )
 from .version import __version__
-
-# ============================= CONSTANTS ===================================== #
-
-# IP used for testing the connection to API
-DUMMY_IP = "8.8.8.8"
-ENDPOINTS = {
-    "alerts": "v2/alert/search",
-    "alert": "v2/alert/{alert_id}",
-    "analyst_note": "v2/analystnote/publish",
-    "update_alert": "/v2/alert/update",
-}
 
 
 class RecordedFutureManager:
@@ -125,130 +128,66 @@ class RecordedFutureManager:
         return insight
 
     def _ioc_reputation(
-        self,
-        entity,
-        ioc_type,
-        fields,
-        include_links,
-        collective_insights_enabled,
-    ):
-        if include_links:
-            fields.append("links")
-
+        self, entity: str, ioc_type: str, fields: list[str], collective_insights_enabled: bool
+    ) -> EnrichedIP | EnrichedVulnerability | EnrichedHash | EnrichedDomain | EnrichedURL:
+        """
+        Calls Recorded Future API for IOC enrichment data. If Collective Insights is enabled then
+        submits the detection to the Recorded Future Collective Insights API.
+        """
         try:
             data = self.enrich.lookup(entity, entity_type=ioc_type, fields=fields)
         except (ValidationError, EnrichmentLookupError) as e:
-            raise RecordedFutureManagerError(f"Error enriching {entity}. Error {e}")
+            raise RecordedFutureManagerError(f'Error enriching {entity}. Error {e}')
+
+        # Submit to Collective Insights before check for enrichment data
+        if collective_insights_enabled:
+            try:
+                insight = self._create_ci_insight(entity=entity, entity_type=ioc_type)
+                self.collective_insights.submit(insight=insight, debug=False)
+            except (ValidationError, CollectiveInsightsError) as err:
+                # Don't fail if error with Collective Insights API, just log
+                self.siemplify.LOGGER.error(err)
 
         if not data.is_enriched:
             raise RecordedFutureNotFoundError
 
-        if collective_insights_enabled:
-            try:
-                creation_time = self.siemplify.case.creation_time
-                case_timestamp = (
-                    datetime.fromtimestamp(creation_time / 1000).isoformat()[:-3]
-                    + 'Z'
-                )
-                insight = self.collective_insights.create(
-                    ioc_value=entity,
-                    ioc_type=ioc_type,
-                    detection_type='playbook',
-                    detection_name=self.siemplify.case.title,
-                    timestamp=case_timestamp,
-                    incident_id=str(self.siemplify.case.identifier),
-                    incident_name=self.siemplify.case.title,
-                    incident_type='google-secops-threat-detection',
-                )
-                self.collective_insights.submit(insight=insight, debug=False)
-            except (ValidationError, CollectiveInsightsError) as err:
-                self.siemplify.LOGGER.error(err)
-        return data.content
+        return data
 
-    def get_ip_reputation(self, entity, include_links, collective_insights_enabled):
-        """Get IP Reputation, works as a general function for all entity types
-        :param entity: {str} The entity
-        :param include_links {bool} False when links shouldn't be included
-        :param collective_insights_enabled {bool} True when Collective Insights should be submitted
-        :return: {dict} The related entities for given entity.
-        """
-        fields = ["intelCard", "location"]
-        data = self._ioc_reputation(
-            entity,
-            "ip",
-            fields,
-            include_links,
-            collective_insights_enabled,
-        )
-        return build_siemplify_ip_object(data, entity)
+    def enrich_entity(
+        self,
+        entity_name: str,
+        entity_type: str,
+        include_links: bool,
+        collective_insights_enabled: bool,
+    ) -> CVE | IP | HASH | HOST | URL:
+        """Enrich SecOps Entity.
 
-    def get_cve_reputation(self, entity, include_links, collective_insights_enabled):
-        """Get CVE Reputation, works as a general function for all entity types
-        :param entity: {str} The entity
-        :param include_links {bool} False when links shouldn't be included
-        :param collective_insights_enabled {bool} True when Collective Insights should be submitted
-        :return: {dict} The related entities for given entity.
+        Args:
+            entity_name (str): Entity name (ip, domain, hash, url, cve) value.
+            entity_type (str): Recorded Future entity type in: ip, domain, hash, url, vulnerability
+            include_links (bool): Request links field in enrich request
+            collective_insights_enabled (bool): Submit entity to Collective Insights
+        Returns:
+            entity (CVE | IP | HASH | HOST | URL): SecOps entity defined in datamodels
+        Raises:
+            RecordedFutureNotFoundError: If no data found for entity
         """
-        fields = ["intelCard"]
-        data = self._ioc_reputation(
-            entity,
-            "vulnerability",
-            fields,
-            include_links,
-            collective_insights_enabled,
+        fields = ['intelCard']
+        if entity_type == 'hash':
+            fields.append('hashAlgorithm')
+        if entity_type == 'ip':
+            fields.append('location')
+        if include_links:
+            fields.append('links')
+        enriched_entity = self._ioc_reputation(
+            entity=entity_name,
+            ioc_type=entity_type,
+            fields=fields,
+            collective_insights_enabled=collective_insights_enabled,
         )
-        return build_siemplify_cve_object(data, entity)
-
-    def get_hash_reputation(self, entity, include_links, collective_insights_enabled):
-        """Get Hash Reputation, works as a general function for all entity types
-        :param entity: {str} The entity
-        :param include_links {bool} False when links shouldn't be included
-        :param collective_insights_enabled {bool} True when Collective Insights should be submitted
-        :return: {dict} The related entities for given entity.
-        """
-        fields = ["intelCard", "hashAlgorithm"]
-        data = self._ioc_reputation(
-            entity,
-            "hash",
-            fields,
-            include_links,
-            collective_insights_enabled,
-        )
-        return build_siemplify_hash_object(data, entity)
-
-    def get_host_reputation(self, entity, include_links, collective_insights_enabled):
-        """Get Host Reputation, works as a general function for all entity types
-        :param entity: {str} The entity
-        :param include_links {bool} False when links shouldn't be included
-        :param collective_insights_enabled {bool} True when Collective Insights should be submitted
-        :return: {dict} The related entities for given entity.
-        """
-        fields = ["intelCard"]
-        data = self._ioc_reputation(
-            entity,
-            "domain",
-            fields,
-            include_links,
-            collective_insights_enabled,
-        )
-        return build_siemplify_host_object(data, entity)
-
-    def get_url_reputation(self, entity, include_links, collective_insights_enabled):
-        """Get URL Reputation, works as a general function for all entity types
-        :param entity: {str} The entity
-        :param include_links {bool} False when links shouldn't be included
-        :param collective_insights_enabled {bool} True when Collective Insights should be submitted
-        :return: {dict} The related entities for given entity.
-        """
-        fields = ["intelCard"]
-        data = self._ioc_reputation(
-            entity,
-            "url",
-            fields,
-            include_links,
-            collective_insights_enabled,
-        )
-        return build_siemplify_url_object(data, entity)
+        if not enriched_entity.is_enriched:
+            raise RecordedFutureNotFoundError
+        return build_siemplify_object(enriched_entity=enriched_entity)
 
     def enrich_soar(self, entities: dict[str, list[str]], collective_insights_enabled: bool):
         """Enrich Entities in bulk using the Recorded Future SOAR API.

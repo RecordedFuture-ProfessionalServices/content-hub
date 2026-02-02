@@ -117,7 +117,7 @@ parameters:
     -   name: Entity Added
         default_value: 'false'
         type: boolean
-        description: Create a new case when Playbook Alert entities are added or removed.
+        description: Create a new case when Playbook Alert entities are added.
         is_mandatory: false
         is_advanced: false
         mode: script

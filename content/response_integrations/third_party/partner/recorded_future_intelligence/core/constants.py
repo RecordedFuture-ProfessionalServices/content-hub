@@ -123,6 +123,13 @@ PLAYBOOK_ALERT_PRIORITIES = ["Informational", "Moderate", "High"]
 DATETIME_ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 DATETIME_READABLE_FORMAT = "%m/%d/%Y %H:%M:%S"
 
+ENTITY_CHANGE_CASES = [
+    "dns_change",
+    "screenshot_mentions_change",
+    "entities_change",
+    "related_entities_change",
+]
+
 # HTML Text
 INSIKT_VULNERABILITY_NOTE_HTML = """
 <div class="note">

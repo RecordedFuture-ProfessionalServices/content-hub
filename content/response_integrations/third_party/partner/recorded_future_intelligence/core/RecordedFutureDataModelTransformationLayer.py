@@ -16,6 +16,7 @@ from itertools import chain
 from typing import TYPE_CHECKING
 
 from psengine.constants import TIMESTAMP_STR
+from psengine.enrich import SOAREnrichedEntity
 from psengine.playbook_alerts import PBA_Generic, PBA_IdentityNovelExposure
 
 from .constants import (
@@ -49,6 +50,21 @@ if TYPE_CHECKING:
         EnrichedVulnerability,
     )
 
+ENTITY_DATAMODEL_MAP = {
+    'ip': IP,
+    'domain': HOST,
+    'hash': HASH,
+    'url': URL,
+    'vulnerability': CVE,
+}
+
+SOAR_ENTITY_DATAMODEL_MAP = {
+    'IpAddress': IP,
+    'InternetDomainName': HOST,
+    'Hash': HASH,
+    'URL': URL,
+    'CyberVulnerability': CVE,
+}
 
 def dump_model(model, **kwargs):
     return model.model_dump(by_alias=True, mode="json", **kwargs)
@@ -174,6 +190,29 @@ def build_siemplify_url_object(report, entity):
     raise RecordedFutureDataModelTransformationLayerError(
         f"Unable to get reputation for {entity}",
     )
+
+
+def build_siemplify_soar_object(soar_enriched: SOAREnrichedEntity) -> CVE | HASH | HOST | IP | URL:
+    """Create enriched entity datamodel object for SOAR response.
+
+    Args:
+        soar_enriched (SOAREnrichedEntity): psengine enriched entity model from SOAR
+
+    Returns
+    -------
+        entity (CVE | HASH | HOST | IP | URL): SecOps enriched entity object
+    """
+    entity_type = soar_enriched.content.entity.type_
+    entity_data = {
+        'raw_data': dump_model(soar_enriched.content),
+        'entity_id': soar_enriched.content.entity.id_,
+        'score': soar_enriched.content.risk.score,
+    }
+    if soar_enriched.content.risk.rule.evidence is not None:
+        entity_data['evidence_details'] = [
+            dump_model(e) for e in soar_enriched.content.risk.rule.evidence
+        ]
+    return SOAR_ENTITY_DATAMODEL_MAP[entity_type](**entity_data)
 
 
 def format_triggered_by(data):

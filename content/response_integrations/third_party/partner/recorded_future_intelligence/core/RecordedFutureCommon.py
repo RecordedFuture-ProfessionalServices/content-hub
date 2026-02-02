@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import typing
+from collections import defaultdict
 
 from soar_sdk.ScriptResult import (
     EXECUTION_STATE_COMPLETED,
@@ -33,6 +34,7 @@ from UtilsManager import (
 from .constants import (
     DEFAULT_SCORE,
     DEFAULT_TIMEOUT,
+    ENTITY_TYPE_ENRICHMENT_MAP,
     INVALID_SAMPLE_TEXT,
     PROVIDER_NAME,
     SUPPORTED_ENTITY_TYPES_ENRICHMENT,
@@ -40,6 +42,7 @@ from .constants import (
 from .datamodels import IP
 from .exceptions import (
     RecordedFutureCommonError,
+    RecordedFutureManagerError,
     RecordedFutureNotFoundError,
     SandboxTimeoutError,
 )
@@ -297,6 +300,69 @@ class RecordedFutureCommon:
         )
         self.siemplify.end(output_message, is_risky, status)
 
+    def enrich_soar_logic(
+        self,
+        entity_types: list,
+        collective_insights_enabled: bool = True,
+    ):
+        """Function handles the enrichment of entities in bulk.
+        :param entity_types: {list} Defines the entity type to filter the entities to process
+        :param threshold: {int} Risk Score Threshold
+        :param script_name: {str} Script name that identifies the action
+        :param collective_insights_enabled {bool} True when Collective Insights should be submitted.
+        """
+        json_results = {}
+        output_message = ''
+        is_success = True
+        status = EXECUTION_STATE_COMPLETED
+        soar_entities = defaultdict(list)
+
+        try:
+            # Initialize manager instance
+            recorded_future_manager = RecordedFutureManager(
+                api_url=self.api_url,
+                api_key=self.api_key,
+                verify_ssl=self.verify_ssl,
+                siemplify=self.siemplify,
+            )
+            for entity in self.siemplify.target_entities:
+                if entity.entity_type in entity_types:
+                    entity_id = entity.identifier
+                    rf_entity_type = ENTITY_TYPE_ENRICHMENT_MAP[entity.entity_type]
+                    soar_entities[rf_entity_type].append(entity_id)
+            # rename key for psengine SOAR lookup
+            soar_entities['hash_'] = soar_entities.pop('hash', [])
+            soar_resp = recorded_future_manager.enrich_soar(
+                entities=soar_entities, collective_insights_enabled=collective_insights_enabled
+            )
+            for entity_report in soar_resp:
+                # Need to parse the entity ID from tuple value in datamodel
+                try:
+                    entity_id = entity_report.raw_data[0]['entity']['name'].upper()
+                except (IndexError, KeyError) as e:
+                    raise RecordedFutureCommonError(
+                        f'Error parsing entity ID from datamodel: {entity_report.entity_id}. \
+                            Error: {e}'
+                    )
+                json_results[entity_id] = entity_report.to_json()
+        except ValueError as e:
+            output_message = f'Unauthorized - please check your API token and try again. {e}'
+            self.siemplify.LOGGER.error(output_message)
+            is_success = False
+        except RecordedFutureManagerError as e:
+            output_message = str(e)
+            self.siemplify.LOGGER.error(output_message)
+        except RecordedFutureNotFoundError:
+            output_message = 'No data found for entities'
+            self.siemplify.LOGGER.error(output_message)
+        except Exception as e:  # noqa: BLE001
+            status = EXECUTION_STATE_FAILED
+            output_message = f'An error occurred while running action: {e}'
+            is_success = False
+
+        self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
+        self.siemplify.end(output_message, is_success, status)
+    
     def get_insight_content(self, entity_report, enrichment_data):
         """Prepare insight content string as HTML
         :param entity_report: The entity report data

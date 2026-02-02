@@ -21,9 +21,10 @@ from psengine.classic_alerts import (
 from psengine.collective_insights import (
     CollectiveInsights,
     CollectiveInsightsError,
+    Insight,
 )
 from psengine.config import Config
-from psengine.enrich import EnrichmentLookupError, LookupMgr
+from psengine.enrich import EnrichmentLookupError, LookupMgr, EnrichmentSoarError, SoarMgr
 from psengine.playbook_alerts import (
     PBA_DomainAbuse,
     PBA_IdentityNovelExposure,
@@ -37,6 +38,8 @@ from TIPCommon.filters import filter_old_alerts
 
 from .constants import (
     ALERT_ID_FIELD,
+    CI_DETECTION_TYPE,
+    CI_INCIDENT_TYPE,
     CLASSIC_ALERT_DEFAULT_STATUSES,
     CONNECTOR_DATETIME_FORMAT,
     ENTITY_PREFIX_TYPE_MAP,
@@ -57,6 +60,7 @@ from .RecordedFutureDataModelTransformationLayer import (
     build_siemplify_host_object,
     build_siemplify_ip_object,
     build_siemplify_url_object,
+    build_siemplify_soar_object,
 )
 from .version import __version__
 
@@ -85,10 +89,37 @@ class RecordedFutureManager:
         )
         self.analyst = AnalystNoteMgr()
         self.enrich = LookupMgr()
+        self.soar_mgr = SoarMgr()
         self.collective_insights = CollectiveInsights()
 
         self.alerts = ClassicAlertMgr()
         self.playbook_alerts = PlaybookAlertMgr()
+    
+    def _create_ci_insight(self, entity: str, entity_type: str) -> Insight:
+        """Creates Collective Insights Insight object.
+
+        Args:
+            entity (str): Entity name
+            entity_type (str): Entity type
+
+        Returns
+        -------
+            insight (Insight): Collective Insights object
+        """
+        case_timestamp = (
+            datetime.fromtimestamp(self.siemplify.case.creation_time / 1000).isoformat()[:-3] + 'Z'
+        )
+        insight = self.collective_insights.create(
+            ioc_value=entity,
+            ioc_type=entity_type,
+            detection_type=CI_DETECTION_TYPE,
+            detection_name=self.siemplify.case.title,
+            timestamp=case_timestamp,
+            incident_id=str(self.siemplify.case.identifier),
+            incident_name=self.siemplify.case.title,
+            incident_type=CI_INCIDENT_TYPE,
+        )
+        return insight
 
     def _ioc_reputation(
         self,
@@ -215,6 +246,43 @@ class RecordedFutureManager:
             collective_insights_enabled,
         )
         return build_siemplify_url_object(data, entity)
+
+    def enrich_soar(self, entities: dict[str, list[str]], collective_insights_enabled: bool):
+        """Enrich Entities in bulk using the Recorded Future SOAR API.
+
+        Args:
+            entities (dict[str, list[str]]): SecOps entities to enrich
+            collective_insights_enabled (bool): Submit entities to Collective Insights
+        Returns:
+            entities (list[CVE | IP | HASH | HOST | URL]): List of SecOps entities
+                                                           defined in datamodels
+        Raises:
+            RecordedFutureManagerError: If no entities to enrich or API fetch fails
+            RecordedFutureNotFoundError: If no data returned
+        """
+        try:
+            data = self.soar_mgr.soar(**entities)
+        except (ValidationError, EnrichmentSoarError) as err:
+            raise RecordedFutureManagerError(f'Error enriching indicators (SOAR): {err}')
+        except ValueError as err:
+            raise RecordedFutureManagerError(f'No entities found to enrich (SOAR): {err}')
+
+        if collective_insights_enabled:
+            try:
+                insights = [
+                    self._create_ci_insight(entity=entity, entity_type=entity_type.rstrip('_'))
+                    for entity_type, entities_ in entities.items()
+                    for entity in entities_
+                ]
+                self.collective_insights.submit(insight=insights, debug=False)
+            except (ValidationError, CollectiveInsightsError) as err:
+                # Don't fail if error with Collective Insights API, just log
+                self.siemplify.LOGGER.error(err)
+
+        if not data:
+            raise RecordedFutureNotFoundError
+
+        return [build_siemplify_soar_object(soar_enriched) for soar_enriched in data]
 
     def get_information_about_alert(self, alert_id):
         """Fetch information about specific Alert and return results to the case.

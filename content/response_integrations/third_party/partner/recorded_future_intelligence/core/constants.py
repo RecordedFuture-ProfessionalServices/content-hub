@@ -26,6 +26,7 @@ ENRICH_HOST_SCRIPT_NAME = f"{PROVIDER_NAME} - Enrich Host"
 ENRICH_IP_SCRIPT_NAME = f"{PROVIDER_NAME} - Enrich IP"
 ENRICH_URL_SCRIPT_NAME = f"{PROVIDER_NAME} - Enrich URL"
 ENRICH_IOC_SCRIPT_NAME = f"{PROVIDER_NAME} - Enrich IOC"
+ENRICH_IOC_SOAR_SCRIPT_NAME = f"{PROVIDER_NAME} - Enrich IOCs Bulk"
 GET_ALERT_DETAILS_SCRIPT_NAME = f"{PROVIDER_NAME} - Get Alert Details"
 GET_PBA_DETAILS_SCRIPT_NAME = f"{PROVIDER_NAME} - Get Playbook Alert Details"
 ADD_ANALYST_NOTE_SCRIPT_NAME = f"{PROVIDER_NAME} - Add Analyst Note"
@@ -50,6 +51,11 @@ STORED_IDS_LIMIT = 3000
 ALERT_ID_FIELD = "id"
 CSV_DELIMETER = ","
 
+# Collective Insights
+CI_DETECTION_TYPE = 'playbook'
+CI_INCIDENT_TYPE = 'google-secops-threat-detection'
+
+# Enrichment
 DEFAULT_THRESHOLD = 25
 DEFAULT_SCORE = 0
 SUPPORTED_ENTITY_TYPES_ENRICHMENT = [
@@ -62,6 +68,14 @@ SUPPORTED_ENTITY_TYPES_ENRICHMENT = [
 ]
 SUPPORTED_ENTITY_TYPES_RELATED_ENTITIES = ["ADDRESS", "FILEHASH", "CVE", "HOSTNAME"]
 ENRICHMENT_DATA_PREFIX = "RF"
+ENTITY_TYPE_ENRICHMENT_MAP = {
+    EntityTypes.ADDRESS: 'ip',
+    EntityTypes.DOMAIN: 'domain',
+    EntityTypes.HOSTNAME: 'domain',
+    EntityTypes.FILEHASH: 'hash',
+    EntityTypes.URL: 'url',
+    EntityTypes.CVE: 'vulnerability',
+}
 
 ENTITY_IP = "entity_ips"
 ENTITY_DOMAIN = "entity_domains"

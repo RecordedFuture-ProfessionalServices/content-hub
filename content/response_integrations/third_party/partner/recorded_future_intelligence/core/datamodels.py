@@ -70,9 +70,7 @@ class RFIndicator(BaseModel):
         self.intelCard = intelCard
         self.criticality = criticality
         self.links = links
-        self.rule_names = [
-            evidence_detail.get("rule") for evidence_detail in evidence_details
-        ]
+        self.rule_names = [evidence_detail.get("rule") for evidence_detail in evidence_details]
         self.evidence_details = evidence_details
 
     def to_csv(self):
@@ -130,9 +128,7 @@ class RFIndicator(BaseModel):
 
     def to_enrichment_data(self):
         """Returns indicator enrichment data with prefix."""
-        clean_enrichment_data = {
-            k: v for k, v in self.get_enrichment_data().items() if v
-        }
+        clean_enrichment_data = {k: v for k, v in self.get_enrichment_data().items() if v}
         return add_prefix_to_dict(clean_enrichment_data, "RF")
 
     def to_json(self):
@@ -492,10 +488,7 @@ class PlaybookAlert(BaseModel):
         ):
             try:
                 rules = " | ".join(
-                    [
-                        rule["name"]
-                        for rule in assessment.get("evidence", {}).get("data", [])
-                    ],
+                    [rule["name"] for rule in assessment.get("evidence", {}).get("data", [])],
                 )
                 new_chunk = chunk.format(
                     assessment["risk_rule"],
@@ -559,9 +552,7 @@ class PlaybookAlert(BaseModel):
         """
         hashes_html = []
         for hash_ in (
-            event.get("panel_evidence_summary", {})
-            .get("exposed_secret", {})
-            .get("hashes", [])
+            event.get("panel_evidence_summary", {}).get("exposed_secret", {}).get("hashes", [])
         ):
             try:
                 hashes_html.append(chunk.format(hash_["algorithm"], hash_["hash"]))
@@ -600,9 +591,7 @@ class PlaybookAlert(BaseModel):
         """
         av_html = []
         for prop in (
-            event.get("panel_evidence_summary", {})
-            .get("compromised_host", {})
-            .get("antivirus", [])
+            event.get("panel_evidence_summary", {}).get("compromised_host", {}).get("antivirus", [])
         ):
             try:
                 av_html.append(chunk.format(prop))

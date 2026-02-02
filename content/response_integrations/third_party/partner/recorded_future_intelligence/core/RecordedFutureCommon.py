@@ -95,14 +95,14 @@ class RecordedFutureCommon:
         :param include_links: {bool} Defines if links are returned
         :param collective_insights_enabled {bool} True when Collective Insights should be submitted.
         """
-        self.siemplify.LOGGER.info('----------------- Main - Started -----------------')
+        self.siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
         json_results = {}
         is_risky = False
         successful_entities = []
         failed_entities = []
         not_found_entities = []
-        output_message = ''
+        output_message = ""
         status = EXECUTION_STATE_COMPLETED
 
         try:
@@ -116,7 +116,7 @@ class RecordedFutureCommon:
             for entity in self.siemplify.target_entities:
                 if unix_now() >= self.siemplify.execution_deadline_unix_time_ms:
                     self.siemplify.LOGGER.error(
-                        'Timed out. execution deadline ({}) has passed'.format(
+                        "Timed out. execution deadline ({}) has passed".format(
                             convert_unixtime_to_datetime(
                                 self.siemplify.execution_deadline_unix_time_ms
                             )
@@ -126,7 +126,7 @@ class RecordedFutureCommon:
                     break
 
                 if entity.entity_type in entity_types:
-                    self.siemplify.LOGGER.info(f'Started processing entity: {entity.identifier}')
+                    self.siemplify.LOGGER.info(f"Started processing entity: {entity.identifier}")
                     try:
                         entity_name = entity.identifier
                         rf_entity_type = ENTITY_TYPE_ENRICHMENT_MAP.get(entity.entity_type)
@@ -139,17 +139,17 @@ class RecordedFutureCommon:
 
                         json_results[entity.identifier] = entity_report.to_json()
                         self.siemplify.result.add_data_table(
-                            title=f'Report for: {entity.identifier}',
+                            title=f"Report for: {entity.identifier}",
                             data_table=construct_csv(entity_report.to_overview_table()),
                         )
                         self.siemplify.result.add_data_table(
-                            title=f'Triggered Risk Rules for: {entity.identifier}',
+                            title=f"Triggered Risk Rules for: {entity.identifier}",
                             data_table=construct_csv(entity_report.to_risk_table()),
                         )
 
                         if include_links and entity_report.links:
                             self.siemplify.result.add_data_table(
-                                title=f'Links For: {entity.identifier}',
+                                title=f"Links For: {entity.identifier}",
                                 data_table=construct_csv(entity_report.to_links_table()),
                             )
                         enrichment_data = entity_report.to_enrichment_data()
@@ -159,8 +159,8 @@ class RecordedFutureCommon:
                             # If there is no score in the report, the default score will be used
                             score = DEFAULT_SCORE
                             self.siemplify.LOGGER.info(
-                                'There is no score for the entity {}, the default score: '
-                                '{} will be used.'.format(entity.identifier, DEFAULT_SCORE)
+                                "There is no score for the entity {}, the default score: "
+                                "{} will be used.".format(entity.identifier, DEFAULT_SCORE)
                             )
 
                         if int(score) > threshold:
@@ -168,7 +168,7 @@ class RecordedFutureCommon:
                             is_risky = True
                             self.siemplify.create_case_insight(
                                 PROVIDER_NAME,
-                                'Enriched by Reported Future',
+                                "Enriched by Reported Future",
                                 self.get_insight_content(entity_report, enrichment_data),
                                 entity.identifier,
                                 1,
@@ -177,7 +177,7 @@ class RecordedFutureCommon:
 
                         if entity_report.intelCard is not None:
                             self.siemplify.result.add_link(
-                                f'Web Report Link for {entity.identifier}: ',
+                                f"Web Report Link for {entity.identifier}: ",
                                 entity_report.intelCard,
                             )
 
@@ -186,53 +186,53 @@ class RecordedFutureCommon:
                         entity.is_risky = is_risky
                         successful_entities.append(entity)
                         self.siemplify.LOGGER.info(
-                            f'Finished processing entity {entity.identifier}'
+                            f"Finished processing entity {entity.identifier}"
                         )
                     except RecordedFutureNotFoundError:
                         not_found_entities.append(entity)
-                        self.siemplify.LOGGER.info(f'No data found for entity {entity.identifier}')
+                        self.siemplify.LOGGER.info(f"No data found for entity {entity.identifier}")
                     except RecordedFutureManagerError:
                         failed_entities.append(entity)
-                        self.siemplify.LOGGER.error(f'Error fetching entity {entity.identifier}')
+                        self.siemplify.LOGGER.error(f"Error fetching entity {entity.identifier}")
                     except Exception as e:
                         failed_entities.append(entity)
                         self.siemplify.LOGGER.error(
-                            f'An error occurred on entity {entity.identifier}'
+                            f"An error occurred on entity {entity.identifier}"
                         )
                         self.siemplify.LOGGER.exception(e)
 
             if successful_entities:
                 entities_names = [entity.identifier for entity in successful_entities]
-                entities_to_str = '\n'.join(entities_names)
-                output_message += f'Successfully processed entities: \n{entities_to_str}\n'
+                entities_to_str = "\n".join(entities_names)
+                output_message += f"Successfully processed entities: \n{entities_to_str}\n"
                 self.siemplify.update_entities(successful_entities)
 
             if not_found_entities:
-                output_message += 'No evidence found for entities: \n{}\n'.format(
-                    '\n'.join([entity.identifier for entity in not_found_entities])
+                output_message += "No evidence found for entities: \n{}\n".format(
+                    "\n".join([entity.identifier for entity in not_found_entities])
                 )
 
             if failed_entities:
-                output_message += 'Failed processing entities: \n{}\n'.format(
-                    '\n'.join([entity.identifier for entity in failed_entities])
+                output_message += "Failed processing entities: \n{}\n".format(
+                    "\n".join([entity.identifier for entity in failed_entities])
                 )
 
             if not failed_entities and not not_found_entities and not successful_entities:
-                output_message = 'No entities were enriched.'
+                output_message = "No entities were enriched."
 
         except ValueError as e:
-            output_message = f'Unauthorized - please check your API token and try again. {e}'
+            output_message = f"Unauthorized - please check your API token and try again. {e}"
             self.siemplify.LOGGER.error(output_message)
             status = EXECUTION_STATE_FAILED
         except Exception as e:
-            self.siemplify.LOGGER.error(f'General error performing action {script_name}')
+            self.siemplify.LOGGER.error(f"General error performing action {script_name}")
             self.siemplify.LOGGER.exception(e)
             status = EXECUTION_STATE_FAILED
-            output_message = f'An error occurred while running action: {e}'
+            output_message = f"An error occurred while running action: {e}"
 
-        self.siemplify.LOGGER.info('----------------- Main - Finished -----------------')
+        self.siemplify.LOGGER.info("----------------- Main - Finished -----------------")
         self.siemplify.LOGGER.info(
-            f'\nstatus: {status}\nis_risky: {is_risky}\noutput_message: {output_message}'
+            f"\nstatus: {status}\nis_risky: {is_risky}\noutput_message: {output_message}"
         )
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_risky, status)
@@ -249,7 +249,7 @@ class RecordedFutureCommon:
         :param collective_insights_enabled {bool} True when Collective Insights should be submitted.
         """
         json_results = {}
-        output_message = ''
+        output_message = ""
         is_success = True
         status = EXECUTION_STATE_COMPLETED
         soar_entities = defaultdict(list)
@@ -268,42 +268,42 @@ class RecordedFutureCommon:
                     rf_entity_type = ENTITY_TYPE_ENRICHMENT_MAP[entity.entity_type]
                     soar_entities[rf_entity_type].append(entity_id)
             # rename key for psengine SOAR lookup
-            soar_entities['hash_'] = soar_entities.pop('hash', [])
+            soar_entities["hash_"] = soar_entities.pop("hash", [])
             soar_resp = recorded_future_manager.enrich_soar(
                 entities=soar_entities, collective_insights_enabled=collective_insights_enabled
             )
             for entity_report in soar_resp:
                 # Need to parse the entity ID from tuple value in datamodel
                 try:
-                    entity_id = entity_report.raw_data[0]['entity']['name'].upper()
+                    entity_id = entity_report.raw_data[0]["entity"]["name"].upper()
                 except (IndexError, KeyError) as e:
                     raise RecordedFutureCommonError(
-                        f'Error parsing entity ID from datamodel: {entity_report.entity_id}. \
-                            Error: {e}'
+                        f"Error parsing entity ID from datamodel: {entity_report.entity_id}. \
+                            Error: {e}"
                     )
                 json_results[entity_id] = entity_report.to_json()
         except ValueError as e:
-            output_message = f'Unauthorized - please check your API token and try again. {e}'
+            output_message = f"Unauthorized - please check your API token and try again. {e}"
             self.siemplify.LOGGER.error(output_message)
             is_success = False
         except RecordedFutureManagerError as e:
             output_message = str(e)
             self.siemplify.LOGGER.error(output_message)
         except RecordedFutureNotFoundError:
-            output_message = 'No data found for entities'
+            output_message = "No data found for entities"
             self.siemplify.LOGGER.error(output_message)
         except Exception as e:  # noqa: BLE001
             status = EXECUTION_STATE_FAILED
-            output_message = f'An error occurred while running action: {e}'
+            output_message = f"An error occurred while running action: {e}"
             is_success = False
 
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_success, status)
-    
+
     def enrich_hash_report_logic(self, my_enterprise: bool, start_date: str, end_date: str):
         """Function handles the enrichment of hashes on malware reports."""
         json_results = defaultdict(list)
-        output_message = ''
+        output_message = ""
         is_success = True
         status = EXECUTION_STATE_COMPLETED
 
@@ -324,7 +324,7 @@ class RecordedFutureCommon:
                     json_results[entity_id] = hash_report.to_json()
                     self.siemplify.create_case_insight(
                         PROVIDER_NAME,
-                        'Enriched by Reported Future Malware Intelligence',
+                        "Enriched by Reported Future Malware Intelligence",
                         self.get_insight_content_sandbox(hash_report, start_date, end_date),
                         entity.identifier,
                         1,
@@ -332,7 +332,7 @@ class RecordedFutureCommon:
                     )
 
         except ValueError as e:
-            output_message = f'Unauthorized - please check your API token and try again. {e}'
+            output_message = f"Unauthorized - please check your API token and try again. {e}"
             self.siemplify.LOGGER.error(output_message)
             is_success = False
         except RecordedFutureManagerError as e:
@@ -340,88 +340,84 @@ class RecordedFutureCommon:
             self.siemplify.LOGGER.error(output_message)
         except Exception as e:
             status = EXECUTION_STATE_FAILED
-            output_message = f'An error occurred while running action: {e}'
+            output_message = f"An error occurred while running action: {e}"
             self.siemplify.LOGGER.exception(e)
             is_success = False
 
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_success, status)
-    
+
     def get_insight_content_sandbox(self, hash_report: HashReport, start_date, end_date):
         """Create the HTML for the insight."""
-        end_date = end_date or 'today'
+        end_date = end_date or "today"
         if not hash_report.found:
-            return ''.join(
-                [
-                    _title('Recorded Future Sandbox Hash Search Details'),
-                    _title_and_content(
-                        'Hash',
-                        f'No data found for {hash_report.id} between {start_date} and {end_date}',
-                    ),
-                ]
-            )
+            return "".join([
+                _title("Recorded Future Sandbox Hash Search Details"),
+                _title_and_content(
+                    "Hash",
+                    f"No data found for {hash_report.id} between {start_date} and {end_date}",
+                ),
+            ])
         analysis = []
         for report in hash_report.reports_summary:
-            tags = _title_and_content('Tags', ', '.join(report['tags'])) if report['tags'] else ''
+            tags = _title_and_content("Tags", ", ".join(report["tags"])) if report["tags"] else ""
             ext = (
-                _title_and_content('File Extensions', ', '.join(report['extensions']))
-                if report['extensions']
-                else ''
+                _title_and_content("File Extensions", ", ".join(report["extensions"]))
+                if report["extensions"]
+                else ""
             )
             data = [
-                _subtitle(f'Analysis {report["id"]}'),
-                _title_and_content('Link', f'https://sandbox.recordedfuture.com/{report["id"]}'),
-                _title_and_content('Score', report['score']),
-                _title_and_content('Completed', report['completed'].replace('T', ' ').rstrip('Z')),
+                _subtitle(f"Analysis {report['id']}"),
+                _title_and_content("Link", f"https://sandbox.recordedfuture.com/{report['id']}"),
+                _title_and_content("Score", report["score"]),
+                _title_and_content("Completed", report["completed"].replace("T", " ").rstrip("Z")),
                 tags,
                 ext,
             ]
 
             signatures = []
-            for sign in report['signatures']:
-                sign_name = _title_and_content('Name', sign['name'])
-                sign_descr = _title_and_content('Description', sign['descr'])
-                sign_score = _title_and_content('Score', sign['score'])
-                sign_tags = _title_and_content('Tags', sign['tags']) if sign['tags'] else ''
-                sign_ttp = _title_and_content('TTPs', sign['ttps']) if sign['ttps'] else ''
-                signatures.append(f'{sign_name}{sign_descr}{sign_score}{sign_tags}{sign_ttp}\n')
+            for sign in report["signatures"]:
+                sign_name = _title_and_content("Name", sign["name"])
+                sign_descr = _title_and_content("Description", sign["descr"])
+                sign_score = _title_and_content("Score", sign["score"])
+                sign_tags = _title_and_content("Tags", sign["tags"]) if sign["tags"] else ""
+                sign_ttp = _title_and_content("TTPs", sign["ttps"]) if sign["ttps"] else ""
+                signatures.append(f"{sign_name}{sign_descr}{sign_score}{sign_tags}{sign_ttp}\n")
 
             if signatures:
-                data.append('\n')
-                data.append('<h4>Signatures</h4>')
+                data.append("\n")
+                data.append("<h4>Signatures</h4>")
                 data.extend(signatures)
 
             net_flows = []
-            for net in report['net_flows']:
-                dest = _title_and_content('Destination', f'{net["dst_ip"]}:{net["dst_port"]}')
+            for net in report["net_flows"]:
+                dest = _title_and_content("Destination", f"{net['dst_ip']}:{net['dst_port']}")
 
-                layer, proto = net['layer_7'], net['proto']
+                layer, proto = net["layer_7"], net["proto"]
                 if layer and proto:
-                    protocols = f'{layer}/{proto}'
+                    protocols = f"{layer}/{proto}"
                 elif layer and not proto:
                     protocols = layer
                 else:
                     protocols = proto
 
-                protocols = _title_and_content('Protocol', protocols)
-                net_flows.append(f'{dest}{protocols}\n')
+                protocols = _title_and_content("Protocol", protocols)
+                net_flows.append(f"{dest}{protocols}\n")
 
             if net_flows:
-                data.append('\n')
-                data.append('<h4>Network Flows</h4>')
+                data.append("\n")
+                data.append("<h4>Network Flows</h4>")
                 data.extend(net_flows)
 
             analysis.extend(data)
 
-        return ''.join(
-            [
-                _title('Recorded Future Sandbox Hash Search Details'),
-                _subtitle('Summary'),
-                _title_and_content('Hash', hash_report.id),
-                '\n',
-                ''.join(analysis),
-            ]
-        )
+        return "".join([
+            _title("Recorded Future Sandbox Hash Search Details"),
+            _subtitle("Summary"),
+            _title_and_content("Hash", hash_report.id),
+            "\n",
+            "".join(analysis),
+        ])
 
     def get_insight_content(self, entity_report, enrichment_data):
         """Prepare insight content string as HTML
@@ -445,9 +441,7 @@ class RecordedFutureCommon:
         content += _subtitle(f"Risk Score: {entity_report.score or 0}")
 
         if entity_report.intelCard:
-            msg = (
-                "Link to Recorded Future portal: <a href='{0}' target='_blank'>{0}</a>"
-            )
+            msg = "Link to Recorded Future portal: <a href='{0}' target='_blank'>{0}</a>"
             content += f"<p></br>{msg.format(entity_report.intelCard)}</p></br>"
 
         if isinstance(entity_report, IP):
@@ -523,9 +517,7 @@ class RecordedFutureSandboxCommon:
         """Updates Action Context for samples submitted to the Sandbox."""
         pending_submissions_data = {
             entity_name: submission_data
-            for entity_name, submission_data in self.action_context[
-                "submissions"
-            ].items()
+            for entity_name, submission_data in self.action_context["submissions"].items()
             if submission_data.get("pending_submissions", [])
         }
 
@@ -579,18 +571,16 @@ class RecordedFutureSandboxCommon:
             self.siemplify.LOGGER.info(
                 f"Submission {sample_id} for {sample_target} is fully processed.",
             )
-            self.action_context["submissions"][sample_target][
-                "pending_submissions"
-            ].remove(sample_id)
+            self.action_context["submissions"][sample_target]["pending_submissions"].remove(
+                sample_id
+            )
 
             reports = self.action_context["submissions"][sample_target].get(
                 "finished_submissions",
                 [],
             )
             reports.append(sample_report)
-            self.action_context["submissions"][sample_target][
-                "finished_submissions"
-            ] = reports
+            self.action_context["submissions"][sample_target]["finished_submissions"] = reports
 
         # Handle failed submissions
         for submission_data in failed_submissions:
@@ -598,9 +588,9 @@ class RecordedFutureSandboxCommon:
             self.siemplify.LOGGER.info(
                 f"Submission for {submission_data.id} have failed.",
             )
-            self.action_context["submissions"][sample_target][
-                "pending_submissions"
-            ].remove(submission_data.id)
+            self.action_context["submissions"][sample_target]["pending_submissions"].remove(
+                submission_data.id
+            )
 
             failed_submissions = self.action_context["submissions"][entity_name].get(
                 "failed_submissions",
@@ -740,8 +730,7 @@ class RecordedFutureSandboxCommon:
                 )
 
             targets.extend(
-                _title_and_content(k, _list(v) + "</br>")
-                for k, v in transformed_iocs.items()
+                _title_and_content(k, _list(v) + "</br>") for k, v in transformed_iocs.items()
             )
 
         if targets:
@@ -757,11 +746,7 @@ class RecordedFutureSandboxCommon:
 
         html = ""
         for sign in signature_data:
-            name = (
-                _title_and_content("Name", s_name)
-                if (s_name := sign.get("name", ""))
-                else ""
-            )
+            name = _title_and_content("Name", s_name) if (s_name := sign.get("name", "")) else ""
             score = _title_and_content("Score", sign.get("score", 0))
             ttp = (
                 _title_and_content("TTP", ", ".join(s_ttp))

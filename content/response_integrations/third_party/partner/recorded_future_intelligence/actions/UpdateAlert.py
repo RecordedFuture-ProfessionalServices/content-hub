@@ -108,9 +108,7 @@ def main():
         output_message += f"Successfully updated alert {alert_id} in Recorded Future."
 
     except Exception as err:
-        output_message = (
-            f"Error executing action {UPDATE_ALERT_SCRIPT_NAME}. Reason: {err}"
-        )
+        output_message = f"Error executing action {UPDATE_ALERT_SCRIPT_NAME}. Reason: {err}"
         if isinstance(err, RecordedFutureUnauthorizedError):
             output_message = "Unauthorized - please check your API token and try again."
         result_value = False

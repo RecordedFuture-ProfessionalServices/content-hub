@@ -202,7 +202,7 @@ def is_entity_added(playbook_alert_logs: list) -> bool:
         log
         for log in playbook_alert_logs
         for change in log["changes"]
-        if change["type"] in ENTITY_CHANGE_CASES and change.get('added')
+        if change["type"] in ENTITY_CHANGE_CASES and change.get("added")
     ]
     if not entity_added_logs:
         return False
@@ -218,7 +218,11 @@ def is_entity_added(playbook_alert_logs: list) -> bool:
     playbook_alert_log = entity_added_logs[0]
     changes = playbook_alert_log["changes"]
     if len(changes) > 1:
-        changes = [change for change in changes if change["type"] in ENTITY_CHANGE_CASES and change.get('added')]
+        changes = [
+            change
+            for change in changes
+            if change["type"] in ENTITY_CHANGE_CASES and change.get("added")
+        ]
     return bool(changes)
 
 

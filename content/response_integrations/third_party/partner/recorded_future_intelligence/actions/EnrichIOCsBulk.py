@@ -32,31 +32,31 @@ SUPPORTED_ENTITIES = [
 def main():
     siemplify = SiemplifyAction()
     siemplify.script_name = ENRICH_IOC_SOAR_SCRIPT_NAME
-    siemplify.LOGGER.info('----------------- Main - Started -----------------')
+    siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
     api_url = extract_configuration_param(
-        siemplify, provider_name=PROVIDER_NAME, param_name='ApiUrl'
+        siemplify, provider_name=PROVIDER_NAME, param_name="ApiUrl"
     )
     api_key = extract_configuration_param(
-        siemplify, provider_name=PROVIDER_NAME, param_name='ApiKey'
+        siemplify, provider_name=PROVIDER_NAME, param_name="ApiKey"
     )
     verify_ssl = extract_configuration_param(
         siemplify,
         provider_name=PROVIDER_NAME,
-        param_name='Verify SSL',
+        param_name="Verify SSL",
         default_value=False,
         input_type=bool,
     )
     collective_insights_global = extract_configuration_param(
         siemplify,
         provider_name=PROVIDER_NAME,
-        param_name='CollectiveInsights',
+        param_name="CollectiveInsights",
         default_value=True,
         input_type=bool,
     )
     collective_insights_action = extract_action_param(
         siemplify,
-        param_name='Enable Collective Insights',
+        param_name="Enable Collective Insights",
         default_value=True,
         input_type=bool,
     )
@@ -83,12 +83,12 @@ def main():
         )
     except Exception as e:
         siemplify.LOGGER.error(
-            'General error performing action {}'.format(ENRICH_IOC_SOAR_SCRIPT_NAME)
+            "General error performing action {}".format(ENRICH_IOC_SOAR_SCRIPT_NAME)
         )
         siemplify.LOGGER.exception(e)
 
-    siemplify.LOGGER.info('\n----------------- Main - Finished -----------------')
+    siemplify.LOGGER.info("\n----------------- Main - Finished -----------------")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

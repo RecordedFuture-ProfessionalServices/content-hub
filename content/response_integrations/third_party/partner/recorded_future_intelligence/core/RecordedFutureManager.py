@@ -75,8 +75,8 @@ from .RecordedFutureDataModelTransformationLayer import (
     build_playbook_alert,
     build_siemplify_alert_object,
     build_siemplify_analyst_note_object,
-    build_siemplify_object,
     build_siemplify_hash_report_object,
+    build_siemplify_object,
     build_siemplify_soar_object,
 )
 from .version import __version__
@@ -100,7 +100,7 @@ class RecordedFutureManager:
         self.alerts = ClassicAlertMgr()
         self.playbook_alerts = PlaybookAlertMgr()
         self.malw_mgr = MalwareIntelMgr()
-    
+
     def _create_ci_insight(self, entity: str, entity_type: str) -> Insight:
         """Creates Collective Insights Insight object.
 
@@ -113,7 +113,7 @@ class RecordedFutureManager:
             insight (Insight): Collective Insights object
         """
         case_timestamp = (
-            datetime.fromtimestamp(self.siemplify.case.creation_time / 1000).isoformat()[:-3] + 'Z'
+            datetime.fromtimestamp(self.siemplify.case.creation_time / 1000).isoformat()[:-3] + "Z"
         )
         insight = self.collective_insights.create(
             ioc_value=entity,
@@ -137,7 +137,7 @@ class RecordedFutureManager:
         try:
             data = self.enrich.lookup(entity, entity_type=ioc_type, fields=fields)
         except (ValidationError, EnrichmentLookupError) as e:
-            raise RecordedFutureManagerError(f'Error enriching {entity}. Error {e}')
+            raise RecordedFutureManagerError(f"Error enriching {entity}. Error {e}")
 
         # Submit to Collective Insights before check for enrichment data
         if collective_insights_enabled:
@@ -172,13 +172,13 @@ class RecordedFutureManager:
         Raises:
             RecordedFutureNotFoundError: If no data found for entity
         """
-        fields = ['intelCard']
-        if entity_type == 'hash':
-            fields.append('hashAlgorithm')
-        if entity_type == 'ip':
-            fields.append('location')
+        fields = ["intelCard"]
+        if entity_type == "hash":
+            fields.append("hashAlgorithm")
+        if entity_type == "ip":
+            fields.append("location")
         if include_links:
-            fields.append('links')
+            fields.append("links")
         enriched_entity = self._ioc_reputation(
             entity=entity_name,
             ioc_type=entity_type,
@@ -205,14 +205,14 @@ class RecordedFutureManager:
         try:
             data = self.soar_mgr.soar(**entities)
         except (ValidationError, EnrichmentSoarError) as err:
-            raise RecordedFutureManagerError(f'Error enriching indicators (SOAR): {err}')
+            raise RecordedFutureManagerError(f"Error enriching indicators (SOAR): {err}")
         except ValueError as err:
-            raise RecordedFutureManagerError(f'No entities found to enrich (SOAR): {err}')
+            raise RecordedFutureManagerError(f"No entities found to enrich (SOAR): {err}")
 
         if collective_insights_enabled:
             try:
                 insights = [
-                    self._create_ci_insight(entity=entity, entity_type=entity_type.rstrip('_'))
+                    self._create_ci_insight(entity=entity, entity_type=entity_type.rstrip("_"))
                     for entity_type, entities_ in entities.items()
                     for entity in entities_
                 ]
@@ -230,7 +230,7 @@ class RecordedFutureManager:
         self,
         sha256: str,
         my_enterprise: bool,
-        start_date: str = '-30d',
+        start_date: str = "-30d",
         end_date: str | None = None,
     ) -> HashReport:
         """Fetch a sandbox report for a specific hash if present.
@@ -245,17 +245,17 @@ class RecordedFutureManager:
         """
         try:
             data = self.malw_mgr.reports(
-                query='static.sha256',
+                query="static.sha256",
                 sha256=sha256,
                 start_date=start_date,
                 end_date=end_date,
                 my_enterprise=my_enterprise,
             )
         except (ValidationError, MalwareIntelReportError) as err:
-            raise RecordedFutureManagerError(f'Error searching for hash report: {err}')
+            raise RecordedFutureManagerError(f"Error searching for hash report: {err}")
 
         if not data:
-            data = {'sha256': sha256}
+            data = {"sha256": sha256}
 
         return build_siemplify_hash_report_object(sha256, data, start_date, end_date)
 
@@ -296,9 +296,7 @@ class RecordedFutureManager:
         time = self._build_triggered_filter(start_timestamp)
         alert_ids = []
         try:
-            rule_ids = [
-                rule.id_ for rule in self.alerts.fetch_rules(rules, max_results=1000)
-            ]
+            rule_ids = [rule.id_ for rule in self.alerts.fetch_rules(rules, max_results=1000)]
             for status in fetch_statuses:
                 alert_ids.extend(
                     alert.id_
@@ -687,6 +685,6 @@ class RecordedFutureManager:
         :return: {bool} is succeed.
         """
         try:
-            self.get_ip_reputation(DUMMY_IP, False, collective_insights_enabled=False)
+            self.get_ip_reputation(PING_IP, False, collective_insights_enabled=False)
         except RecordedFutureManagerError:
             return False

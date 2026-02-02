@@ -60,23 +60,26 @@ if TYPE_CHECKING:
     )
 
 ENTITY_DATAMODEL_MAP = {
-    'ip': IP,
-    'domain': HOST,
-    'hash': HASH,
-    'url': URL,
-    'vulnerability': CVE,
+    "ip": IP,
+    "domain": HOST,
+    "hash": HASH,
+    "url": URL,
+    "vulnerability": CVE,
 }
 
 SOAR_ENTITY_DATAMODEL_MAP = {
-    'IpAddress': IP,
-    'InternetDomainName': HOST,
-    'Hash': HASH,
-    'URL': URL,
-    'CyberVulnerability': CVE,
+    "IpAddress": IP,
+    "InternetDomainName": HOST,
+    "Hash": HASH,
+    "URL": URL,
+    "CyberVulnerability": CVE,
 }
 
+
 def dump_model(model, **kwargs):
-    return model.model_dump(by_alias=True, mode="json", exclude_none=True, exclude_unset=True, **kwargs)
+    return model.model_dump(
+        by_alias=True, mode="json", exclude_none=True, exclude_unset=True, **kwargs
+    )
 
 
 def build_links(links):
@@ -113,24 +116,24 @@ def build_siemplify_object(
         entity (CVE | HASH | HOST | IP | URL): SecOps enriched entity object
     """
     entity_data = {
-        'raw_data': dump_model(enriched_entity.content),
-        'entity_id': enriched_entity.content.entity.id_,
-        'score': enriched_entity.content.risk.score,
-        'riskString': enriched_entity.content.risk.risk_string,
-        'firstSeen': enriched_entity.content.timestamps.first_seen,
-        'lastSeen': enriched_entity.content.timestamps.last_seen,
-        'intelCard': enriched_entity.content.intel_card,
-        'criticality': enriched_entity.content.risk.criticality,
-        'links': build_links(enriched_entity.content.links),
-        'evidence_details': [dump_model(e) for e in enriched_entity.content.risk.evidence_details],
+        "raw_data": dump_model(enriched_entity.content),
+        "entity_id": enriched_entity.content.entity.id_,
+        "score": enriched_entity.content.risk.score,
+        "riskString": enriched_entity.content.risk.risk_string,
+        "firstSeen": enriched_entity.content.timestamps.first_seen,
+        "lastSeen": enriched_entity.content.timestamps.last_seen,
+        "intelCard": enriched_entity.content.intel_card,
+        "criticality": enriched_entity.content.risk.criticality,
+        "links": build_links(enriched_entity.content.links),
+        "evidence_details": [dump_model(e) for e in enriched_entity.content.risk.evidence_details],
     }
-    if enriched_entity.entity_type == 'ip' and enriched_entity.content.location is not None:
-        entity_data['city'] = enriched_entity.content.location.location.city
-        entity_data['country'] = enriched_entity.content.location.location.country
-        entity_data['asn'] = enriched_entity.content.location.asn
-        entity_data['organization'] = enriched_entity.content.location.organization
-    if enriched_entity.entity_type == 'hash':
-        entity_data['hashAlgorithm'] = enriched_entity.content.hash_algorithm
+    if enriched_entity.entity_type == "ip" and enriched_entity.content.location is not None:
+        entity_data["city"] = enriched_entity.content.location.location.city
+        entity_data["country"] = enriched_entity.content.location.location.country
+        entity_data["asn"] = enriched_entity.content.location.asn
+        entity_data["organization"] = enriched_entity.content.location.organization
+    if enriched_entity.entity_type == "hash":
+        entity_data["hashAlgorithm"] = enriched_entity.content.hash_algorithm
     return ENTITY_DATAMODEL_MAP[enriched_entity.entity_type](**entity_data)
 
 
@@ -146,12 +149,12 @@ def build_siemplify_soar_object(soar_enriched: SOAREnrichedEntity) -> CVE | HASH
     """
     entity_type = soar_enriched.content.entity.type_
     entity_data = {
-        'raw_data': dump_model(soar_enriched.content),
-        'entity_id': soar_enriched.content.entity.id_,
-        'score': soar_enriched.content.risk.score,
+        "raw_data": dump_model(soar_enriched.content),
+        "entity_id": soar_enriched.content.entity.id_,
+        "score": soar_enriched.content.risk.score,
     }
     if soar_enriched.content.risk.rule.evidence is not None:
-        entity_data['evidence_details'] = [
+        entity_data["evidence_details"] = [
             dump_model(e) for e in soar_enriched.content.risk.rule.evidence
         ]
     return SOAR_ENTITY_DATAMODEL_MAP[entity_type](**entity_data)
@@ -185,41 +188,37 @@ def build_siemplify_hash_report_object(
     raw_data, final_reports = [], []
     for report in reports:
         data = {
-            'id': report.sample.id,
-            'score': report.sample.score,
-            'tags': report.sample.tags,
-            'completed': report.sample.completed,
-            'net_flows': [],
-            'signatures': [],
-            'extensions': report.static.exts,
+            "id": report.sample.id,
+            "score": report.sample.score,
+            "tags": report.sample.tags,
+            "completed": report.sample.completed,
+            "net_flows": [],
+            "signatures": [],
+            "extensions": report.static.exts,
         }
 
         for flow in report.dynamic.network.flows:
             if not flow.dst_ip:
                 continue
 
-            data['net_flows'].append(
-                {
-                    'dst_ip': flow.dst_ip,
-                    'dst_port': flow.dst_port,
-                    'layer_7': ', '.join(flow.layer_7),
-                    'proto': flow.proto,
-                }
-            )
+            data["net_flows"].append({
+                "dst_ip": flow.dst_ip,
+                "dst_port": flow.dst_port,
+                "layer_7": ", ".join(flow.layer_7),
+                "proto": flow.proto,
+            })
 
         for sign in report.dynamic.signatures:
             if not sign.desc:
                 continue
 
-            data['signatures'].append(
-                {
-                    'descr': sign.desc,
-                    'name': sign.name,
-                    'score': sign.score,
-                    'tags': ', '.join(sign.tags),
-                    'ttps': ', '.join(sign.ttp),
-                }
-            )
+            data["signatures"].append({
+                "descr": sign.desc,
+                "name": sign.name,
+                "score": sign.score,
+                "tags": ", ".join(sign.tags),
+                "ttps": ", ".join(sign.ttp),
+            })
         final_reports.append(data)
 
     return HashReport(
@@ -279,9 +278,7 @@ def build_event(
             entity_data = list(
                 set(
                     chain.from_iterable(
-                        ref.entities
-                        for ent in enriched_entities
-                        for ref in ent.references
+                        ref.entities for ent in enriched_entities for ref in ent.references
                     ),
                 ),
             )

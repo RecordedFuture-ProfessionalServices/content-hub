@@ -39,7 +39,7 @@ from .constants import (
     PROVIDER_NAME,
     SUPPORTED_ENTITY_TYPES_ENRICHMENT,
 )
-from .datamodels import IP
+from .datamodels import IP, HashReport
 from .exceptions import (
     RecordedFutureCommonError,
     RecordedFutureManagerError,
@@ -363,6 +363,129 @@ class RecordedFutureCommon:
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_success, status)
     
+    def enrich_hash_report_logic(self, my_enterprise: bool, start_date: str, end_date: str):
+        """Function handles the enrichment of hashes on malware reports."""
+        json_results = defaultdict(list)
+        output_message = ''
+        is_success = True
+        status = EXECUTION_STATE_COMPLETED
+
+        try:
+            recorded_future_manager = RecordedFutureManager(
+                api_url=self.api_url,
+                api_key=self.api_key,
+                verify_ssl=self.verify_ssl,
+                siemplify=self.siemplify,
+            )
+
+            for entity in self.siemplify.target_entities:
+                if entity.entity_type == EntityTypes.FILEHASH and len(entity.identifier) == 64:
+                    entity_id = entity.identifier.lower()
+                    hash_report = recorded_future_manager.enrich_hash_sample(
+                        entity_id, my_enterprise, start_date, end_date
+                    )
+                    json_results[entity_id] = hash_report.to_json()
+                    self.siemplify.create_case_insight(
+                        PROVIDER_NAME,
+                        'Enriched by Reported Future Malware Intelligence',
+                        self.get_insight_content_sandbox(hash_report, start_date, end_date),
+                        entity.identifier,
+                        1,
+                        1,
+                    )
+
+        except ValueError as e:
+            output_message = f'Unauthorized - please check your API token and try again. {e}'
+            self.siemplify.LOGGER.error(output_message)
+            is_success = False
+        except RecordedFutureManagerError as e:
+            output_message = str(e)
+            self.siemplify.LOGGER.error(output_message)
+        except Exception as e:
+            status = EXECUTION_STATE_FAILED
+            output_message = f'An error occurred while running action: {e}'
+            self.siemplify.LOGGER.exception(e)
+            is_success = False
+
+        self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
+        self.siemplify.end(output_message, is_success, status)
+    
+    def get_insight_content_sandbox(self, hash_report: HashReport, start_date, end_date):
+        """Create the HTML for the insight."""
+        end_date = end_date or 'today'
+        if not hash_report.found:
+            return ''.join(
+                [
+                    _title('Recorded Future Sandbox Hash Search Details'),
+                    _title_and_content(
+                        'Hash',
+                        f'No data found for {hash_report.id} between {start_date} and {end_date}',
+                    ),
+                ]
+            )
+        analysis = []
+        for report in hash_report.reports_summary:
+            tags = _title_and_content('Tags', ', '.join(report['tags'])) if report['tags'] else ''
+            ext = (
+                _title_and_content('File Extensions', ', '.join(report['extensions']))
+                if report['extensions']
+                else ''
+            )
+            data = [
+                _subtitle(f'Analysis {report["id"]}'),
+                _title_and_content('Link', f'https://sandbox.recordedfuture.com/{report["id"]}'),
+                _title_and_content('Score', report['score']),
+                _title_and_content('Completed', report['completed'].replace('T', ' ').rstrip('Z')),
+                tags,
+                ext,
+            ]
+
+            signatures = []
+            for sign in report['signatures']:
+                sign_name = _title_and_content('Name', sign['name'])
+                sign_descr = _title_and_content('Description', sign['descr'])
+                sign_score = _title_and_content('Score', sign['score'])
+                sign_tags = _title_and_content('Tags', sign['tags']) if sign['tags'] else ''
+                sign_ttp = _title_and_content('TTPs', sign['ttps']) if sign['ttps'] else ''
+                signatures.append(f'{sign_name}{sign_descr}{sign_score}{sign_tags}{sign_ttp}\n')
+
+            if signatures:
+                data.append('\n')
+                data.append('<h4>Signatures</h4>')
+                data.extend(signatures)
+
+            net_flows = []
+            for net in report['net_flows']:
+                dest = _title_and_content('Destination', f'{net["dst_ip"]}:{net["dst_port"]}')
+
+                layer, proto = net['layer_7'], net['proto']
+                if layer and proto:
+                    protocols = f'{layer}/{proto}'
+                elif layer and not proto:
+                    protocols = layer
+                else:
+                    protocols = proto
+
+                protocols = _title_and_content('Protocol', protocols)
+                net_flows.append(f'{dest}{protocols}\n')
+
+            if net_flows:
+                data.append('\n')
+                data.append('<h4>Network Flows</h4>')
+                data.extend(net_flows)
+
+            analysis.extend(data)
+
+        return ''.join(
+            [
+                _title('Recorded Future Sandbox Hash Search Details'),
+                _subtitle('Summary'),
+                _title_and_content('Hash', hash_report.id),
+                '\n',
+                ''.join(analysis),
+            ]
+        )
+
     def get_insight_content(self, entity_report, enrichment_data):
         """Prepare insight content string as HTML
         :param entity_report: The entity report data

@@ -25,6 +25,7 @@ from psengine.collective_insights import (
 )
 from psengine.config import Config
 from psengine.enrich import EnrichmentLookupError, LookupMgr, EnrichmentSoarError, SoarMgr
+from psengine.malware_intel import MalwareIntelMgr, MalwareIntelReportError
 from psengine.playbook_alerts import (
     PBA_DomainAbuse,
     PBA_IdentityNovelExposure,
@@ -45,6 +46,7 @@ from .constants import (
     ENTITY_PREFIX_TYPE_MAP,
     PLAYBOOK_ALERT_API_LIMIT,
 )
+from .datamodels import HashReport
 from .exceptions import (
     RecordedFutureDataModelTransformationLayerError,
     RecordedFutureManagerError,
@@ -60,6 +62,7 @@ from .RecordedFutureDataModelTransformationLayer import (
     build_siemplify_host_object,
     build_siemplify_ip_object,
     build_siemplify_url_object,
+    build_siemplify_hash_report_object,
     build_siemplify_soar_object,
 )
 from .version import __version__
@@ -91,9 +94,9 @@ class RecordedFutureManager:
         self.enrich = LookupMgr()
         self.soar_mgr = SoarMgr()
         self.collective_insights = CollectiveInsights()
-
         self.alerts = ClassicAlertMgr()
         self.playbook_alerts = PlaybookAlertMgr()
+        self.malw_mgr = MalwareIntelMgr()
     
     def _create_ci_insight(self, entity: str, entity_type: str) -> Insight:
         """Creates Collective Insights Insight object.
@@ -283,6 +286,39 @@ class RecordedFutureManager:
             raise RecordedFutureNotFoundError
 
         return [build_siemplify_soar_object(soar_enriched) for soar_enriched in data]
+
+    def enrich_hash_sample(
+        self,
+        sha256: str,
+        my_enterprise: bool,
+        start_date: str = '-30d',
+        end_date: str | None = None,
+    ) -> HashReport:
+        """Fetch a sandbox report for a specific hash if present.
+
+        Args:
+            sha256 (str): SecOps hash as SHA256 entity to search
+            my_enterprise (bool): filter for sample submitted by your enterprise only
+        Returns:
+            HashReport: a single report for the sample
+        Raises:
+            RecordedFutureManagerError: if the API request failed
+        """
+        try:
+            data = self.malw_mgr.reports(
+                query='static.sha256',
+                sha256=sha256,
+                start_date=start_date,
+                end_date=end_date,
+                my_enterprise=my_enterprise,
+            )
+        except (ValidationError, MalwareIntelReportError) as err:
+            raise RecordedFutureManagerError(f'Error searching for hash report: {err}')
+
+        if not data:
+            data = {'sha256': sha256}
+
+        return build_siemplify_hash_report_object(sha256, data, start_date, end_date)
 
     def get_information_about_alert(self, alert_id):
         """Fetch information about specific Alert and return results to the case.

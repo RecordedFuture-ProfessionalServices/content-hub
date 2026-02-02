@@ -284,6 +284,18 @@ class HASH(RFIndicator):
         ]
 
 
+class HashReport(BaseModel):
+    """Hash from Malware Report."""
+
+    def __init__(self, raw_data, sha256, found, reports_summary, start_date, end_date):
+        super(HashReport, self).__init__(raw_data)
+        self.id = sha256
+        self.found = found
+        self.reports_summary = reports_summary
+        self.start_date = start_date
+        self.end_date = end_date
+
+
 class Alert(BaseModel):
     """Alert."""
 

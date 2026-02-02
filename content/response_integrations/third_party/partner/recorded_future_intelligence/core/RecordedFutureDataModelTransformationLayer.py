@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING
 
 from psengine.constants import TIMESTAMP_STR
 from psengine.enrich import SOAREnrichedEntity
+from psengine.malware_intel import SandboxReport
 from psengine.playbook_alerts import PBA_Generic, PBA_IdentityNovelExposure
 
 from .constants import (
@@ -36,6 +37,7 @@ from .datamodels import (
     Alert,
     AlertDetails,
     AnalystNote,
+    HashReport,
     PlaybookAlert,
 )
 from .exceptions import RecordedFutureDataModelTransformationLayerError
@@ -213,6 +215,81 @@ def build_siemplify_soar_object(soar_enriched: SOAREnrichedEntity) -> CVE | HASH
             dump_model(e) for e in soar_enriched.content.risk.rule.evidence
         ]
     return SOAR_ENTITY_DATAMODEL_MAP[entity_type](**entity_data)
+
+
+def build_siemplify_hash_report_object(
+    sha256: str,
+    reports: list[SandboxReport] | dict,
+    start_date,
+    end_date,
+) -> HashReport:
+    """Create Hash object from Malware report.
+
+    Args:
+        report: Sandbox Report
+
+    Returns
+    -------
+        HashReport object, one per report of each hash.
+    """
+    if isinstance(reports, dict):
+        return HashReport(
+            raw_data=reports,
+            sha256=sha256,
+            found=False,
+            reports_summary=[],
+            start_date=start_date,
+            end_date=end_date,
+        )
+
+    raw_data, final_reports = [], []
+    for report in reports:
+        data = {
+            'id': report.sample.id,
+            'score': report.sample.score,
+            'tags': report.sample.tags,
+            'completed': report.sample.completed,
+            'net_flows': [],
+            'signatures': [],
+            'extensions': report.static.exts,
+        }
+
+        for flow in report.dynamic.network.flows:
+            if not flow.dst_ip:
+                continue
+
+            data['net_flows'].append(
+                {
+                    'dst_ip': flow.dst_ip,
+                    'dst_port': flow.dst_port,
+                    'layer_7': ', '.join(flow.layer_7),
+                    'proto': flow.proto,
+                }
+            )
+
+        for sign in report.dynamic.signatures:
+            if not sign.desc:
+                continue
+
+            data['signatures'].append(
+                {
+                    'descr': sign.desc,
+                    'name': sign.name,
+                    'score': sign.score,
+                    'tags': ', '.join(sign.tags),
+                    'ttps': ', '.join(sign.ttp),
+                }
+            )
+        final_reports.append(data)
+
+    return HashReport(
+        raw_data=raw_data,
+        sha256=sha256,
+        found=True,
+        reports_summary=final_reports,
+        start_date=start_date,
+        end_date=end_date,
+    )
 
 
 def format_triggered_by(data):

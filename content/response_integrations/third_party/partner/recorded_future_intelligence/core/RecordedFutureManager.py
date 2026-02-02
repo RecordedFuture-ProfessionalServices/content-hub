@@ -685,6 +685,11 @@ class RecordedFutureManager:
         :return: {bool} is succeed.
         """
         try:
-            self.get_ip_reputation(PING_IP, False, collective_insights_enabled=False)
+            self.enrich_entity(
+                entity_name=PING_IP,
+                entity_type="ip",
+                include_links=False,
+                collective_insights_enabled=False,
+            )
         except RecordedFutureManagerError:
             return False

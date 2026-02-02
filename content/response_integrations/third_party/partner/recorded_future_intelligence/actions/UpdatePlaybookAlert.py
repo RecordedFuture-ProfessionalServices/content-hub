@@ -103,6 +103,9 @@ def main():
         is_mandatory=False,
         print_value=True,
     )
+    pba_status = None if pba_status == "None" else pba_status
+    priority = None if priority == "None" else priority
+    reopen_strategy = None if reopen_strategy == "None" else reopen_strategy
     pba_status = pba_status.replace(" ", "") if isinstance(pba_status, str) else pba_status
     reopen_strategy = (
         reopen_strategy.replace(" ", "") if isinstance(reopen_strategy, str) else reopen_strategy

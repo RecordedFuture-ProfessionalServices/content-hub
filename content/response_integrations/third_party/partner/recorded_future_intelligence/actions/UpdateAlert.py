@@ -79,6 +79,7 @@ def main():
         is_mandatory=False,
         print_value=True,
     )
+    alert_status = None if alert_status == "None" else alert_status
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 

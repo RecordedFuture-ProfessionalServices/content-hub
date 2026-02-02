@@ -570,6 +570,7 @@ class RecordedFutureManager:
             playbook_alert = self.playbook_alerts.fetch(
                 alert_id=alert_id,
                 category=category,
+                fetch_images=False,
             )
         except (ValidationError, PlaybookAlertFetchError) as err:
             raise RecordedFutureManagerError(

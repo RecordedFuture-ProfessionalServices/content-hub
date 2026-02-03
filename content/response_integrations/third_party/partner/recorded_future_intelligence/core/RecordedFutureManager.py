@@ -255,7 +255,7 @@ class RecordedFutureManager:
             raise RecordedFutureManagerError(f"Error searching for hash report: {err}")
 
         if not data:
-            data = {"sha256": sha256}
+            data = {"file": sha256}
 
         return build_siemplify_hash_report_object(sha256, data, start_date, end_date)
 

@@ -185,7 +185,7 @@ def build_siemplify_hash_report_object(
             end_date=end_date,
         )
 
-    raw_data, final_reports = [], []
+    final_reports = []
     for report in reports:
         data = {
             "id": report.sample.id,
@@ -222,7 +222,7 @@ def build_siemplify_hash_report_object(
         final_reports.append(data)
 
     return HashReport(
-        raw_data=raw_data,
+        raw_data=[dump_model(report) for report in reports],
         sha256=sha256,
         found=True,
         reports_summary=final_reports,

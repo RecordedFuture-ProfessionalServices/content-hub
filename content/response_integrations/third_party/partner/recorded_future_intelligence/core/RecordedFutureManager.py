@@ -454,7 +454,7 @@ class RecordedFutureManager:
             try:
                 playbook_alerts.append(build_playbook_alert(pba, severity=severity))
             except RecordedFutureDataModelTransformationLayerError as err:
-                msg = f"Error when transfrming playbook alert {pba_id}. Skipping"
+                msg = f"Error when transforming playbook alert {pba_id}. Skipping"
                 self.siemplify.LOGGER.error(msg)
                 self.siemplify.LOGGER.error(err)
 

@@ -325,7 +325,9 @@ class RecordedFutureCommon:
                     self.siemplify.create_case_insight(
                         PROVIDER_NAME,
                         "Enriched by Reported Future Malware Intelligence",
-                        self.get_insight_content_sandbox(hash_report, start_date, end_date),
+                        self.get_insight_content_sandbox(
+                            hash_report, start_date, end_date, my_enterprise
+                        ),
                         entity.identifier,
                         1,
                         1,
@@ -347,15 +349,22 @@ class RecordedFutureCommon:
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_success, status)
 
-    def get_insight_content_sandbox(self, hash_report: HashReport, start_date, end_date):
+    def get_insight_content_sandbox(
+        self, hash_report: HashReport, start_date, end_date, my_enterprise
+    ):
         """Create the HTML for the insight."""
         end_date = end_date or "today"
         if not hash_report.found:
+            # my_enterprise parsed as str
+            my_ent_str = " for my enterprise" if my_enterprise == "true" else ""
             return "".join([
                 _title("Recorded Future Sandbox Hash Search Details"),
                 _title_and_content(
                     "Hash",
-                    f"No data found for {hash_report.id} between {start_date} and {end_date}",
+                    (
+                        f"No data found for {hash_report.id} "
+                        f"between {start_date} and {end_date}{my_ent_str}"
+                    ),
                 ),
             ])
         analysis = []

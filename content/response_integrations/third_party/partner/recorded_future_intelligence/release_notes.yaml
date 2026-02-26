@@ -99,3 +99,9 @@
   item_type: Integration
   publish_time: '2026-02-06'
   ticket_number: ''
+- description: 'Added Entity Match action.'
+  integration_version: 11.0
+  item_name: RecordedFutureIntelligence
+  item_type: Integration
+  publish_time: '2026-03-30'
+  ticket_number: ''

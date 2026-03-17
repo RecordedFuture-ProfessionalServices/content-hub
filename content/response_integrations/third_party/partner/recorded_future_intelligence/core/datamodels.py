@@ -570,7 +570,8 @@ class PlaybookAlert(BaseModel):
         """
         secrets_html = []
         for prop in (
-            event.get("panel_evidence_summary", {})
+            event
+            .get("panel_evidence_summary", {})
             .get("exposed_secret", {})
             .get("details", {})
             .get("properties", [])

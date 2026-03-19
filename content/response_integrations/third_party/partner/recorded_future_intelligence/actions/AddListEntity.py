@@ -117,7 +117,7 @@ def main():
         is_success = False
         status = EXECUTION_STATE_FAILED
     except ListApiError as err:
-        output_message = f"Error fetching list from Recorded Future: {err}"
+        output_message = f"Error calling Recorded Future List API: {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED

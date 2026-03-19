@@ -9,6 +9,8 @@
 
 from __future__ import annotations
 
+import json
+
 from psengine.config import Config
 from psengine.entity_lists import EntityListMgr, ListApiError
 from pydantic import ValidationError
@@ -18,6 +20,7 @@ from soar_sdk.SiemplifyUtils import output_handler
 from TIPCommon.extraction import extract_action_param, extract_configuration_param
 
 from ..core.constants import PROVIDER_NAME
+from ..core.UtilsManager import map_secops_entities_to_rf
 from ..core.version import __version__ as version
 
 
@@ -44,13 +47,37 @@ def main():
         is_mandatory=True,
         print_value=True,
     )
-    entities = []
+    entity_id = extract_action_param(
+        siemplify,
+        param_name="Entity ID",
+        is_mandatory=False,
+        print_value=True,
+    )
+    entity_name = extract_action_param(
+        siemplify,
+        param_name="Entity Name",
+        is_mandatory=False,
+        print_value=True,
+    )
+    entity_type = extract_action_param(
+        siemplify,
+        param_name="Entity Type",
+        is_mandatory=False,
+        print_value=True,
+    )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
     is_success = True
     output_message = ""
     status = EXECUTION_STATE_COMPLETED
+
+    if entity_id:
+        entities = [entity_id]
+    elif bool(entity_name) and bool(entity_type):
+        entities = [(entity_name, entity_type)]
+    else:
+        entities = map_secops_entities_to_rf(siemplify.target_entities)
 
     try:
         siemplify.LOGGER.info("Initializing psengine configuration")
@@ -66,9 +93,15 @@ def main():
 
         siemplify.LOGGER.info(f"Deleting {len(entities)} from list: {list_id}")
         delete_resp = fetch_resp.bulk_remove(entities=entities)
-        data = delete_resp.json()
-        siemplify.result.add_result_json(data)
-        output_message += f"Successfully deleted entities from list: {fetch_resp.id_}."
+
+        siemplify.result.add_result_json(json.dumps(delete_resp))
+
+        if removed := delete_resp.get("removed"):
+            output_message += f"Successfully deleted {len(removed)} entities to list."
+        if error := delete_resp.get("error"):
+            output_message += f"\nError deleting {len(error)} entities from list."
+        if unchanged := delete_resp.get("unchanged"):
+            output_message += f"\n{len(unchanged)} entities unchanged."
 
     except ValueError as err:
         output_message = f"Error creating List Manager: {err}"

@@ -119,6 +119,15 @@ ENTITY_PREFIX_TYPE_MAP = {
     "email": EntityTypes.EMAILMESSAGE,
 }
 
+ENTITY_PREFIX_TYPE_MAP_LIST_OPS = {
+    EntityTypes.ADDRESS: "ip",
+    EntityTypes.DOMAIN: "idn",
+    EntityTypes.HOSTNAME: "idn",
+    EntityTypes.URL: "url",
+    EntityTypes.FILEHASH: "hash",
+    EntityTypes.EMAILMESSAGE: "email",
+}
+
 # Classic Alerts Connector
 CLASSIC_ALERT_DEFAULT_STATUSES = ["New"]
 CLASSIC_ALERT_STATUSES = ["New", "Pending", "Resolved", "Dismissed", "Flag for Tuning"]

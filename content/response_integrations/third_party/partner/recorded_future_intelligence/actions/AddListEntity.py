@@ -16,35 +16,15 @@ from psengine.entity_lists import EntityListMgr, ListApiError
 from pydantic import ValidationError
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction
-from soar_sdk.SiemplifyDataModel import EntityTypes
 from soar_sdk.SiemplifyUtils import output_handler
 from TIPCommon.extraction import extract_action_param, extract_configuration_param
 
 from ..core.constants import PROVIDER_NAME
+from ..core.UtilsManager import map_secops_entities_to_rf
 from ..core.version import __version__ as version
 
-ENTITY_PREFIX_TYPE_MAP = {
-    EntityTypes.ADDRESS: "ip",
-    EntityTypes.DOMAIN: "idn",
-    EntityTypes.HOSTNAME: "idn",
-    EntityTypes.URL: "url",
-    EntityTypes.FILEHASH: "hash",
-    EntityTypes.EMAILMESSAGE: "email",
-}
 
 
-def map_secops_entities_to_rf(entities):
-    """
-    Maps the SecOps entity to the Recorded Future ID format with entity prefix.
-    Ignores entities that are not included in the default mapping. For entities that
-    do not follow the Recorded Future prefix syntax, run the action with 'Entity Name'
-    and 'Entity Type' parameters instead.
-    """
-    return [
-        f"{ENTITY_PREFIX_TYPE_MAP.get(entity.entity_type)}:{entity.identifier}"
-        for entity in entities
-        if entity.entity_type in ENTITY_PREFIX_TYPE_MAP
-    ]
 
 
 @output_handler
@@ -118,7 +98,13 @@ def main():
         add_resp = fetch_resp.bulk_add(entities=entities)
 
         siemplify.result.add_result_json(json.dumps(add_resp))
-        output_message += f"Successfully added entities to list: {fetch_resp.id_}."
+
+        if added := add_resp.get("added", []):
+            output_message += f"Successfully added {len(added)} entities to list."
+        if error := add_resp.get("error", []):
+            output_message += f"\nError adding {len(error)} entities to list."
+        if unchanged := add_resp.get("unchanged", []):
+            output_message += f"\n{len(unchanged)} entities unchanged."
 
     except ValueError as err:
         output_message = f"Error creating List Manager: {err}"

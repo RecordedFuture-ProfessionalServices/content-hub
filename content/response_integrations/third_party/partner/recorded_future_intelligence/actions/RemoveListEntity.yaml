@@ -11,4 +11,16 @@ parameters:
     is_mandatory: true
     name: List ID
     type: string
+-   description: ID of the entity to add.
+    is_mandatory: false
+    name: Entity ID
+    type: string
+-   description: Name of the entity to add.
+    is_mandatory: false
+    name: Entity Name
+    type: string
+-   description: Type of the entity to add.
+    is_mandatory: false
+    name: Entity Type
+    type: string
 script_result_name: is_success

@@ -86,6 +86,15 @@ ENTITY_HASH = "entity_hashes"
 ENTITY_URL = "entity_urls"
 ENTITY_VULN = "entity_vulns"
 
+CLASSIC_ALERT_ENTITY_MAPPING = {
+    "entity_ips": "IpAddress",
+    "entity_domains": "InternetDomainName",
+    "entity_emails": "EmailAddress",
+    "entity_hashes": "Hash",
+    "entity_urls": "URL",
+    "entity_vulns": "CyberVulnerability",
+}
+
 TOPIC_MAP = {
     "None": None,
     "Actor Profile": "TXSFt2",

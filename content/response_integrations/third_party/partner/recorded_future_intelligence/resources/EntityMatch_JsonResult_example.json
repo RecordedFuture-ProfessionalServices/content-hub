@@ -1,20 +1,11 @@
-{
-    "matched": [
-        {
-            "entity": "Entity Name",
-            "is_found": true,
-            "content": {
-                "id_": "JVlhYg",
-                "name": "Entity Name",
-                "type_": "Organization"
-            }
+[
+    {
+        "entity": "Entity Name",
+        "is_found": true,
+        "content": {
+            "id": "JVlhYg",
+            "name": "Entity Name",
+            "type": "Organization"
         }
-    ],
-    "not_matched": [
-        {
-            "entity": "Entity Name",
-            "is_found": false,
-            "content": "Entity ID not found"
-        }
-    ]
-}
+    }
+]

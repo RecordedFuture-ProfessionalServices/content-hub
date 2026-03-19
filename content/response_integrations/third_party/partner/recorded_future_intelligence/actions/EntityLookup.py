@@ -38,27 +38,16 @@ def main():
         default_value=False,
         input_type=bool,
     )
-    entity_name = extract_action_param(
+    entity_id = extract_action_param(
         siemplify,
-        param_name="Entity Name",
+        param_name="Entity ID",
         input_type=str,
         print_value=True,
-    )
-    entity_type = extract_action_param(
-        siemplify,
-        param_name="Entity Type",
-        input_type=str,
-        print_value=True,
-    )
-    limit = extract_action_param(
-        siemplify,
-        param_name="Limit",
-        input_type=int,
     )
 
     is_success = False
     status = EXECUTION_STATE_FAILED
-    output_message = "Failed running Entity Match action"
+    output_message = "Failed running Entity Lookup action"
 
     try:
         siemplify.LOGGER.info("Initializing psengine configuration")
@@ -70,26 +59,24 @@ def main():
         siemplify.LOGGER.info("Initializing psengine EntityMatchMgr")
         entity_match_mgr = EntityMatchMgr()
         siemplify.LOGGER.info("Fetching entity from Recorded Future")
-        entity_match_resp = entity_match_mgr.match(
-            entity_name=entity_name, entity_type=entity_type, limit=limit
-        )
-        data = [entity.json() for entity in entity_match_resp]
+        entity_lookup_resp = entity_match_mgr.lookup(id_=entity_id)
+        data = entity_lookup_resp.json()
         siemplify.result.add_result_json(data)
 
         is_success = True
         status = EXECUTION_STATE_COMPLETED
-        output_message = "Successfully ran Entity Match action."
+        output_message = "Successfully ran Entity Lookup action."
     except ValueError as err:
         siemplify.LOGGER.error(f"Error creating Entity Match Manager {err}")
         is_success = False
     except ValidationError as err:
-        siemplify.LOGGER.error(f"Invalid parameters for Entity Match action {err}")
+        siemplify.LOGGER.error(f"Invalid parameters for Entity Lookup action {err}")
         is_success = False
     except MatchApiError as err:
         siemplify.LOGGER.error(f"Error calling Entity Match API {err}")
         is_success = False
     except Exception as e:
-        siemplify.LOGGER.error("General error performing Entity Match action")
+        siemplify.LOGGER.error("General error performing Entity Lookup action")
         siemplify.LOGGER.exception(e)
         is_success = False
 

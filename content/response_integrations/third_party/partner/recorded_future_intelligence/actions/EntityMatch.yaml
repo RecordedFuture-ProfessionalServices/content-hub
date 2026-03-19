@@ -11,7 +11,7 @@ parameters:
     is_mandatory: true
     name: Entity Name
     type: string
--   description: A comma separated string of types is optional. If in use, the Match operation will only try to match on entities that meet any of the "type" criteria.
+-   description: A comma separated string of types is optional. If in use, the Match operation will only try to match on entities that meet any of the type criteria.
     is_mandatory: false
     name: Entity Type
     type: string

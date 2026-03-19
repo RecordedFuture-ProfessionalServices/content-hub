@@ -58,19 +58,20 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
+        siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
             rf_token=api_key,
             app_id=f"ps-google-soar/{version}",
         )
+        siemplify.LOGGER.info("Initializing psengine EntityListMgr")
         list_mgr = EntityListMgr()
+        siemplify.LOGGER.info("Creating new list")
         create_resp = list_mgr.create(
             list_name=list_name,
             list_type=list_type,
         )
-        data = create_resp.model_dump(
-            by_alias=True, mode="json", exclude_none=True, exclude_unset=True
-        )
+        data = create_resp.json()
         siemplify.result.add_result_json(data)
         output_message += f"Successfully created new list in Recorded Future: {create_resp.id_}."
 

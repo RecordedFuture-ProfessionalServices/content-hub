@@ -44,6 +44,7 @@ def main():
         is_mandatory=True,
         print_value=True,
     )
+    entities = []
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
@@ -52,19 +53,22 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
+        siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
             rf_token=api_key,
             app_id=f"ps-google-soar/{version}",
         )
+        siemplify.LOGGER.info("Initializing psengine EntityListMgr")
         list_mgr = EntityListMgr()
+        siemplify.LOGGER.info(f"Fetching List from Recorded Future: {list_id}")
         fetch_resp = list_mgr.fetch(list_=list_id)
 
-        data = fetch_resp.model_dump(
-            by_alias=True, mode="json", exclude_none=True, exclude_unset=True
-        )
+        siemplify.LOGGER.info(f"Deleting {len(entities)} from list: {list_id}")
+        delete_resp = fetch_resp.bulk_remove(entities=entities)
+        data = delete_resp.json()
         siemplify.result.add_result_json(data)
-        output_message += f"Successfully fetched list from Recorded Future: {fetch_resp.id_}."
+        output_message += f"Successfully deleted entities from list: {fetch_resp.id_}."
 
     except ValueError as err:
         output_message = f"Error creating List Manager: {err}"

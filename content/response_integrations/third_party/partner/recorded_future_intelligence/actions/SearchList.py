@@ -50,11 +50,12 @@ def main():
         is_mandatory=False,
         print_value=True,
     )
-    limit = extract_action_param(
+    max_results = extract_action_param(
         siemplify,
-        param_name="Limit",
+        param_name="Max Results",
         is_mandatory=False,
         print_value=True,
+        input_type=int,
     )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
@@ -64,18 +65,21 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
+        siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
             rf_token=api_key,
             app_id=f"ps-google-soar/{version}",
         )
+        siemplify.LOGGER.info("Initializing psengine EntityListMgr")
         list_mgr = EntityListMgr()
+        siemplify.LOGGER.info(f"Searching Lists in Recorded Future: {list_name}, {list_type}")
         search_resp = list_mgr.search(
             list_name=list_name,
             list_type=list_type,
-            limit=int(limit),
+            limit=max_results,
         )
-        data = [wl.model_dump(mode="json") for wl in search_resp]
+        data = [wl.json() for wl in search_resp]
         siemplify.result.add_result_json(data)
         output_message += f"Successfully fetched {len(data)} list(s) from Recorded Future."
 

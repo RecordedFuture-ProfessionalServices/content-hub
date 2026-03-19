@@ -11,9 +11,31 @@ parameters:
     is_mandatory: true
     name: List Name
     type: string
--   description: The type of list to create.
+-   default_value: entity
+    description: The type of list to create.
     is_mandatory: false
     name: List Type
-    type: string
-    default_value: entity
+    optional_values:
+    - entity
+    - source
+    - text
+    - custom
+    - ip
+    - domain
+    - tech_stack
+    - industry
+    - brand
+    - partner
+    - industry_peer
+    - location
+    - supplier
+    - vulnerability
+    - company
+    - hash
+    - operation
+    - attacker
+    - target
+    - method
+    - executive
+    type: ddl
 script_result_name: is_success

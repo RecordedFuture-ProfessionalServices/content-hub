@@ -52,20 +52,20 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
+        siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
             rf_token=api_key,
             app_id=f"ps-google-soar/{version}",
         )
+        siemplify.LOGGER.info("Initializing psengine EntityListMgr")
         list_mgr = EntityListMgr()
+        siemplify.LOGGER.info(f"Fetching List from Recorded Future: {list_id}")
         fetch_resp = list_mgr.fetch(list_=list_id)
-        siemplify.LOGGER.info(f"Successfully fetched list from Recorded Future: {fetch_resp.id_}.")
 
+        siemplify.LOGGER.info(f"Fetching entities from list: {fetch_resp.id_}.")
         entities_resp = fetch_resp.entities()
-        data = [
-            entity.model_dump(by_alias=True, mode="json", exclude_none=True, exclude_unset=True)
-            for entity in entities_resp
-        ]
+        data = [entity.json() for entity in entities_resp]
 
         siemplify.result.add_result_json(data)
         output_message += (

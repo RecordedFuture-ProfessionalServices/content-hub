@@ -7,17 +7,17 @@ dynamic_results_metadata:
 integration_identifier: RecordedFutureIntelligence
 name: Search List
 parameters:
--   description: If enabled, action will get information about links.
+-   description: List name to search.
     is_mandatory: false
     name: List Name
     type: string
--   description: If enabled, contribute detections back to Recorded Future.
+-   description: List type to filter by. Ignored if None.
     is_mandatory: false
     name: List Type
     type: string
 -   default_value: '25'
-    description: This value sets the upper limit on the number of lists returned (maximum 100).
+    description: Maximum number of lists to return.
     is_mandatory: false
-    name: Limit
+    name: Max Results
     type: string
 script_result_name: is_success

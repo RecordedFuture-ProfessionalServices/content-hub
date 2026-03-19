@@ -8,17 +8,42 @@
 ###############################################################################
 
 from __future__ import annotations
+import json
 
 from psengine.config import Config
 from psengine.entity_lists import EntityListMgr, ListApiError
 from pydantic import ValidationError
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction
+from soar_sdk.SiemplifyDataModel import EntityTypes
 from soar_sdk.SiemplifyUtils import output_handler
 from TIPCommon.extraction import extract_action_param, extract_configuration_param
 
 from ..core.constants import PROVIDER_NAME
 from ..core.version import __version__ as version
+
+ENTITY_PREFIX_TYPE_MAP = {
+    EntityTypes.ADDRESS: "ip",
+    EntityTypes.DOMAIN: "idn",
+    EntityTypes.HOSTNAME: "idn",
+    EntityTypes.URL: "url",
+    EntityTypes.FILEHASH: "hash",
+    EntityTypes.EMAILMESSAGE: "email",
+}
+
+
+def map_secops_entities_to_rf(entities):
+    """
+    Maps the SecOps entity to the Recorded Future ID format with entity prefix.
+    Ignores entities that are not included in the default mapping. For entities that
+    do not follow the Recorded Future prefix syntax, run the action with 'Entity Name'
+    and 'Entity Type' parameters instead.
+    """
+    return [
+        f"{ENTITY_PREFIX_TYPE_MAP.get(entity.entity_type)}:{entity.identifier}"
+        for entity in entities
+        if entity.entity_type in ENTITY_PREFIX_TYPE_MAP
+    ]
 
 
 @output_handler
@@ -44,6 +69,24 @@ def main():
         is_mandatory=True,
         print_value=True,
     )
+    entity_id = extract_action_param(
+        siemplify,
+        param_name="Entity ID",
+        is_mandatory=False,
+        print_value=True,
+    )
+    entity_name = extract_action_param(
+        siemplify,
+        param_name="Entity Name",
+        is_mandatory=False,
+        print_value=True,
+    )
+    entity_type = extract_action_param(
+        siemplify,
+        param_name="Entity Type",
+        is_mandatory=False,
+        print_value=True,
+    )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
@@ -51,20 +94,30 @@ def main():
     output_message = ""
     status = EXECUTION_STATE_COMPLETED
 
+    if entity_id:
+        entities = [entity_id]
+    elif bool(entity_name) and bool(entity_type):
+        entities = [(entity_name, entity_type)]
+    else:
+        entities = map_secops_entities_to_rf(siemplify.target_entities)
+
     try:
+        siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
             rf_token=api_key,
             app_id=f"ps-google-soar/{version}",
         )
+        siemplify.LOGGER.info("Initializing psengine EntityListMgr")
         list_mgr = EntityListMgr()
+        siemplify.LOGGER.info(f"Fetching List from Recorded Future: {list_id}")
         fetch_resp = list_mgr.fetch(list_=list_id)
 
-        data = fetch_resp.model_dump(
-            by_alias=True, mode="json", exclude_none=True, exclude_unset=True
-        )
-        siemplify.result.add_result_json(data)
-        output_message += f"Successfully fetched list from Recorded Future: {fetch_resp.id_}."
+        siemplify.LOGGER.info(f"Adding {len(entities)} entities from SecOps case to list")
+        add_resp = fetch_resp.bulk_add(entities=entities)
+
+        siemplify.result.add_result_json(json.dumps(add_resp))
+        output_message += f"Successfully added entities to list: {fetch_resp.id_}."
 
     except ValueError as err:
         output_message = f"Error creating List Manager: {err}"

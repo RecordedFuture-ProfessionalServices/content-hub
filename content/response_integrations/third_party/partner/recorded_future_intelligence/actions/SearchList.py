@@ -98,7 +98,6 @@ def main():
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
-
     except Exception as err:
         output_message = f"Error executing Search List action: {err}"
         is_success = False

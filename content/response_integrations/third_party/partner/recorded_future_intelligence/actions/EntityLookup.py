@@ -45,9 +45,9 @@ def main():
         print_value=True,
     )
 
-    is_success = False
-    status = EXECUTION_STATE_FAILED
-    output_message = "Failed running Entity Lookup action"
+    is_success = True
+    status = EXECUTION_STATE_COMPLETED
+    output_message = ""
 
     try:
         siemplify.LOGGER.info("Initializing psengine configuration")
@@ -60,25 +60,36 @@ def main():
         entity_match_mgr = EntityMatchMgr()
         siemplify.LOGGER.info("Fetching entity from Recorded Future")
         entity_lookup_resp = entity_match_mgr.lookup(id_=entity_id)
-        data = entity_lookup_resp.json()
+
+        if entity_lookup_resp is not None:
+            data = entity_lookup_resp.json()
+            output_message = "Successfully ran Entity Lookup action. Matched Entity ID."
+        else:
+            data = {}
+            output_message = "Successfully ran Entity Lookup action. Did not match Entity ID."
         siemplify.result.add_result_json(data)
 
-        is_success = True
-        status = EXECUTION_STATE_COMPLETED
-        output_message = "Successfully ran Entity Lookup action."
     except ValueError as err:
-        siemplify.LOGGER.error(f"Error creating Entity Match Manager {err}")
+        output_message = f"Error creating Entity Match Manager {err}"
+        siemplify.LOGGER.error(output_message)
         is_success = False
+        status = EXECUTION_STATE_FAILED
     except ValidationError as err:
-        siemplify.LOGGER.error(f"Invalid parameters for Entity Lookup action {err}")
+        output_message = f"Invalid parameters for Entity Lookup action {err}"
+        siemplify.LOGGER.error(output_message)
         is_success = False
+        status = EXECUTION_STATE_FAILED
     except MatchApiError as err:
-        siemplify.LOGGER.error(f"Error calling Entity Match API {err}")
+        output_message = f"Error calling Entity Match API {err}"
+        siemplify.LOGGER.error(output_message)
         is_success = False
+        status = EXECUTION_STATE_FAILED
     except Exception as e:
-        siemplify.LOGGER.error("General error performing Entity Lookup action")
+        output_message = "General error performing Entity Lookup action"
+        siemplify.LOGGER.error(output_message)
         siemplify.LOGGER.exception(e)
         is_success = False
+        status = EXECUTION_STATE_FAILED
 
     siemplify.LOGGER.info("\n----------------- Main - Finished -----------------")
     siemplify.LOGGER.info(f"Output Message: {output_message}")

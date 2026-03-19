@@ -24,9 +24,6 @@ from ..core.UtilsManager import map_secops_entities_to_rf
 from ..core.version import __version__ as version
 
 
-
-
-
 @output_handler
 def main():
     siemplify = SiemplifyAction()

@@ -12,7 +12,6 @@ from __future__ import annotations
 from psengine.classic_alerts import AlertUpdateError, ClassicAlertMgr
 from psengine.config import Config
 from pydantic import ValidationError
-
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction
 from soar_sdk.SiemplifyUtils import output_handler
@@ -23,11 +22,11 @@ from ..core.version import __version__ as version
 
 
 def clean_input(input_str):
-     """
-     Cleans the classic alert input values from ddl config options.
-     """
-     result = None if input_str == "None" else input_str
-     return result
+    """
+    Cleans the classic alert input values from ddl config options.
+    """
+    result = None if input_str == "None" else input_str
+    return result
 
 
 @output_handler
@@ -92,7 +91,7 @@ def main():
             "id": alert_id,
             "assignee": assign_to or None,
             "note": note or None,
-            "statusInPortal": clean_input(alert_status) or None
+            "statusInPortal": clean_input(alert_status) or None,
         }
         siemplify.LOGGER.info(f"Updating Classic Alert: {alert_id}")
         update_alert_resp = alert_mgr.update(

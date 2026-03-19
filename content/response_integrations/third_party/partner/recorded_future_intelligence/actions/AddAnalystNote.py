@@ -12,10 +12,8 @@ from __future__ import annotations
 from psengine.analyst_notes import AnalystNoteMgr, AnalystNotePublishError
 from psengine.config import Config
 from pydantic import ValidationError
-
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction
-from soar_sdk.SiemplifyDataModel import EntityTypes
 from soar_sdk.SiemplifyUtils import output_handler
 from TIPCommon.extraction import extract_action_param, extract_configuration_param
 
@@ -74,11 +72,13 @@ def main():
         )
         siemplify.LOGGER.info("Initializing psengine AnalystNoteMgr")
         note_mgr = AnalystNoteMgr()
-        siemplify.LOGGER.info(f"Publishing Analyst Note")
+        siemplify.LOGGER.info("Publishing Analyst Note")
         analyst_note_resp = note_mgr.publish(title=note_title, text=note_text, topic=topic)
         data = analyst_note_resp.json()
         siemplify.result.add_result_json(data)
-        output_message += f"Successfully published Analyst Note {analyst_note_resp.note_id} in Recorded Future."
+        output_message += (
+            f"Successfully published Analyst Note {analyst_note_resp.note_id} in Recorded Future."
+        )
 
     except ValueError as err:
         output_message = f"Analyst Note Manager ValueError: {err}"

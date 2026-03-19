@@ -15,7 +15,6 @@ from psengine.playbook_alerts import (
     PlaybookAlertUpdateError,
 )
 from pydantic import ValidationError
-
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction
 from soar_sdk.SiemplifyUtils import output_handler
@@ -26,12 +25,12 @@ from ..core.version import __version__ as version
 
 
 def clean_input(input_str):
-     """
-     Cleans the playbook alert input values from ddl config options.
-     """
-     result = None if input_str == "None" else input_str
-     result = result.replace(" ", "") if isinstance(result, str) else result
-     return result
+    """
+    Cleans the playbook alert input values from ddl config options.
+    """
+    result = None if input_str == "None" else input_str
+    result = result.replace(" ", "") if isinstance(result, str) else result
+    return result
 
 
 @output_handler
@@ -109,7 +108,7 @@ def main():
         )
         siemplify.LOGGER.info("Initializing psengine PlaybookAlertMgr")
         pba_mgr = PlaybookAlertMgr()
-        siemplify.LOGGER.info(f"Updating Playbook Alert: {alert_id}")
+        siemplify.LOGGER.info(f"Updating {category if category else ' '}Playbook Alert: {alert_id}")
         update_pba_resp = pba_mgr.update(
             alert=alert_id,
             priority=clean_input(priority),

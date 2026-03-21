@@ -57,6 +57,9 @@ PING_IP = "8.8.8.8"
 CI_DETECTION_TYPE = "playbook"
 CI_INCIDENT_TYPE = "google-secops-threat-detection"
 
+# Detection Rules
+DETECTION_RULE_TYPES = ["yara", "snort", "sigma"]
+
 # Enrichment
 DEFAULT_THRESHOLD = 25
 DEFAULT_SCORE = 0

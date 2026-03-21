@@ -150,6 +150,7 @@ PLAYBOOK_ALERT_CATEGORIES = [
     "third_party_risk",
     "identity_novel_exposures",
     "geopolitics_facility",
+    "malware_report",
 ]
 PLAYBOOK_ALERT_STATUSES = ["New", "InProgress", "Resolved", "Dismissed"]
 PLAYBOOK_ALERT_PRIORITIES = ["Informational", "Moderate", "High"]

@@ -25,7 +25,7 @@ from psengine.enrich import (
     SOAREnrichedEntity,
 )
 from psengine.malware_intel import SandboxReport
-from psengine.playbook_alerts import PBA_Generic, PBA_IdentityNovelExposure
+from psengine.playbook_alerts import PBA_Generic, PBA_IdentityNovelExposure, PBA_MalwareReport
 
 from .constants import CLASSIC_ALERT_ENTITY_MAPPING
 from .datamodels import (
@@ -357,16 +357,20 @@ def build_playbook_alert(pba: PBA_Generic, linked_cases=None, severity=None):
     alert_url = f"https://app.recordedfuture.com/portal/playbook-alerts/{id_}"
 
     # when the compromised user isn't an email
+    label = pba.panel_status.case_rule_label
     entity_name = pba.panel_status.entity_name
     if entity_name is None and isinstance(pba, PBA_IdentityNovelExposure):
         entity_name = pba.panel_evidence_summary.subject
+    elif entity_name is None and isinstance(pba, PBA_MalwareReport):
+        entity_name = pba.panel_evidence_summary.notification_title
+        label = "Malware Report"
 
     return PlaybookAlert(
         raw_data=dump_model(pba),
         id_=id_,
         alert_url=alert_url,
         category=pba.category,
-        label=pba.panel_status.case_rule_label,
+        label=label,
         start=pba.panel_status.created,
         end=pba.panel_status.updated,
         title=f"{pba.panel_status.case_rule_label} - {entity_name}",

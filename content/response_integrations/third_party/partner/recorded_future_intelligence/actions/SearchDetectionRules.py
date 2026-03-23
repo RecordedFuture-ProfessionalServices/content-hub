@@ -63,6 +63,19 @@ def main():
         default_value=False,
         is_mandatory=False,
     )
+    entity_ids = param_validator.validate_csv(
+        param_name="entity_ids",
+        csv_string=extract_action_param(
+            siemplify,
+            param_name="Entity ID",
+            input_type=str,
+            print_value=True,
+            default_value=None,
+            is_mandatory=False,
+        ),
+        delimiter=CSV_DELIMETER,
+        default_value=None,
+    )
     created_before = extract_action_param(
         siemplify,
         param_name="Created Before",
@@ -133,7 +146,9 @@ def main():
     output_message = ""
 
     try:
-        entities = map_secops_entities_to_rf(siemplify.target_entities) if entities else []
+        target_entities = map_secops_entities_to_rf(siemplify.target_entities) if entities else entity_ids
+        if target_entities:
+            siemplify.LOGGER.info(f"Searching detection rules for target entities: {target_entities}")
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -145,7 +160,7 @@ def main():
         siemplify.LOGGER.info("Searching Detection Rules in Recorded Future")
         search_detection_resp = detection_mgr.search(
             detection_rule=detection_rule,
-            entities=entities,
+            entities=target_entities,
             created_before=created_before,
             created_after=created_after,
             updated_before=updated_before,

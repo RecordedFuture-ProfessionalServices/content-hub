@@ -15,6 +15,10 @@ parameters:
     is_mandatory: false
     name: Filter on Target Entities
     type: boolean
+-   description: A comma separated list of entities that may be associated with a given detection rule. All values in the list must be valid Recorded Future entity IDs.
+    is_mandatory: false
+    name: Entity ID
+    type: string
 -   description: Filter for rules created before this date or relative date.
     is_mandatory: false
     name: Created Before

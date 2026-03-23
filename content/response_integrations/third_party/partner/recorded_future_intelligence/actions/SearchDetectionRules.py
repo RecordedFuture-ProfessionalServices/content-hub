@@ -146,9 +146,13 @@ def main():
     output_message = ""
 
     try:
-        target_entities = map_secops_entities_to_rf(siemplify.target_entities) if entities else entity_ids
+        target_entities = (
+            map_secops_entities_to_rf(siemplify.target_entities) if entities else entity_ids
+        )
         if target_entities:
-            siemplify.LOGGER.info(f"Searching detection rules for target entities: {target_entities}")
+            siemplify.LOGGER.info(
+                f"Searching detection rules for target entities: {target_entities}"
+            )
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,

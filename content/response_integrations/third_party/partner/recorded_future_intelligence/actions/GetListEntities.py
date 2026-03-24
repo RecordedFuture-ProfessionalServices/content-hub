@@ -89,7 +89,7 @@ def main():
         status = EXECUTION_STATE_FAILED
 
     except Exception as err:
-        output_message = f"Error executing Fetch List action: {err}"
+        output_message = f"Error executing Get List Entities action: {err}"
         is_success = False
         status = EXECUTION_STATE_FAILED
 

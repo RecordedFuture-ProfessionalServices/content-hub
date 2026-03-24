@@ -99,9 +99,17 @@
   item_type: Integration
   publish_time: '2026-02-06'
   ticket_number: ''
-- description: 'Added Entity Match action.'
+- description: Updated integration metadata.
   integration_version: 11.0
   item_name: RecordedFutureIntelligence
   item_type: Integration
-  publish_time: '2026-03-30'
+  publish_time: '2026-03-18'
+  ticket_number: ''
+- description: 'Added Entity Match API and List API actions.
+    Added Malware Report Playbook Alert.
+    '
+  integration_version: 12.0
+  item_name: RecordedFutureIntelligence
+  item_type: Integration
+  publish_time: '2026-04-02'
   ticket_number: ''

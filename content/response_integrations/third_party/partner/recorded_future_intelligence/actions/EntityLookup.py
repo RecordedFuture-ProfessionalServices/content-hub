@@ -69,13 +69,13 @@ def main():
             output_message = "Successfully ran Entity Lookup action. Did not match Entity ID."
         siemplify.result.add_result_json(data)
 
-    except ValueError as err:
-        output_message = f"Error creating Entity Match Manager {err}"
+    except ValidationError as err:
+        output_message = f"Invalid parameters for Entity Lookup action {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
-    except ValidationError as err:
-        output_message = f"Invalid parameters for Entity Lookup action {err}"
+    except ValueError as err:
+        output_message = f"Error creating Entity Match Manager {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED

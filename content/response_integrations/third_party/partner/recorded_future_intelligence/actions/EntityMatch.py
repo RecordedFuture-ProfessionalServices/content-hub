@@ -77,13 +77,13 @@ def main():
         siemplify.result.add_result_json(data)
         output_message = "Successfully ran Entity Match action."
 
-    except ValueError as err:
-        output_message = f"Error creating Entity Match Manager {err}"
+    except ValidationError as err:
+        output_message = f"Invalid parameters for Entity Match action {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
-    except ValidationError as err:
-        output_message = f"Invalid parameters for Entity Match action {err}"
+    except ValueError as err:
+        output_message = f"Error creating Entity Match Manager {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED

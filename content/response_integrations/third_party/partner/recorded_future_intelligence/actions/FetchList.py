@@ -66,13 +66,13 @@ def main():
         siemplify.result.add_result_json(data)
         output_message += f"Successfully fetched list from Recorded Future: {fetch_resp.id_}."
 
-    except ValueError as err:
-        output_message = f"Error creating List Manager: {err}"
+    except ValidationError as err:
+        output_message = f"Error with List Manager parameters: {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
-    except ValidationError as err:
-        output_message = f"Error with List Manager parameters: {err}"
+    except ValueError as err:
+        output_message = f"Error creating List Manager: {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED

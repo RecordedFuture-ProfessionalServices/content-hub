@@ -65,13 +65,13 @@ def main():
         siemplify.result.add_result_json(data)
         output_message = "Successfully ran Fetch Detection Rule action."
 
-    except ValueError as err:
-        output_message = f"Error creating Detection Rule Manager {err}"
+    except ValidationError as err:
+        output_message = f"Invalid parameters for Fetch Detection Rule action {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
-    except ValidationError as err:
-        output_message = f"Invalid parameters for Fetch Detection Rule action {err}"
+    except ValueError as err:
+        output_message = f"Error creating Detection Rule Manager {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED

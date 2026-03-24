@@ -176,7 +176,7 @@ def main():
         )
         data = [rule.json() for rule in search_detection_resp]
         siemplify.result.add_result_json(data)
-        output_message = "Successfully ran Search Detection Rules action."
+        output_message = f"Successfully ran Search Detection Rules action. Found {len(data)} rule(s)."
 
     except ValueError as err:
         output_message = f"Error creating Detection Rule Manager {err}"

@@ -56,6 +56,7 @@ def main():
         is_mandatory=False,
         print_value=True,
         input_type=int,
+        default_value=25,
     )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
@@ -77,7 +78,7 @@ def main():
         search_resp = list_mgr.search(
             list_name=list_name,
             list_type=list_type,
-            limit=max_results,
+            max_results=max_results,
         )
         data = [wl.json() for wl in search_resp]
         siemplify.result.add_result_json(data)

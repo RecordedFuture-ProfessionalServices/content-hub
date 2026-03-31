@@ -63,7 +63,7 @@ def main():
         fetch_detection_resp = detection_mgr.fetch(doc_id=doc_id)
         data = fetch_detection_resp.json() if fetch_detection_resp else {}
         siemplify.result.add_result_json(data)
-        output_message = "Successfully ran Fetch Detection Rule action."
+        output_message = f"Successfully ran Fetch Detection Rule action. Found {len(data)} rule(s)."
 
     except ValidationError as err:
         output_message = f"Invalid parameters for Fetch Detection Rule action {err}"

@@ -74,10 +74,13 @@ def main():
 
     if entity_id:
         entities = [entity_id]
+        siemplify.LOGGER.info(f"Entity ID parameter supplied, target entity: {entities}")
     elif bool(entity_name) and bool(entity_type):
         entities = [(entity_name, entity_type)]
+        siemplify.LOGGER.info(f"Entity Name and Type parameters supplied, target entity: {entities}")
     else:
         entities = map_secops_entities_to_rf(siemplify.target_entities)
+        siemplify.LOGGER.info(f"No Entity parameters supplied, defaulting to Case Target Entities: {entities}")
 
     try:
         siemplify.LOGGER.info("Initializing psengine configuration")

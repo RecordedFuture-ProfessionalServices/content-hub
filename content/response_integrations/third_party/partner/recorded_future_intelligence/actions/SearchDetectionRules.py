@@ -137,7 +137,7 @@ def main():
         param_name="Max Results",
         input_type=int,
         print_value=True,
-        default_value=None,
+        default_value=10,
         is_mandatory=False,
     )
 

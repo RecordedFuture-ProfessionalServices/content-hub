@@ -116,3 +116,11 @@
   item_type: Integration
   publish_time: '2026-04-02'
   ticket_number: ''
+- description: 'Added Identity API actions.
+    Added Attack Surface API actions.
+    '
+  integration_version: 12.0
+  item_name: RecordedFutureIntelligence
+  item_type: Integration
+  publish_time: '2026-05-20'
+  ticket_number: ''

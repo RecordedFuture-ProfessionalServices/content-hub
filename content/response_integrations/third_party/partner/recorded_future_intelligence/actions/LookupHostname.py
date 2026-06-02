@@ -10,7 +10,8 @@
 from __future__ import annotations
 
 from psengine.config import Config
-from psengine.identity import IdentityLookupError, IdentityMgr
+from psengine.identity import IdentityMgr
+from psengine.identity.errors import IdentityLookupError
 from pydantic import ValidationError
 from soar_sdk.ScriptResult import EXECUTION_STATE_COMPLETED, EXECUTION_STATE_FAILED
 from soar_sdk.SiemplifyAction import SiemplifyAction

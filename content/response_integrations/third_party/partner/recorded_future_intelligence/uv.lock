@@ -434,7 +434,7 @@ wheels = [
 
 [[package]]
 name = "psengine"
-version = "2.5.1"
+version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonpath-ng" },
@@ -447,9 +447,9 @@ dependencies = [
     { name = "stix2" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/aa/01/2bb0f0ab479d0f7999fd06583d052f06d0216c9aa4e14da9447c95c4c59e/psengine-2.5.1.tar.gz", hash = "sha256:790711b373bd49ed68bbbd5cf72a2650156665f1d03e289e6d65ddba4e43c2b1", size = 137595, upload-time = "2026-03-26T15:29:59.429Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/59/375499bbb991679d18ac05b67efc304a7049b6f483199694b061eea14b57/psengine-2.7.0.tar.gz", hash = "sha256:4c6e2b4adfeec4beeb8b883324337a124b22631df05291d4a3c3991c2ec3004f", size = 140541, upload-time = "2026-05-01T10:10:22.134Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/62/fa/4256a023aafc7adef6f6875e1ea0464c50a360bf6e9463e168e4e004a42c/psengine-2.5.1-py3-none-any.whl", hash = "sha256:03b2d607dd8707ec186eebf96257cb94d0346af264b02d2a49e9c9f081053146", size = 243078, upload-time = "2026-03-26T15:29:57.83Z" },
+    { url = "https://files.pythonhosted.org/packages/19/3b/482f70027af792e8faf34f2348962498452b6555bdfbb6d846be3042eaea/psengine-2.7.0-py3-none-any.whl", hash = "sha256:5fa47c22b385cf159c0c9c66f95ff6877307066047e62360949be7caf4fef4d6", size = 259958, upload-time = "2026-05-01T10:10:20.452Z" },
 ]
 
 [[package]]
@@ -552,15 +552,16 @@ wheels = [
 
 [[package]]
 name = "pydantic-settings"
-version = "2.5.2"
+version = "2.14.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/68/27/0bed9dd26b93328b60a1402febc780e7be72b42847fa8b5c94b7d0aeb6d1/pydantic_settings-2.5.2.tar.gz", hash = "sha256:f90b139682bee4d2065273d5185d71d37ea46cfe57e1b5ae184fc6a0b2484ca0", size = 70938, upload-time = "2024-09-11T09:08:08.489Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/98/c8345dccdc31de4228c039a98f6467a941e39558da41c1744fbe29fa5666/pydantic_settings-2.14.0.tar.gz", hash = "sha256:24285fd4b0e0c06507dd9fdfd331ee23794305352aaec8fc4eb92d4047aeb67d", size = 235709, upload-time = "2026-04-20T13:37:40.293Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/29/8d/29e82e333f32d9e2051c10764b906c2a6cd140992910b5f49762790911ba/pydantic_settings-2.5.2-py3-none-any.whl", hash = "sha256:2c912e55fd5794a59bf8c832b9de832dcfdf4778d79ff79b708744eed499a907", size = 26864, upload-time = "2024-09-11T09:08:07.242Z" },
+    { url = "https://files.pythonhosted.org/packages/01/dd/bebff3040138f00ae8a102d426b27349b9a49acc310fcae7f92112d867e3/pydantic_settings-2.14.0-py3-none-any.whl", hash = "sha256:fc8d5d692eb7092e43c8647c1c35a3ecd00e040fcf02ed86f4cb5458ca62182e", size = 60940, upload-time = "2026-04-20T13:37:38.586Z" },
 ]
 
 [package.optional-dependencies]
@@ -698,7 +699,7 @@ requires-dist = [
     { name = "antlr4-python3-runtime", url = "https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d19459005ca000b6e7012f2f1ca597746cbcd1fbfe5e/antlr4-python3-runtime-4.9.3.tar.gz" },
     { name = "environmentcommon", path = "../../../../../packages/envcommon/whls/EnvironmentCommon-1.0.3-py3-none-any.whl" },
     { name = "hatching-triage", url = "https://files.pythonhosted.org/packages/e2/f7/7396282c8d786dee9f73574fa84aeba0f4b198390ffeb4ef12f332dc1ee7/hatching-triage-0.2.0.tar.gz" },
-    { name = "psengine", specifier = "~=2.5.1" },
+    { name = "psengine", specifier = "~=2.7.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "setuptools", specifier = ">=79.0.0" },
     { name = "tipcommon", path = "../../../../../packages/tipcommon/whls/TIPCommon-2.3.6-py3-none-any.whl" },

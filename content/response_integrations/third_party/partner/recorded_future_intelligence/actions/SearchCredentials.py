@@ -187,7 +187,7 @@ def main():
         input_type=int,
         is_mandatory=False,
         print_value=True,
-        default_value=1000,
+        default_value=500,
     )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
@@ -213,7 +213,7 @@ def main():
         siemplify.LOGGER.info("Initializing psengine IdentityMgr")
         identity_mgr = IdentityMgr()
         siemplify.LOGGER.info("Searching credentials for given domain(s)")
-        lookup_resp = identity_mgr.search_credentials(
+        search_resp = identity_mgr.search_credentials(
             domains=domains,
             domain_types=domain_types,
             first_downloaded_gte=first_downloaded_gte,
@@ -231,10 +231,10 @@ def main():
             organization_id=organization_id,
             max_results=max_results,
         )
-        data = [cred_result.json() for cred_result in lookup_resp]
+        data = [cred_result.json() for cred_result in search_resp]
         siemplify.result.add_result_json(data)
         output_message += (
-            "Successfully searched credentials for the given subject(s)"
+            "Successfully searched credentials for the given domain(s)"
         )
 
     except ValidationError as err:

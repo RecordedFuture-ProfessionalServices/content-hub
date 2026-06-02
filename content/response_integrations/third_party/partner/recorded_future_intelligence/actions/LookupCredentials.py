@@ -173,7 +173,7 @@ def main():
         input_type=int,
         is_mandatory=False,
         print_value=True,
-        default_value=1000,
+        default_value=500,
     )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")

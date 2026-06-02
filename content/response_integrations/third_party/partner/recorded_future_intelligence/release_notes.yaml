@@ -119,7 +119,7 @@
 - description: 'Added Identity API actions.
     Added Attack Surface API actions.
     '
-  integration_version: 12.0
+  version: 12.0
   item_name: RecordedFutureIntelligence
   item_type: Integration
   publish_time: '2026-05-20'

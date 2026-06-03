@@ -1,7 +1,7 @@
 [project]
 name = "RecordedFutureIntelligence"
 version = "13.0"
-description = "Recorded Future's unique technology collects and analyzes vast amounts of data to deliver relevant cyber threat insights in real-time"
+description = "Recorded Future's unique technology collects and analyzes vast amounts of data to deliver relevant cyber threat insights in real-time. For support please contact support@recordedfuture.com"
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "antlr4-python3-runtime",

@@ -39,9 +39,9 @@ def main():
         input_type=bool,
     )
 
-    ip = extract_action_param(
+    hostname = extract_action_param(
         siemplify,
-        param_name="IP",
+        param_name="Hostname",
         input_type=str,
         is_mandatory=False,
         print_value=True,
@@ -54,38 +54,6 @@ def main():
         print_value=True,
         default_value=False,
         is_mandatory=False,
-    )
-    range_gte = extract_action_param(
-        siemplify,
-        param_name="Range GTE",
-        input_type=str,
-        is_mandatory=False,
-        print_value=True,
-        remove_whitespaces=True,
-    )
-    range_gt = extract_action_param(
-        siemplify,
-        param_name="Range GT",
-        input_type=str,
-        is_mandatory=False,
-        print_value=True,
-        remove_whitespaces=True,
-    )
-    range_lte = extract_action_param(
-        siemplify,
-        param_name="Range LTE",
-        input_type=str,
-        is_mandatory=False,
-        print_value=True,
-        remove_whitespaces=True,
-    )
-    range_lt = extract_action_param(
-        siemplify,
-        param_name="Range LT",
-        input_type=str,
-        is_mandatory=False,
-        print_value=True,
-        remove_whitespaces=True,
     )
     first_downloaded_gte = extract_action_param(
         siemplify,
@@ -207,10 +175,10 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
-        ip = siemplify.target_entities if is_target_entities else ip
-        if isinstance(ip, list):
-            siemplify.LOGGER.info("Target IP contains multiple values, using the first")
-            ip = ip[0].identifier
+        hostname = siemplify.target_entities if is_target_entities else hostname
+        if isinstance(hostname, list):
+            siemplify.LOGGER.info("Target Hostname contains multiple values, using the first")
+            hostname = hostname[0].identifier
         
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
@@ -220,13 +188,9 @@ def main():
         )
         siemplify.LOGGER.info("Initializing psengine IdentityMgr")
         identity_mgr = IdentityMgr()
-        siemplify.LOGGER.info("Searching credentials for given IP")
-        lookup_resp = identity_mgr.lookup_ip(
-            ip=ip,
-            range_gte=range_gte,
-            range_gt=range_gt,
-            range_lte=range_lte,
-            range_lt=range_lt,
+        siemplify.LOGGER.info("Searching credentials for given hostname")
+        lookup_resp = identity_mgr.lookup_hostname(
+            hostname=hostname,
             first_downloaded_gte=first_downloaded_gte,
             latest_downloaded_gte=latest_downloaded_gte,
             exfiltration_date_gte=exfiltration_date_gte,
@@ -245,7 +209,7 @@ def main():
         data = [cred_result.json() for cred_result in lookup_resp]
         siemplify.result.add_result_json(data)
         output_message += (
-            "Successfully searched credentials for the given IP"
+            "Successfully searched credentials for the given hotsname"
         )
 
     except IndexError as err:
@@ -264,13 +228,13 @@ def main():
         is_success = False
         status = EXECUTION_STATE_FAILED
     except IdentityLookupError as err:
-        output_message = f"Error searching IP credentials: {err}"
+        output_message = f"Error searching hostname credentials: {err}"
         siemplify.LOGGER.error(output_message)
         is_success = False
         status = EXECUTION_STATE_FAILED
 
     except Exception as err:
-        output_message = f"Error executing Lookup IP action: {err}"
+        output_message = f"Error executing Lookup Hostname Credentials action: {err}"
         is_success = False
         status = EXECUTION_STATE_FAILED
 

@@ -1,0 +1,176 @@
+Recorded Future - Classic Alert Status Sync:
+  ai_description: >-
+    ### General Description
+
+    Keeps the status of Recorded Future classic alerts and the Google SecOps alerts
+    created from them aligned, in both directions. It operates on Google SecOps cases
+    created by the "Recorded Future - Security Alerts Connector", which stamps the
+    Recorded Future classic alert ID onto each Google SecOps alert as its ticket ID.
+
+
+    The job only synchronizes status. Comments, tags, severity, and assignee are
+    deliberately left untouched.
+
+
+    ### Parameters Description
+
+    | Parameter | Type | Mandatory | Description |
+
+    | --- | --- | --- | --- |
+
+    | Environment Name | string | Yes | The Google SecOps environment whose cases are
+    synchronized. |
+
+    | API URL | string | Yes | API root of the Recorded Future instance. Jobs cannot
+    read integration instance configuration, so the credentials are supplied here. |
+
+    | API Key | password | Yes | Recorded Future API key. |
+
+    | Verify SSL | boolean | No | Verify the Recorded Future server's SSL certificate.
+    |
+
+    | Max Hours Backwards | integer | No | How far back to look for updated cases on
+    the first run, or if the last run timestamp is reset. Range 1 to 720, default 24.
+    |
+
+    | Closed Alert Reason | string | No | Reason recorded when the job closes a Google
+    SecOps alert. Must be valid in the target Google SecOps environment. Default
+    "Inconclusive". |
+
+    | Closed Alert Root Cause | string | No | Root cause recorded when the job closes
+    a Google SecOps alert or case. Must be configured in the target Google SecOps
+    environment. Default "No clear conclusion". |
+
+    | Close Case When All Alerts Closed | boolean | No | Close the Google SecOps case
+    once every alert on it is closed. Disabled by default. Cases are always reopened
+    when the job reopens an alert inside them, regardless of this setting. |
+
+
+    ### Flow Description
+
+    1. Selects Google SecOps cases modified since the last successful run, plus cases
+    the job is already tracking.
+
+    2. Keeps only the alerts whose device product is "Recorded Future Classic Alert",
+    and reads the Recorded Future alert ID from each alert's ticket ID. Cases with no
+    such alert are skipped.
+
+    3. Reads the current status of those classic alerts from Recorded Future with a
+    bulk fetch by ID (`ClassicAlertMgr.fetch_bulk`), taking the value from
+    `review.status_in_portal`. A bulk fetch is used because the classic alert search
+    endpoint cannot filter on last-modified time.
+
+    4. Inbound: if the classic alert is Resolved or Dismissed and the Google SecOps
+    alert is still open, closes the Google SecOps alert and records that the job
+    closed it. If the classic alert has returned to an open status and the job closed
+    that Google SecOps alert, reopens the alert, reopening its case first if needed.
+
+    5. Outbound: if an analyst closed the Google SecOps alert or its case and the
+    classic alert is not already Resolved or Dismissed, sets the classic alert to
+    Resolved in Recorded Future with an audit note.
+
+    6. Writes an audit comment to the case for every change made in either direction.
+
+    7. Persists the last observed Recorded Future status per alert, and whether the
+    job closed it, to the job context. This state is what prevents the two directions
+    from re-triggering each other on the next iteration.
+
+
+    ### Additional Notes
+
+    An alert closed by an analyst is never reopened by this job; only alerts the job
+    closed itself are eligible for reopening.
+
+
+    This job is independent of the "Recorded Future - Playbook Alerts Tracking
+    Connector", which creates new cases on Recorded Future side changes rather than
+    updating existing ones. Running both means a Recorded Future change can update
+    the existing case and also create a tracking case.
+Recorded Future - Playbook Alert Status Sync:
+  ai_description: >-
+    ### General Description
+
+    Keeps the status of Recorded Future playbook alerts and the Google SecOps alerts
+    created from them aligned, in both directions. It operates on Google SecOps cases
+    created by the "Recorded Future - Playbook Alerts Connector", which stamps the
+    Recorded Future playbook alert ID onto each Google SecOps alert as its ticket ID.
+
+
+    The job only synchronizes status. Comments, tags, priority, and assignee are
+    deliberately left untouched.
+
+
+    ### Parameters Description
+
+    | Parameter | Type | Mandatory | Description |
+
+    | --- | --- | --- | --- |
+
+    | Environment Name | string | Yes | The Google SecOps environment whose cases are
+    synchronized. |
+
+    | API URL | string | Yes | API root of the Recorded Future instance. Jobs cannot
+    read integration instance configuration, so the credentials are supplied here. |
+
+    | API Key | password | Yes | Recorded Future API key. |
+
+    | Verify SSL | boolean | No | Verify the Recorded Future server's SSL certificate.
+    |
+
+    | Max Hours Backwards | integer | No | How far back to look for updated cases and
+    playbook alerts on the first run, or if the last run timestamp is reset. Range 1
+    to 720, default 24. |
+
+    | Closed Alert Reason | string | No | Reason recorded when the job closes a Google
+    SecOps alert. Must be valid in the target Google SecOps environment. Default
+    "Inconclusive". |
+
+    | Closed Alert Root Cause | string | No | Root cause recorded when the job closes
+    a Google SecOps alert or case. Must be configured in the target Google SecOps
+    environment. Default "No clear conclusion". |
+
+    | Close Case When All Alerts Closed | boolean | No | Close the Google SecOps case
+    once every alert on it is closed. Disabled by default. Cases are always reopened
+    when the job reopens an alert inside them, regardless of this setting. |
+
+
+    ### Flow Description
+
+    1. Selects Google SecOps cases modified since the last successful run, plus cases
+    the job is already tracking.
+
+    2. Keeps only the alerts whose device product is "Recorded Future Playbook Alert",
+    and reads the Recorded Future alert ID from each alert's ticket ID. Cases with no
+    such alert are skipped.
+
+    3. Runs one playbook alert search per iteration filtered on `updated_from`, which
+    returns each changed alert's status inline. Tracked alerts absent from that window
+    are unchanged and reuse the status recorded on the previous iteration; an alert
+    seen for the first time is fetched individually.
+
+    4. Inbound: if the playbook alert is Resolved or Dismissed and the Google SecOps
+    alert is still open, closes the Google SecOps alert and records that the job closed
+    it. If the playbook alert has returned to New or InProgress and the job closed that
+    Google SecOps alert, reopens the alert, reopening its case first if needed.
+
+    5. Outbound: if an analyst closed the Google SecOps alert or its case and the
+    playbook alert is not already Resolved or Dismissed, sets the playbook alert to
+    Resolved in Recorded Future with an audit log entry.
+
+    6. Writes an audit comment to the case for every change made in either direction.
+
+    7. Persists the last observed Recorded Future status per alert, and whether the
+    job closed it, to the job context. This state is what prevents the two directions
+    from re-triggering each other on the next iteration.
+
+
+    ### Additional Notes
+
+    An alert closed by an analyst is never reopened by this job; only alerts the job
+    closed itself are eligible for reopening.
+
+
+    This job is independent of the "Recorded Future - Playbook Alerts Tracking
+    Connector", which creates new cases on Recorded Future side changes rather than
+    updating existing ones. Running both means a Recorded Future change can update
+    the existing case and also create a tracking case.

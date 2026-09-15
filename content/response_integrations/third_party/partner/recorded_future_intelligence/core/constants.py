@@ -147,6 +147,43 @@ ENTITY_PREFIX_TYPE_MAP_LIST_OPS = {
 CLASSIC_ALERT_DEFAULT_STATUSES = ["New"]
 CLASSIC_ALERT_STATUSES = ["New", "Pending", "Resolved", "Dismissed", "Flag for Tuning"]
 
+# Alert Status Sync Jobs
+CLASSIC_ALERT_SYNC_JOB_SCRIPT_NAME = "Recorded Future - Classic Alert Status Sync"
+PLAYBOOK_ALERT_SYNC_JOB_SCRIPT_NAME = "Recorded Future - Playbook Alert Status Sync"
+CLASSIC_ALERT_SYNC_CONTEXT_KEY = "recorded_future_classic_alert_status_sync"
+PLAYBOOK_ALERT_SYNC_CONTEXT_KEY = "recorded_future_playbook_alert_status_sync"
+
+# Suffix appended to a sync job's context identifier to store the per-alert sync
+# state (last observed Recorded Future status, and whether the job closed the
+# Google SecOps alert itself). This state is what prevents the two sync
+# directions from re-triggering each other on every iteration.
+SYNC_STATE_CONTEXT_SUFFIX = "_alert_state"
+SYNC_STATE_STATUS_KEY = "recorded_future_status"
+SYNC_STATE_CLOSED_BY_JOB_KEY = "closed_by_job"
+SYNC_STATE_PRODUCT_ID_KEY = "recorded_future_alert_id"
+
+# Recorded Future statuses that represent a terminal (closed) alert. Applies to
+# both classic and playbook alerts.
+SYNC_TERMINAL_STATUSES = frozenset({"Resolved", "Dismissed"})
+
+# Status written back to Recorded Future when a Google SecOps alert or case is
+# closed by an analyst.
+SYNC_OUTBOUND_CLOSED_STATUS = "Resolved"
+
+# Google SecOps alert status values that represent a closed alert.
+SOAR_CLOSED_ALERT_STATUSES = frozenset({"close", "closed"})
+
+SYNC_COMMENT_PREFIX = "[Recorded Future Status Sync]"
+SYNC_DEFAULT_MAX_HOURS_BACKWARDS = 24
+SYNC_MIN_HOURS_BACKWARDS = 1
+SYNC_MAX_HOURS_BACKWARDS = 720
+SYNC_DEFAULT_CLOSE_REASON = "Inconclusive"
+SYNC_DEFAULT_CLOSE_ROOT_CAUSE = "No clear conclusion"
+SYNC_CASE_CLOSE_REASON = "Closed by Recorded Future Status Sync"
+SYNC_REOPEN_ALERT_ENDPOINT = "external/v1/dynamic-cases/ReopenAlert"
+SYNC_REOPEN_CASE_ENDPOINT = "external/v1/cases/ExecuteBulkReopenCase"
+SYNC_PRODUCT_FETCH_MAX_WORKERS = 10
+
 # Playbook Alerts Connector
 PLAYBOOK_ALERT_API_LIMIT = 200
 PLAYBOOK_ALERT_CATEGORIES = [

@@ -1,0 +1,8 @@
+{
+    "ApiUrl": "https://api.recordedfuture.com",
+    "ApiKey": "test_api_key",
+    "SandboxApiUrl": "https://sandbox.recordedfuture.com",
+    "SandboxApiKey": "test_sandbox_api_key",
+    "Verify SSL": true,
+    "CollectiveInsights": true
+}

@@ -422,9 +422,7 @@ def test_outbound_resolves_recorded_future_when_analyst_closes_alert(
     job.sync_status(job_case)
 
     job.api_client.update_alert.assert_called_once()
-    assert job.api_client.update_alert.call_args.kwargs["status"] == (
-        SYNC_OUTBOUND_CLOSED_STATUS
-    )
+    assert job.api_client.update_alert.call_args.kwargs["status"] == (SYNC_OUTBOUND_CLOSED_STATUS)
     assert job.alert_state["a-1"][SYNC_STATE_STATUS_KEY] == SYNC_OUTBOUND_CLOSED_STATUS
 
 

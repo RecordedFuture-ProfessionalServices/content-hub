@@ -87,9 +87,7 @@ def main():
     reporting_vendor = siemplify.current_alert.reporting_vendor
     external_vendor = reporting_vendor != DEFAULT_DEVICE_VENDOR
 
-    collective_insights_enabled = (
-        collective_insights_action and collective_insights_global and external_vendor
-    )
+    collective_insights_enabled = collective_insights_action and collective_insights_global and external_vendor
 
     recorded_future_common = RecordedFutureCommon(
         siemplify,

@@ -79,10 +79,8 @@ def widget_allowlist(name: str) -> list[str]:
 
     """
     matches = ALLOWLIST_PATTERN.findall(widget_html(name))
-    assert len(matches) == 1, (
-        f"{name}.html must declare `allowlistedFields` exactly once, found {len(matches)}"
-    )
-    return [field.strip().strip('"\'') for field in matches[0].split(",") if field.strip()]
+    assert len(matches) == 1, f"{name}.html must declare `allowlistedFields` exactly once, found {len(matches)}"
+    return [field.strip().strip("\"'") for field in matches[0].split(",") if field.strip()]
 
 
 def widget_data_model(name: str) -> str:
@@ -114,9 +112,7 @@ def widgets_for_model(model: str) -> list[str]:
 
     """
     return sorted(
-        name
-        for name in WIDGET_NAMES
-        if (WIDGETS_DIR / f"{name}.html").is_file() and widget_data_model(name) == model
+        name for name in WIDGET_NAMES if (WIDGETS_DIR / f"{name}.html").is_file() and widget_data_model(name) == model
     )
 
 
@@ -133,8 +129,7 @@ def widget_string_constant(name: str, constant: str) -> str:
     pattern = re.compile(STRING_CONSTANT_TEMPLATE.format(name=re.escape(constant)))
     matches = pattern.findall(widget_html(name))
     assert len(matches) == 1, (
-        f"{name}.html must declare `{constant}` exactly once as a string literal, "
-        f"found {len(matches)}"
+        f"{name}.html must declare `{constant}` exactly once as a string literal, found {len(matches)}"
     )
     return matches[0]
 
@@ -152,8 +147,7 @@ def widget_object_constant_keys(name: str, constant: str) -> list[str]:
     pattern = re.compile(OBJECT_CONSTANT_TEMPLATE.format(name=re.escape(constant)))
     matches = pattern.findall(widget_html(name))
     assert len(matches) == 1, (
-        f"{name}.html must declare `{constant}` exactly once as an object literal, "
-        f"found {len(matches)}"
+        f"{name}.html must declare `{constant}` exactly once as an object literal, found {len(matches)}"
     )
     return [entry.split(":", 1)[0].strip() for entry in matches[0].split(",") if entry.strip()]
 

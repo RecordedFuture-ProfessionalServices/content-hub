@@ -34,12 +34,8 @@ def main():
     siemplify.script_name = ENRICH_IOC_SOAR_SCRIPT_NAME
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
-    api_url = extract_configuration_param(
-        siemplify, provider_name=PROVIDER_NAME, param_name="ApiUrl"
-    )
-    api_key = extract_configuration_param(
-        siemplify, provider_name=PROVIDER_NAME, param_name="ApiKey"
-    )
+    api_url = extract_configuration_param(siemplify, provider_name=PROVIDER_NAME, param_name="ApiUrl")
+    api_key = extract_configuration_param(siemplify, provider_name=PROVIDER_NAME, param_name="ApiKey")
     verify_ssl = extract_configuration_param(
         siemplify,
         provider_name=PROVIDER_NAME,
@@ -65,9 +61,7 @@ def main():
     reporting_vendor = siemplify.current_alert.reporting_vendor
     external_vendor = reporting_vendor != DEFAULT_DEVICE_VENDOR
 
-    collective_insights_enabled = (
-        collective_insights_action and collective_insights_global and external_vendor
-    )
+    collective_insights_enabled = collective_insights_action and collective_insights_global and external_vendor
 
     recorded_future_common = RecordedFutureCommon(
         siemplify=siemplify,
@@ -82,9 +76,7 @@ def main():
             collective_insights_enabled=collective_insights_enabled,
         )
     except Exception as e:
-        siemplify.LOGGER.error(
-            "General error performing action {}".format(ENRICH_IOC_SOAR_SCRIPT_NAME)
-        )
+        siemplify.LOGGER.error("General error performing action {}".format(ENRICH_IOC_SOAR_SCRIPT_NAME))
         siemplify.LOGGER.exception(e)
 
     siemplify.LOGGER.info("\n----------------- Main - Finished -----------------")

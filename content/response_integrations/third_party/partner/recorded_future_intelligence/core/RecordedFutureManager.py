@@ -119,9 +119,7 @@ class RecordedFutureManager:
         -------
             insight (Insight): Collective Insights object
         """
-        case_timestamp = (
-            datetime.fromtimestamp(self.siemplify.case.creation_time / 1000).isoformat()[:-3] + "Z"
-        )
+        case_timestamp = datetime.fromtimestamp(self.siemplify.case.creation_time / 1000).isoformat()[:-3] + "Z"
         insight = self.collective_insights.create(
             ioc_value=entity,
             ioc_type=entity_type,
@@ -717,8 +715,7 @@ class RecordedFutureManager:
             )
 
         self.siemplify.LOGGER.info(
-            f"Fetched {len(screenshots)} screenshot(s) for "
-            f"Playbook Alert {playbook_alert.playbook_alert_id}",
+            f"Fetched {len(screenshots)} screenshot(s) for Playbook Alert {playbook_alert.playbook_alert_id}",
         )
         return screenshots
 

@@ -64,9 +64,7 @@ SOAR_ENTITY_DATAMODEL_MAP = {
 
 
 def dump_model(model, **kwargs):
-    return model.model_dump(
-        by_alias=True, mode="json", exclude_none=True, exclude_unset=True, **kwargs
-    )
+    return model.model_dump(by_alias=True, mode="json", exclude_none=True, exclude_unset=True, **kwargs)
 
 
 def build_links(links):
@@ -87,11 +85,7 @@ def build_links(links):
 
 
 def build_siemplify_object(
-    enriched_entity: EnrichedIP
-    | EnrichedVulnerability
-    | EnrichedHash
-    | EnrichedDomain
-    | EnrichedURL,
+    enriched_entity: EnrichedIP | EnrichedVulnerability | EnrichedHash | EnrichedDomain | EnrichedURL,
 ) -> CVE | HASH | HOST | IP | URL:
     """Create enriched entity datamodel object.
 
@@ -141,9 +135,7 @@ def build_siemplify_soar_object(soar_enriched: SOAREnrichedEntity) -> CVE | HASH
         "score": soar_enriched.content.risk.score,
     }
     if soar_enriched.content.risk.rule.evidence is not None:
-        entity_data["evidence_details"] = [
-            dump_model(e) for e in soar_enriched.content.risk.rule.evidence
-        ]
+        entity_data["evidence_details"] = [dump_model(e) for e in soar_enriched.content.risk.rule.evidence]
     return SOAR_ENTITY_DATAMODEL_MAP[entity_type](**entity_data)
 
 
@@ -264,9 +256,7 @@ def build_event(
         if not entity_data:
             entity_data = list(
                 set(
-                    chain.from_iterable(
-                        ref.entities for ent in enriched_entities for ref in ent.references
-                    ),
+                    chain.from_iterable(ref.entities for ent in enriched_entities for ref in ent.references),
                 ),
             )
         entity_data = [dump_model(e) for e in entity_data]
@@ -288,9 +278,7 @@ def build_enriched_entity_event(enriched_entity: EnrichedEntity) -> dict[str, st
     """
     raw_data = {}
     for field_name, entity_type in CLASSIC_ALERT_ENTITY_MAPPING.items():
-        raw_data[field_name] = (
-            enriched_entity.entity.name if enriched_entity.entity.type_ == entity_type else ""
-        )
+        raw_data[field_name] = enriched_entity.entity.name if enriched_entity.entity.type_ == entity_type else ""
     return raw_data
 
 

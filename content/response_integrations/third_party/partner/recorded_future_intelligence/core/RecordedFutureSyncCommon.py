@@ -126,12 +126,9 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             max_limit=SYNC_MAX_HOURS_BACKWARDS,
             default_value=SYNC_DEFAULT_MAX_HOURS_BACKWARDS,
         )
-        self.params.closed_alert_reason = (
-            getattr(self.params, "closed_alert_reason", None) or SYNC_DEFAULT_CLOSE_REASON
-        )
+        self.params.closed_alert_reason = getattr(self.params, "closed_alert_reason", None) or SYNC_DEFAULT_CLOSE_REASON
         self.params.closed_alert_root_cause = (
-            getattr(self.params, "closed_alert_root_cause", None)
-            or SYNC_DEFAULT_CLOSE_ROOT_CAUSE
+            getattr(self.params, "closed_alert_root_cause", None) or SYNC_DEFAULT_CLOSE_ROOT_CAUSE
         )
         self.params.close_case_when_all_alerts_closed = bool(
             getattr(self.params, "close_case_when_all_alerts_closed", False),
@@ -325,11 +322,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
         if missing:
             self.status_cache.update(self._fetch_product_statuses(missing))
 
-        return {
-            alert_id: self.status_cache[alert_id]
-            for alert_id in alert_ids
-            if alert_id in self.status_cache
-        }
+        return {alert_id: self.status_cache[alert_id] for alert_id in alert_ids if alert_id in self.status_cache}
 
     def modified_synced_case_ids_by_product(
         self,
@@ -367,11 +360,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             return []
 
         last_seen = self.cached_product_statuses()
-        changed_ids = [
-            alert_id
-            for alert_id, status in statuses.items()
-            if last_seen.get(alert_id) != status
-        ]
+        changed_ids = [alert_id for alert_id, status in statuses.items() if last_seen.get(alert_id) != status]
         if not changed_ids:
             return []
 
@@ -407,8 +396,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             response = self.soar_job.get_cases_by_ticket_id(ticket_id=product_id)
         except Exception:
             self.logger.exception(
-                f"Failed to look up Google SecOps cases for Recorded Future alert "
-                f"{product_id}.",
+                f"Failed to look up Google SecOps cases for Recorded Future alert {product_id}.",
             )
             return []
 
@@ -420,8 +408,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
 
         if not isinstance(response, (list, tuple)):
             self.logger.warn(
-                f"Unexpected response shape when searching cases by ticket ID "
-                f"{product_id}: {type(response).__name__}.",
+                f"Unexpected response shape when searching cases by ticket ID {product_id}: {type(response).__name__}.",
             )
             return []
 
@@ -439,11 +426,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
 
         """
         return sorted(
-            {
-                alert.ticket_id
-                for alert in self._owned_alerts(case_details)
-                if alert.ticket_id
-            },
+            {alert.ticket_id for alert in self._owned_alerts(case_details) if alert.ticket_id},
         )
 
     def _owned_alerts(self, job_case: JobCase) -> list[AlertCard]:
@@ -456,11 +439,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             list[AlertCard]: Alerts whose ``device_product`` matches this job's.
 
         """
-        return [
-            alert
-            for alert in job_case.case_detail.alerts
-            if alert.device_product == self.DEVICE_PRODUCT
-        ]
+        return [alert for alert in job_case.case_detail.alerts if alert.device_product == self.DEVICE_PRODUCT]
 
     def map_product_data_to_case(self, job_case: JobCase) -> None:
         """Attach the current Recorded Future status to each owned alert.
@@ -470,9 +449,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
 
         """
         owned_alerts = self._owned_alerts(job_case)
-        job_case.product_ids_from_secops_alerts = {
-            alert.ticket_id: alert for alert in owned_alerts if alert.ticket_id
-        }
+        job_case.product_ids_from_secops_alerts = {alert.ticket_id: alert for alert in owned_alerts if alert.ticket_id}
 
         alert_ids = sorted(job_case.product_ids_from_secops_alerts)
         if not alert_ids:
@@ -658,11 +635,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             )
             return False
 
-        if (
-            not is_terminal
-            and alert_closed
-            and state.get(SYNC_STATE_CLOSED_BY_JOB_KEY)
-        ):
+        if not is_terminal and alert_closed and state.get(SYNC_STATE_CLOSED_BY_JOB_KEY):
             self._reopen_alert_in_secops(job_case, alert, recorded_future_status)
             self._set_alert_state(
                 alert.identifier,
@@ -810,8 +783,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             )
         except Exception:
             self.logger.exception(
-                f"Failed to set Recorded Future alert {alert.ticket_id} to "
-                f"{SYNC_OUTBOUND_CLOSED_STATUS}.",
+                f"Failed to set Recorded Future alert {alert.ticket_id} to {SYNC_OUTBOUND_CLOSED_STATUS}.",
             )
             return
 
@@ -867,9 +839,7 @@ class RecordedFutureBaseSyncJob(BaseSyncJob[RecordedFutureManager], abc.ABC):
             root_cause=self.params.closed_alert_root_cause,
             case_id=case.id_,
             reason=SYNC_CASE_CLOSE_REASON,
-            comment=(
-                f"{SYNC_COMMENT_PREFIX} All alerts on this case are closed. Closing the case."
-            ),
+            comment=(f"{SYNC_COMMENT_PREFIX} All alerts on this case are closed. Closing the case."),
             alert_identifier=None,
         )
         self.logger.info(f"Closed case {case.id_} because all of its alerts are closed.")

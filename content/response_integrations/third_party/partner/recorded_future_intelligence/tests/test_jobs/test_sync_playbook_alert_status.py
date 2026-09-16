@@ -44,10 +44,7 @@ def make_search_response(statuses: dict[str, str]) -> SimpleNamespace:
 
     """
     return SimpleNamespace(
-        data=[
-            SimpleNamespace(playbook_alert_id=alert_id, status=status)
-            for alert_id, status in statuses.items()
-        ],
+        data=[SimpleNamespace(playbook_alert_id=alert_id, status=status) for alert_id, status in statuses.items()],
     )
 
 

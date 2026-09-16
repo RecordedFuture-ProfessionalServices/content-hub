@@ -71,7 +71,7 @@ def main():
         siemplify.LOGGER.info(
             f"Connection to API established, performing action {PING_SCRIPT_NAME}",
         )
-        
+
     except Exception as e:
         output_message = f"Failed to connect to the Recorded Future server! Error is {e}"
         connectivity_result = False

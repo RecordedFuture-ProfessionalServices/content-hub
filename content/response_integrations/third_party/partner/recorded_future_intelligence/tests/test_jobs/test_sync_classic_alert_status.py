@@ -40,11 +40,7 @@ def make_classic_alert(alert_id: str, status_in_portal: str | None) -> SimpleNam
         SimpleNamespace: The classic alert double.
 
     """
-    review = (
-        SimpleNamespace(status_in_portal=status_in_portal)
-        if status_in_portal is not None
-        else None
-    )
+    review = SimpleNamespace(status_in_portal=status_in_portal) if status_in_portal is not None else None
     return SimpleNamespace(id_=alert_id, review=review)
 
 

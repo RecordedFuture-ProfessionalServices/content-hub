@@ -196,8 +196,7 @@ def main(is_test_run):
                 if len(processed_alerts) >= fetch_limit:
                     # Provide slicing for the alerts amount.
                     siemplify.LOGGER.info(
-                        "Reached max number of alerts cycle."
-                        "No more alerts will be processed in this cycle.",
+                        "Reached max number of alerts cycle.No more alerts will be processed in this cycle.",
                     )
                     break
 
@@ -239,9 +238,7 @@ def main(is_test_run):
                 )
                 for event in alert_info.events:
                     event["alert_id"] = alert.id
-                    event["alert_url"] = (
-                        f"https://app.recordedfuture.com/live/sc/notification/?id={alert.id}"
-                    )
+                    event["alert_url"] = f"https://app.recordedfuture.com/live/sc/notification/?id={alert.id}"
                     event["ai_insights_text"] = alert.raw_data["ai_insights_text"]
 
                 if enable_overflow and is_overflowed(

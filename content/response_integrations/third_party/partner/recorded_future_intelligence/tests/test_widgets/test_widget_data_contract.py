@@ -114,8 +114,7 @@ def test_allowlisted_fields_match_the_payload(name: str) -> None:
     report = _entity_results(name)[0]["EntityResult"][0]
     matched = [field for field in allowlist if field in report]
     assert matched, (
-        f"none of {allowlist} exist in the {name} payload "
-        f"(keys: {sorted(report)}); the detail list would render empty"
+        f"none of {allowlist} exist in the {name} payload (keys: {sorted(report)}); the detail list would render empty"
     )
 
 
@@ -135,8 +134,7 @@ def test_allowlisted_fields_are_known_recorded_future_fields(name: str) -> None:
 
     unknown = [field for field in widget_allowlist(name) if field not in known_fields]
     assert not unknown, (
-        f"{name}.html allowlists {unknown}, which appear in no enrichment payload; "
-        f"known fields: {sorted(known_fields)}"
+        f"{name}.html allowlists {unknown}, which appear in no enrichment payload; known fields: {sorted(known_fields)}"
     )
 
 
@@ -161,9 +159,7 @@ def test_summary_fields_are_present(name: str) -> None:
         assert field in report, f"summary block reads {field!r}, absent from the {name} payload"
 
     assert isinstance(report["intelCard"], str)
-    assert report["intelCard"].startswith("https://"), (
-        "safeHttpUrl() only emits an href for an http(s) URL"
-    )
+    assert report["intelCard"].startswith("https://"), "safeHttpUrl() only emits an href for an http(s) URL"
     assert set(report["timestamps"]) >= {"firstSeen", "lastSeen"}
 
 

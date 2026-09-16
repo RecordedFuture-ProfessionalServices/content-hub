@@ -68,9 +68,7 @@ def main():
         data = [entity.json() for entity in entities_resp]
 
         siemplify.result.add_result_json(data)
-        output_message += (
-            f"Successfully fetched list entities from Recorded Future: {fetch_resp.id_}."
-        )
+        output_message += f"Successfully fetched list entities from Recorded Future: {fetch_resp.id_}."
 
     except ValidationError as err:
         output_message = f"Error with List Manager parameters: {err}"

@@ -208,17 +208,13 @@ def test_evidence_descriptions_carry_entity_markup(name: str) -> None:
     than a silent no-op nobody can account for.
     """
     evidence = _report(name)["risk"]["rule"]["evidence"]
-    descriptions = [
-        entry["description"] for entry in evidence.values() if isinstance(entry.get("description"), str)
-    ]
+    descriptions = [entry["description"] for entry in evidence.values() if isinstance(entry.get("description"), str)]
 
     assert any(ENTITY_MARKUP in description for description in descriptions), (
-        f"no rule description contains {ENTITY_MARKUP!r}; `stripEntityMarkup` in "
-        f"{name}.html may no longer be needed"
+        f"no rule description contains {ENTITY_MARKUP!r}; `stripEntityMarkup` in {name}.html may no longer be needed"
     )
     assert "stripEntityMarkup" in widget_html(name), (
-        f"{name}.html renders descriptions containing {ENTITY_MARKUP!r} without "
-        "stripping the markup"
+        f"{name}.html renders descriptions containing {ENTITY_MARKUP!r} without stripping the markup"
     )
 
 

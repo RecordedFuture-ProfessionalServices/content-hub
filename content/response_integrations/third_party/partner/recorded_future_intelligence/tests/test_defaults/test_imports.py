@@ -23,9 +23,7 @@ import pytest
 from TIPCommon.utils import camel_to_snake_case
 
 JOBS_DIR = Path(__file__).resolve().parents[2] / "jobs"
-JOB_MODULES = sorted(
-    path.stem for path in JOBS_DIR.glob("*.py") if path.stem != "__init__"
-)
+JOB_MODULES = sorted(path.stem for path in JOBS_DIR.glob("*.py") if path.stem != "__init__")
 
 
 def test_jobs_directory_is_discovered() -> None:
@@ -99,9 +97,7 @@ def test_job_parameter_names_snake_case_as_expected(module_name: str) -> None:
     therefore read with an explicit `extract_job_param` call by display name
     rather than off `self.params`.
     """
-    attributes = {
-        camel_to_snake_case(name) for name in declared_parameter_names(module_name)
-    }
+    attributes = {camel_to_snake_case(name) for name in declared_parameter_names(module_name)}
 
     assert {
         "environment_name",

@@ -73,9 +73,7 @@ def main():
         lookup_resp = identity_mgr.lookup_password(passwords=target_entities)
         data = [hash_result.json() for hash_result in lookup_resp]
         siemplify.result.add_result_json(data)
-        output_message += (
-            f"Successfully checked password exposures for {len(data)} hash(es)."
-        )
+        output_message += f"Successfully checked password exposures for {len(data)} hash(es)."
 
     except ValidationError as err:
         output_message = f"Error with Identity Manager parameters: {err}"

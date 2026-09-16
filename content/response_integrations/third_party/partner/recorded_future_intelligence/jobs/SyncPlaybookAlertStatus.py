@@ -89,12 +89,9 @@ class SyncPlaybookAlertStatusJob(RecordedFutureBaseSyncJob):
                 updated_from=updated_from,
                 max_results=PLAYBOOK_ALERT_API_LIMIT,
             )
-            self._updated_statuses = {
-                entry.playbook_alert_id: entry.status for entry in response.data
-            }
+            self._updated_statuses = {entry.playbook_alert_id: entry.status for entry in response.data}
             self.logger.info(
-                f"Found {len(self._updated_statuses)} playbook alerts updated since "
-                f"{updated_from}.",
+                f"Found {len(self._updated_statuses)} playbook alerts updated since {updated_from}.",
             )
         except Exception:
             self.logger.exception(

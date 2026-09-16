@@ -70,9 +70,7 @@ def main():
         siemplify.LOGGER.info("Initializing psengine EntityMatchMgr")
         entity_match_mgr = EntityMatchMgr()
         siemplify.LOGGER.info("Fetching entity from Recorded Future")
-        entity_match_resp = entity_match_mgr.match(
-            entity_name=entity_name, entity_type=entity_type, limit=limit
-        )
+        entity_match_resp = entity_match_mgr.match(entity_name=entity_name, entity_type=entity_type, limit=limit)
         data = [entity.json() for entity in entity_match_resp]
         siemplify.result.add_result_json(data)
         output_message = "Successfully ran Entity Match action."

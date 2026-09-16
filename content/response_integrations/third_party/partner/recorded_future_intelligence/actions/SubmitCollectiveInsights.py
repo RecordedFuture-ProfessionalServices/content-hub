@@ -215,8 +215,7 @@ def main() -> None:
             )
         if detection_type == CI_DETECTION_TYPE_RULE and not (detection_id and detection_sub_type):
             raise ValueError(
-                "Detection ID and Detection Sub Type are mandatory when Detection Type "
-                "is 'detection_rule'.",
+                "Detection ID and Detection Sub Type are mandatory when Detection Type is 'detection_rule'.",
             )
 
         siemplify.LOGGER.info("Initializing psengine configuration")
@@ -262,16 +261,11 @@ def main() -> None:
         data["skipped_entities"] = skipped
         siemplify.result.add_result_json(data)
 
-        output_message += (
-            f"Successfully submitted {len(insights)} detections to Recorded Future "
-            f"Collective Insights."
-        )
+        output_message += f"Successfully submitted {len(insights)} detections to Recorded Future Collective Insights."
         if debug:
             output_message += " Submission was sent in debug mode."
         if skipped:
-            output_message += (
-                f"\nSkipped {len(skipped)} target entities with an unsupported entity type."
-            )
+            output_message += f"\nSkipped {len(skipped)} target entities with an unsupported entity type."
 
     except ValueError as err:
         output_message = f"Collective Insights ValueError: {err}"

@@ -55,8 +55,7 @@ class SubmitFileAction(RecordedFutureSandboxCommon):
 
         if finished_submissions:
             output_message += (
-                "Successfully returned details about the following files: "
-                f"{', '.join(finished_submissions)}"
+                f"Successfully returned details about the following files: {', '.join(finished_submissions)}"
             )
             json_result.update(finished_submissions)
             result_value = True
@@ -217,9 +216,7 @@ def main(is_first_run):
                 for file_name, submission in submit_action.action_context["submissions"].items()
                 if submission.get("pending_submissions", [])
             )
-            output_message = (
-                f"Waiting for results for the following files: {','.join(pending_files)}"
-            )
+            output_message = f"Waiting for results for the following files: {','.join(pending_files)}"
             action_result = ActionResult(
                 result_value=json.dumps(action_context),
                 output_message=output_message,

@@ -146,13 +146,9 @@ def main():
     output_message = ""
 
     try:
-        target_entities = (
-            map_secops_entities_to_rf(siemplify.target_entities) if entities else entity_ids
-        )
+        target_entities = map_secops_entities_to_rf(siemplify.target_entities) if entities else entity_ids
         if target_entities:
-            siemplify.LOGGER.info(
-                f"Searching detection rules for target entities: {target_entities}"
-            )
+            siemplify.LOGGER.info(f"Searching detection rules for target entities: {target_entities}")
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -176,9 +172,7 @@ def main():
         )
         data = [rule.json() for rule in search_detection_resp]
         siemplify.result.add_result_json(data)
-        output_message = (
-            f"Successfully ran Search Detection Rules action. Found {len(data)} rule(s)."
-        )
+        output_message = f"Successfully ran Search Detection Rules action. Found {len(data)} rule(s)."
 
     except ValidationError as err:
         output_message = f"Invalid parameters for Search Detection Rules action {err}"

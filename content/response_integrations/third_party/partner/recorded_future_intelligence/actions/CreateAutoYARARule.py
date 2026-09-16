@@ -61,11 +61,7 @@ def main():
     status = EXECUTION_STATE_COMPLETED
 
     try:
-        hashes = [
-            hash_.identifier
-            for hash_ in siemplify.target_entities
-            if hash_.entity_type == EntityTypes.FILEHASH
-        ]
+        hashes = [hash_.identifier for hash_ in siemplify.target_entities if hash_.entity_type == EntityTypes.FILEHASH]
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,

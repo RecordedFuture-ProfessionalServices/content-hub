@@ -198,12 +198,12 @@ def main():
 
     try:
         # parse domains from target entities
-        domains = [
-            subject.identifier
-            for subject in siemplify.target_entities
-            if subject.entity_type == EntityTypes.DOMAIN
-        ] if is_target_entities else domains
-        
+        domains = (
+            [subject.identifier for subject in siemplify.target_entities if subject.entity_type == EntityTypes.DOMAIN]
+            if is_target_entities
+            else domains
+        )
+
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -233,9 +233,7 @@ def main():
         )
         data = [cred_result.json() for cred_result in search_resp]
         siemplify.result.add_result_json(data)
-        output_message += (
-            "Successfully searched credentials for the given domain(s)"
-        )
+        output_message += "Successfully searched credentials for the given domain(s)"
 
     except ValidationError as err:
         output_message = f"Error with Identity Manager parameters: {err}"

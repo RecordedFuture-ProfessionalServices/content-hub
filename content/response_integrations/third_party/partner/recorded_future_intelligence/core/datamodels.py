@@ -557,9 +557,7 @@ class PlaybookAlert(BaseModel):
             <li><span class="label">{}:</span> {} </li>
         """
         hashes_html = []
-        for hash_ in (
-            event.get("panel_evidence_summary", {}).get("exposed_secret", {}).get("hashes", [])
-        ):
+        for hash_ in event.get("panel_evidence_summary", {}).get("exposed_secret", {}).get("hashes", []):
             try:
                 hashes_html.append(chunk.format(hash_["algorithm"], hash_["hash"]))
             except KeyError:
@@ -576,11 +574,7 @@ class PlaybookAlert(BaseModel):
         """
         secrets_html = []
         for prop in (
-            event
-            .get("panel_evidence_summary", {})
-            .get("exposed_secret", {})
-            .get("details", {})
-            .get("properties", [])
+            event.get("panel_evidence_summary", {}).get("exposed_secret", {}).get("details", {}).get("properties", [])
         ):
             try:
                 secrets_html.append(chunk.format(prop))
@@ -597,9 +591,7 @@ class PlaybookAlert(BaseModel):
             <li>{}</li>
         """
         av_html = []
-        for prop in (
-            event.get("panel_evidence_summary", {}).get("compromised_host", {}).get("antivirus", [])
-        ):
+        for prop in event.get("panel_evidence_summary", {}).get("compromised_host", {}).get("antivirus", []):
             try:
                 av_html.append(chunk.format(prop))
             except KeyError:
@@ -639,8 +631,7 @@ class PlaybookAlert(BaseModel):
         :param event {dict}: raw event object to append html chunks to
         """
         divider = (
-            '\n<div class="section-content" style="font-family: '
-            "'Source Sans Pro', 'Noto Sans', sans-serif;\">\n"
+            "\n<div class=\"section-content\" style=\"font-family: 'Source Sans Pro', 'Noto Sans', sans-serif;\">\n"
         )
 
         chunk = """

@@ -145,8 +145,7 @@ def test_widget_binds_to_an_existing_action(name: str) -> None:
     identifier = widget_yaml(name)["action_identifier"]
     known_actions = action_metadata()
     assert identifier in known_actions, (
-        f"{name}.yaml binds to unknown action {identifier!r}; "
-        f"known actions: {sorted(known_actions)}"
+        f"{name}.yaml binds to unknown action {identifier!r}; known actions: {sorted(known_actions)}"
     )
 
 

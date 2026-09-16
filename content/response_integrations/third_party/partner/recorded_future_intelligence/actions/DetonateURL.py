@@ -58,8 +58,7 @@ class SubmitUrlAction(RecordedFutureSandboxCommon):
 
         if finished_submissions:
             output_message += (
-                "Successfully returned details about the following urls: "
-                f"{', '.join(finished_submissions)}"
+                f"Successfully returned details about the following urls: {', '.join(finished_submissions)}"
             )
             json_result.update(finished_submissions)
             result_value = True

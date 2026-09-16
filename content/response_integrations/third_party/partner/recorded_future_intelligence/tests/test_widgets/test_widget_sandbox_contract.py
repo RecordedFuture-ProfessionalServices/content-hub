@@ -212,8 +212,7 @@ def test_sandbox_payload_states_no_verdict_label(name: str) -> None:
     for container in containers:
         for field in ("verdict", "criticalityLabel", "scoreLabel"):
             assert field not in container, (
-                f"the sandbox payload now names a verdict ({field!r}); prefer it "
-                f"over the derived band in {name}.html"
+                f"the sandbox payload now names a verdict ({field!r}); prefer it over the derived band in {name}.html"
             )
 
 

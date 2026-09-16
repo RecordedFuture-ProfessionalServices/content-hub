@@ -179,7 +179,7 @@ def main():
         if isinstance(hostname, list):
             siemplify.LOGGER.info("Target Hostname contains multiple values, using the first")
             hostname = hostname[0].identifier
-        
+
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -208,9 +208,7 @@ def main():
         )
         data = [cred_result.json() for cred_result in lookup_resp]
         siemplify.result.add_result_json(data)
-        output_message += (
-            "Successfully searched credentials for the given hotsname"
-        )
+        output_message += "Successfully searched credentials for the given hotsname"
 
     except IndexError as err:
         output_message = f"Error parsing action target entities: {err}"

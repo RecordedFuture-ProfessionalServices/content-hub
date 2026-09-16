@@ -206,8 +206,7 @@ def main(is_test_run):
                 if len(processed_alerts) >= fetch_limit:
                     # Provide slicing for the alerts amount.
                     siemplify.LOGGER.info(
-                        "Reached max number of alerts cycle."
-                        "No more alerts will be processed in this cycle.",
+                        "Reached max number of alerts cycle.No more alerts will be processed in this cycle.",
                     )
                     break
 

@@ -34,6 +34,7 @@ ADD_ANALYST_NOTE_SCRIPT_NAME = f"{PROVIDER_NAME} - Add Analyst Note"
 REFRESH_PBA_DETAILS_SCRIPT_NAME = f"{PROVIDER_NAME} - Refresh Playbook Alert"
 UPDATE_ALERT_SCRIPT_NAME = f"{PROVIDER_NAME} - Update Alert"
 UPDATE_PBA_SCRIPT_NAME = f"{PROVIDER_NAME} - Update Playbook Alert"
+SUBMIT_CI_SCRIPT_NAME = f"{PROVIDER_NAME} - Submit Collective Insights"
 
 # Connector
 CONNECTOR_NAME = "Recorded Future - Security Alerts Connector"
@@ -56,6 +57,9 @@ PING_IP = "8.8.8.8"
 # Collective Insights
 CI_DETECTION_TYPE = "playbook"
 CI_INCIDENT_TYPE = "google-secops-threat-detection"
+CI_DETECTION_TYPE_RULE = "detection_rule"
+CI_DETECTION_TYPES = ["playbook", "correlation", "detection_rule", "sandbox"]
+CI_DETECTION_RULE_SUB_TYPES = ["sigma", "yara", "snort"]
 
 # Detection Rules
 DETECTION_RULE_TYPES = ["yara", "snort", "sigma"]

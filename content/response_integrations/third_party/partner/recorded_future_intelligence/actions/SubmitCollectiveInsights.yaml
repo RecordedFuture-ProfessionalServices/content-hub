@@ -1,0 +1,110 @@
+creator: admin
+description: Submit detections from the case target entities back to Recorded Future
+    Collective Insights. Use this action to contribute detections produced by source
+    tools that do not have a native Collective Insights integration. All detection
+    and incident context is taken from the action parameters describing the original
+    source event, not from the Google SecOps case.
+dynamic_results_metadata:
+-   result_example_path: resources/SubmitCollectiveInsights_JsonResult_example.json
+    result_name: JsonResult
+    show_result: true
+integration_identifier: RecordedFutureIntelligence
+name: Submit Collective Insights
+parameters:
+-   default_value: playbook
+    description: Specify the type of detection that produced the event in the source
+        tool. When 'detection_rule' is selected, Detection ID and Detection Sub Type
+        are mandatory.
+    is_mandatory: false
+    name: Detection Type
+    optional_values:
+    - playbook
+    - correlation
+    - detection_rule
+    - sandbox
+    type: ddl
+-   default_value: None
+    description: Specify the rule format of the detection in the source tool. Mandatory
+        when Detection Type is 'detection_rule'.
+    is_mandatory: false
+    name: Detection Sub Type
+    optional_values:
+    - None
+    - sigma
+    - yara
+    - snort
+    type: ddl
+-   default_value: ''
+    description: Specify the ID of the detection or rule in the source tool. Mandatory
+        when Detection Type is 'detection_rule'.
+    is_mandatory: false
+    name: Detection ID
+    type: string
+-   default_value: ''
+    description: Specify the name of the detection or rule in the source tool.
+    is_mandatory: false
+    name: Detection Name
+    type: string
+-   default_value: ''
+    description: Specify the ID of the incident in the source tool that the detection
+        belongs to.
+    is_mandatory: false
+    name: Incident ID
+    type: string
+-   default_value: ''
+    description: Specify the name of the incident in the source tool that the detection
+        belongs to.
+    is_mandatory: false
+    name: Incident Name
+    type: string
+-   default_value: ''
+    description: Specify the type of the incident in the source tool that the detection
+        belongs to.
+    is_mandatory: false
+    name: Incident Type
+    type: string
+-   default_value: ''
+    description: Specify the timestamp of the source event in ISO 8601 format, for
+        example 2026-09-15T10:42:30Z. If not provided, the action run time is used.
+    is_mandatory: false
+    name: Timestamp
+    type: string
+-   default_value: ''
+    description: Specify the field in the source event in which the IOC was observed,
+        for example destination_ip.
+    is_mandatory: false
+    name: IOC Field
+    type: string
+-   default_value: ''
+    description: Specify the source type of the IOC, for example the log source or
+        product that observed it.
+    is_mandatory: false
+    name: IOC Source Type
+    type: string
+-   default_value: ''
+    description: Specify a comma separated list of MITRE ATT&CK technique or tactic
+        codes associated with the detection, for example T1071,T1059.
+    is_mandatory: false
+    name: MITRE Codes
+    type: string
+-   default_value: ''
+    description: Specify a comma separated list of malware families associated with
+        the detection, for example Emotet,QakBot.
+    is_mandatory: false
+    name: Malware
+    type: string
+-   default_value: ''
+    description: Specify a comma separated list of Recorded Future organization IDs
+        to submit the detections under. Only required for multi-organization enterprises.
+    is_mandatory: false
+    name: Organization IDs
+    type: string
+-   default_value: 'false'
+    description: If enabled, the submission is flagged as debug and is not counted
+        as a live detection in Recorded Future.
+    is_mandatory: false
+    name: Debug
+    type: boolean
+script_result_name: is_success
+simulation_data_json: '{"Entities": ["ADDRESS", "DOMAIN", "HOSTNAME", "DestinationURL",
+    "FILEHASH", "CVE"]}'

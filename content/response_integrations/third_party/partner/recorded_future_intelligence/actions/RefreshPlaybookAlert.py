@@ -72,6 +72,12 @@ def main():
         is_mandatory=True,
     )
     category = extract_action_param(siemplify, param_name="Category", is_mandatory=True)
+    fetch_screenshots = extract_action_param(
+        siemplify,
+        param_name="Fetch Screenshots",
+        default_value=False,
+        input_type=bool,
+    )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
@@ -100,7 +106,11 @@ def main():
             verify_ssl=verify_ssl,
             siemplify=siemplify,
         )
-        alert_object = recorded_future_manager.refresh_pba_case(alert_id, category)
+        alert_object = recorded_future_manager.refresh_pba_case(
+            alert_id,
+            category,
+            fetch_screenshots=fetch_screenshots,
+        )
         siemplify.result.add_result_json(alert_object.create_events_with_html())
         siemplify.result.add_link("Web Report Link:", alert_object.alert_url)
 

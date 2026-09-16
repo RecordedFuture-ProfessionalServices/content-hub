@@ -341,11 +341,14 @@ def build_alert(
     return alert
 
 
-def build_playbook_alert(pba: PBA_Generic, linked_cases=None, severity=None):
+def build_playbook_alert(pba: PBA_Generic, linked_cases=None, severity=None, screenshots=None):
     """Build PBA object.
     :param playbook_alert: {psengine.playbook_alerts.base_playbook_alert} PBA object.
     :param linked_cases: {list} Duplicate cases from the same playbook alert
     :param severity: {str} Severity to assign to alert.
+    :param screenshots: {dict} Base64 encoded screenshots, keyed by image ID.
+        Passed separately because psengine keeps image bytes on a private
+        attribute, which `dump_model` does not emit.
     """
     id_ = pba.playbook_alert_id
     alert_url = f"https://app.recordedfuture.com/portal/playbook-alerts/{id_}"
@@ -371,6 +374,7 @@ def build_playbook_alert(pba: PBA_Generic, linked_cases=None, severity=None):
         priority=pba.panel_status.priority,
         linked_cases=linked_cases,
         severity=severity,
+        screenshots=screenshots,
     )
 
 

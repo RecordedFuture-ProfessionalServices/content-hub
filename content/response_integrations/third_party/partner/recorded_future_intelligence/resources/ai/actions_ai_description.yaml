@@ -4113,6 +4113,12 @@ Refresh Playbook Alert:
     The action requires the Playbook Alert ID and Category to function correctly.
     It does not operate on existing case entities but rather enriches the case by
     adding new entities discovered in the updated alert details.
+
+
+    When `Fetch Screenshots` is enabled and the alert category is `domain_abuse`,
+    the action also downloads the screenshots attached to the alert and embeds them
+    in its JSON result as base64 data URIs, so the case view can render them. The
+    parameter is disabled by default and has no effect on other categories.
   ai_short_description: >-
     Fetches updated details for a specific Playbook Alert from Recorded Future and
     adds the retrieved information and entities to the case.

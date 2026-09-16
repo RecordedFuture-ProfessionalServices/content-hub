@@ -208,6 +208,22 @@ ENTITY_CHANGE_CASES = [
     "related_entities_change",
 ]
 
+# Domain Abuse Screenshots
+# Screenshots ride along inside the action's JSON result as base64, and the
+# platform fails the action outright when that result exceeds
+# `max_json_result_size` (15MB by default). The budget is deliberately well
+# under it so a screenshot-heavy alert still refreshes: losing an image is
+# recoverable, losing the refresh leaves the case with stale data. It is
+# measured after encoding, which inflates the payload by roughly a third.
+SCREENSHOT_B64_BUDGET = 5 * 1024 * 1024
+SCREENSHOT_DEFAULT_MIME_TYPE = "image/png"
+SCREENSHOT_MIME_TYPE_SIGNATURES = (
+    (b"\x89PNG\r\n\x1a\n", "image/png"),
+    (b"\xff\xd8\xff", "image/jpeg"),
+    (b"GIF87a", "image/gif"),
+    (b"GIF89a", "image/gif"),
+)
+
 # HTML Text
 INSIKT_VULNERABILITY_NOTE_HTML = """
 <div class="note">
@@ -223,6 +239,16 @@ INSIKT_VULNERABILITY_NOTE_HTML = """
     <div class="divider"></div>
 </div>
 """  # noqa: E501
+
+DOMAIN_ABUSE_SCREENSHOT_HTML = """
+<figure class="screenshot" data-image-id="{}">
+    <img src="data:{};base64,{}" alt="{}" loading="lazy">
+    <figcaption>
+        <p><span class="label">Description:</span> {}</p>
+        <p><span class="label">Captured:</span> {}</p>
+    </figcaption>
+</figure>
+"""
 
 # Sandbox Actions
 SANDBOX_SLEEP = 30

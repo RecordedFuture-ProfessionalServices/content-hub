@@ -21,3 +21,9 @@ parameters:
     is_mandatory: true
     name: Category
     type: string
+-   default_value: 'false'
+    description: If enabled, action will fetch the screenshots attached to a domain_abuse
+        playbook alert. Has no effect on other categories.
+    is_mandatory: false
+    name: Fetch Screenshots
+    type: boolean

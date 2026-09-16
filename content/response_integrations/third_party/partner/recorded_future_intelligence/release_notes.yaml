@@ -137,21 +137,13 @@
   item_type: Integration
   publish_time: '2026-07-17'
   ticket_number: ''
-- description: 'New Job Added - Recorded Future - Classic Alert Status Sync. Keeps
-    the status of Recorded Future classic alerts and their Google SecOps alerts in
-    sync, in both directions.'
+- description: 'New Jobs Added to sync Classic and Playbook Alert Status.
+    Added predefined widgets for enrichment and sandbox actions.
+    Refresh Playbook Alert can now fetch Domain Abuse screenshots for display in
+    the case view, via the new optional Fetch Screenshots parameter.'
   version: 16.0
-  item_name: Recorded Future - Classic Alert Status Sync
-  item_type: Job
-  new: true
-  publish_time: '2026-09-15'
+  item_name: RecordedFutureIntelligence
+  item_type: Integration
+  publish_time: '2026-09-30'
   ticket_number: ''
-- description: 'New Job Added - Recorded Future - Playbook Alert Status Sync. Keeps
-    the status of Recorded Future playbook alerts and their Google SecOps alerts in
-    sync, in both directions.'
-  version: 16.0
-  item_name: Recorded Future - Playbook Alert Status Sync
-  item_type: Job
-  new: true
-  publish_time: '2026-09-15'
-  ticket_number: ''
+

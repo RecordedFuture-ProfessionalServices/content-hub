@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import base64
 from datetime import datetime
 
 from psengine.analyst_notes import AnalystNoteMgr, AnalystNotePublishError
@@ -44,6 +45,7 @@ from psengine.playbook_alerts import (
     PBA_MalwareReport,
     PlaybookAlertFetchError,
     PlaybookAlertMgr,
+    PlaybookAlertRetrieveImageError,
     PlaybookAlertUpdateError,
 )
 from pydantic import ValidationError
@@ -59,6 +61,7 @@ from .constants import (
     ENTITY_PREFIX_TYPE_MAP,
     PING_IP,
     PLAYBOOK_ALERT_API_LIMIT,
+    SCREENSHOT_B64_BUDGET,
 )
 from .datamodels import (
     CVE,
@@ -82,6 +85,7 @@ from .RecordedFutureDataModelTransformationLayer import (
     build_siemplify_object,
     build_siemplify_soar_object,
 )
+from .UtilsManager import detect_image_mime_type, format_timestamp
 from .version import __version__
 
 
@@ -620,10 +624,11 @@ class RecordedFutureManager:
                 properties={},
             )
 
-    def refresh_pba_case(self, alert_id, category):
+    def refresh_pba_case(self, alert_id, category, fetch_screenshots=False):
         """Fetches specified Playbook Alert from Recorded Future and adds entities.
         :param alert_id: {str} Playbook Alert ID.
         :param category: {int} Category of the Playbook Alert.
+        :param fetch_screenshots: {bool} Whether to fetch Domain Abuse screenshots.
         :return: {dict} Playbook Alert Object.
         """
         func_map = {
@@ -638,6 +643,9 @@ class RecordedFutureManager:
         )
         linked_cases = self.siemplify.get_cases_by_ticket_id(ticket_id=alert_id)
         try:
+            # Screenshots are fetched separately rather than through this call's
+            # `fetch_images` flag, so that an unavailable image cannot abort the
+            # refresh. See `fetch_screenshots`.
             playbook_alert = self.playbook_alerts.fetch(
                 alert_id=alert_id,
                 category=category,
@@ -650,7 +658,69 @@ class RecordedFutureManager:
 
         if playbook_alert.category in func_map:
             func_map[playbook_alert.category](playbook_alert)
-        return build_playbook_alert(playbook_alert, linked_cases)
+
+        screenshots = None
+        if fetch_screenshots and isinstance(playbook_alert, PBA_DomainAbuse):
+            screenshots = self.fetch_screenshots(playbook_alert)
+
+        return build_playbook_alert(playbook_alert, linked_cases, screenshots=screenshots)
+
+    def fetch_screenshots(self, playbook_alert: PBA_DomainAbuse):
+        """Fetches and base64 encodes the screenshots attached to a Domain Abuse alert.
+
+        Images are fetched one at a time instead of through psengine's
+        `fetch_images`, which wraps the whole loop in a single error handler and
+        is called from inside `fetch`: there, one unavailable screenshot raises
+        out of the fetch and fails the entire refresh, leaving the case with no
+        updated data at all. Here a failed image costs only that image.
+
+        :param playbook_alert: {PBA_DomainAbuse} Alert to fetch screenshots for.
+        :return: {dict} Screenshot metadata and base64 content, keyed by image ID.
+        """
+        screenshots = {}
+        remaining_budget = SCREENSHOT_B64_BUDGET
+        skipped = []
+
+        for screenshot in playbook_alert.panel_evidence_summary.screenshots or []:
+            image_id = screenshot.image_id
+            try:
+                image_bytes = self.playbook_alerts.fetch_one_image(
+                    alert_id=playbook_alert.playbook_alert_id,
+                    image_id=image_id,
+                    alert_category=playbook_alert.category,
+                )
+            except (ValidationError, PlaybookAlertRetrieveImageError) as err:
+                self.siemplify.LOGGER.error(
+                    f"Unable to fetch screenshot {image_id}. Skipping. Error {err}",
+                )
+                continue
+
+            image_b64 = base64.b64encode(image_bytes).decode()
+            if len(image_b64) > remaining_budget:
+                # Skip rather than break: a later screenshot may still fit.
+                skipped.append(image_id)
+                continue
+
+            remaining_budget -= len(image_b64)
+            screenshots[image_id] = {
+                "description": screenshot.description,
+                "created": format_timestamp(screenshot.created),
+                "mime_type": detect_image_mime_type(image_bytes),
+                "image_b64": image_b64,
+            }
+
+        if skipped:
+            self.siemplify.LOGGER.info(
+                f"{len(skipped)} screenshot(s) were not included as they would exceed the "
+                f"{SCREENSHOT_B64_BUDGET} byte screenshot budget for the action result: "
+                f"{', '.join(skipped)}. View them in the Recorded Future portal.",
+            )
+
+        self.siemplify.LOGGER.info(
+            f"Fetched {len(screenshots)} screenshot(s) for "
+            f"Playbook Alert {playbook_alert.playbook_alert_id}",
+        )
+        return screenshots
 
     def get_pba_details(self, alert_id, category):
         """Fetches specified Playbook Alert from Recorded Future \
@@ -660,9 +730,14 @@ class RecordedFutureManager:
         """
         self.siemplify.LOGGER.info(f"Fetching Playbook Alert {alert_id}")
         try:
+            # `fetch_images` defaults to True in psengine. This action has no
+            # widget to render them and the bytes never reach its JSON result,
+            # so leaving it on only spends an extra API call per screenshot and
+            # adds a failure path that can take the whole fetch down with it.
             playbook_alert = self.playbook_alerts.fetch(
                 alert_id=alert_id,
                 category=category,
+                fetch_images=False,
             )
         except (ValidationError, PlaybookAlertFetchError) as err:
             raise RecordedFutureManagerError(

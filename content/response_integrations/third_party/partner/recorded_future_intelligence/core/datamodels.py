@@ -25,6 +25,7 @@ from TIPCommon.transformation import dict_to_flat
 from .constants import (
     CLASSIC_ALERT_PRODUCT,
     DEFAULT_DEVICE_VENDOR,
+    DOMAIN_ABUSE_SCREENSHOT_HTML,
     ENRICHMENT_DATA_PREFIX,
     INSIKT_VULNERABILITY_NOTE_HTML,
     PBA_SEVERITY_MAP,
@@ -389,9 +390,11 @@ class PlaybookAlert(BaseModel):
         priority,
         linked_cases=None,
         severity=None,
+        screenshots=None,
     ):
         super(PlaybookAlert, self).__init__(raw_data)
         self.id = id_
+        self.screenshots = screenshots or {}
         self.linked_cases = linked_cases
         self.alert_url = alert_url
         self.uuid = uuid.uuid4()
@@ -448,6 +451,7 @@ class PlaybookAlert(BaseModel):
             self.add_assessment_html_domain_abuse(event)
             self.add_dns_html(event)
             self.add_whois_html(event)
+            self.add_screenshots_html(event)
         elif self.category == "code_repo_leakage":
             self.add_targets_html(event)
             self.add_assessment_html_code_repo(event)
@@ -666,6 +670,34 @@ class PlaybookAlert(BaseModel):
                 except KeyError:
                     continue
         event["assessment_html"] = divider.join(assessment_html)
+
+    def add_screenshots_html(self, event):
+        """Adds HTML panel for domain abuse screenshots.
+
+        The screenshots are rendered as inline base64 data URIs so the widget
+        needs no second request and no credentials of its own. They are read
+        from `self.screenshots` rather than the event, because psengine holds
+        image bytes on a private attribute that never reaches `raw_data`.
+
+        :param event {dict}: raw event object to append html chunks to
+        """
+        screenshots_html = []
+
+        for image_id, screenshot in self.screenshots.items():
+            try:
+                description = html.escape(screenshot["description"] or "")
+                new_chunk = DOMAIN_ABUSE_SCREENSHOT_HTML.format(
+                    html.escape(image_id),
+                    screenshot["mime_type"],
+                    screenshot["image_b64"],
+                    description,
+                    description,
+                    screenshot["created"],
+                )
+                screenshots_html.append(new_chunk)
+            except KeyError:
+                continue
+        event["screenshots_html"] = "\n".join(screenshots_html)
 
     def add_assessment_html_domain_abuse(self, event):
         """Adds HTML for domain abuse assessments.

@@ -1,0 +1,296 @@
+{
+  "entity": "149.28.128.65",
+  "entity_type": "ip",
+  "is_enriched": true,
+  "content": {
+    "ai_insights": null,
+    "analyst_notes": [],
+    "counts": [],
+    "entity": {
+      "id_": "ip:149.28.128.65",
+      "name": "149.28.128.65",
+      "type_": "IpAddress",
+      "description": null
+    },
+    "intel_card": null,
+    "metrics": [],
+    "related_entities": [],
+    "sightings": [],
+    "timestamps": {
+      "last_seen": "2025-02-13T04:57:48.474000Z",
+      "first_seen": "2021-03-28T23:18:22.285000Z"
+    },
+    "risk": {
+      "criticality_label": "Very Malicious",
+      "risk_string": "8/81",
+      "rules": 8,
+      "criticality": 4,
+      "risk_summary": "8 of 81 Risk Rules currently observed.",
+      "score": 99,
+      "evidence_details": [
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: PasteBin. 2 related intrusion methods: Backdoor, ShadowPad. Most recent link (Feb 13, 2025): https://pastebin.com/MJ5UMHpj",
+          "rule": "Historically Linked to Intrusion Method",
+          "criticality": 1,
+          "timestamp": "2025-02-13T04:50:59Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: ThreatFox Infrastructure Analysis. ThreatFox identified 149.28.128.65:443 as possible TA0011 (Command and Control) for ShadowPad on October 30, 2024. Most recent link (Oct 30, 2024): https://threatfox.abuse.ch/ioc/1338688",
+          "rule": "Historical Suspected C&C Server",
+          "criticality": 1,
+          "timestamp": "2024-10-30T10:12:22Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Recently Viewed Integrations Indicators. Observed in the wild by Recorded Future Telemetry.",
+          "rule": "Observed in the Wild by Recorded Future Telemetry",
+          "criticality": 1,
+          "timestamp": "2025-12-22T08:22:40.623000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "Previous sightings on 2 sources: Recently Viewed Integrations Indicators, RAT Controller – Shodan / Recorded Future. Observed between Jun 9, 2025, and Jun 12, 2025.",
+          "rule": "Historically Reported in Threat List",
+          "criticality": 1,
+          "timestamp": "2025-12-22T08:22:40.837000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "2 sightings on 1 source: Recorded Future Command & Control Reports. 149.28.128.65:443 was reported as a command and control server for ShadowPad on Feb 19, 2025",
+          "rule": "Historically Reported C&C Server",
+          "criticality": 2,
+          "timestamp": "2025-02-20T08:24:27.378000Z",
+          "criticality_label": "Suspicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "106 sightings on 1 source: Insikt Group Command & Control Validation. Recorded Future analysis validated 149.28.128.65:443 as a command and control server for ShadowPad on Dec 20, 2025",
+          "rule": "Previously Validated C&C Server",
+          "criticality": 2,
+          "timestamp": "2025-12-20T05:18:44Z",
+          "criticality_label": "Suspicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "67 sightings on 1 source: Recorded Future Network Intelligence. Multiple communications observed between\n        45.225.81.116\n         on 2 ports including\n        20980\n         and\n        149.28.128.65\n         (validated  C2 Server associated with a threat actor from China) on port\n        443\n         on\n        2025-12-20 at 03:50 UTC.",
+          "rule": "Actively Communicating Validated C&C Server",
+          "criticality": 4,
+          "timestamp": "2025-12-20T05:25:26Z",
+          "criticality_label": "Very Malicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Insikt Group Command & Control Validation. Recorded Future analysis validated 149.28.128.65:443 as a command and control server for ShadowPad on Dec 21, 2025",
+          "rule": "Validated C&C Server",
+          "criticality": 4,
+          "timestamp": "2025-12-21T05:33:55Z",
+          "criticality_label": "Very Malicious"
+        }
+      ]
+    },
+    "links": {
+      "hits": [
+        {
+          "sections": [
+            {
+              "section_id": {
+                "id_": "iU_ZsG",
+                "name": "Indicators & Detection Rules",
+                "type_": "Category"
+              },
+              "total_count": 2,
+              "lists": []
+            },
+            {
+              "section_id": {
+                "id_": "iU_ZsE",
+                "name": "Actors, Tools & TTPs",
+                "type_": "Category"
+              },
+              "total_count": 6,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "mitre:T1071",
+                      "name": "T1071",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:TA0011",
+                      "name": "TA0011",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 2,
+                  "type_": {
+                    "id_": "type:MitreAttackIdentifier",
+                    "name": "MitreAttackIdentifier",
+                    "type_": "MetaType",
+                    "description": "A Mitre Att&ck Identifier"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "B_FNa",
+                      "name": "China",
+                      "type_": "Country",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:Country",
+                    "name": "Country",
+                    "type_": "MetaType",
+                    "description": "A country"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "T36U6-",
+                      "name": "ShadowPad",
+                      "type_": "Malware",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:Malware",
+                    "name": "Malware",
+                    "type_": "MetaType",
+                    "description": "A malware"
+                  }
+                }
+              ]
+            },
+            {
+              "section_id": {
+                "id_": "iU_ZsI",
+                "name": "Victims & Exploit Targets",
+                "type_": "Category"
+              },
+              "total_count": 3,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "ip:45.225.81.116",
+                      "name": "45.225.81.116",
+                      "type_": "IpAddress",
+                      "description": null
+                    },
+                    {
+                      "id_": "ip:45.225.81.202",
+                      "name": "45.225.81.202",
+                      "type_": "IpAddress",
+                      "description": null
+                    },
+                    {
+                      "id_": "ip:45.225.81.90",
+                      "name": "45.225.81.90",
+                      "type_": "IpAddress",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 3,
+                  "type_": {
+                    "id_": "type:IpAddress",
+                    "name": "IpAddress",
+                    "type_": "MetaType",
+                    "description": "An IP address"
+                  }
+                }
+              ]
+            }
+          ],
+          "start_date": "2025-12-16T00:00:00",
+          "stop_date": "2025-12-21T00:00:00",
+          "total_count": 9,
+          "sample_reference_ids": [
+            "HFCZgAA_HJ4",
+            "HFCZQABKu6E",
+            "HFCZAACcQai",
+            "HFCYwABNf3A",
+            "HFCYgABLpcy",
+            "HFCZQABIHdp",
+            "HFCZQAArJNq",
+            "HFCZQAA1AOy"
+          ],
+          "counts": [
+            {
+              "count": 6,
+              "type_": {
+                "id_": "type:InfrastructureAnalysis",
+                "name": "InfrastructureAnalysis",
+                "type_": "MetaType",
+                "description": "Cyber threat analysis of specific internet accessible infrastructure, such as a web pages and open ports."
+              }
+            },
+            {
+              "count": 3,
+              "type_": {
+                "id_": "type:NetworkTrafficAnalysis",
+                "name": "NetworkTrafficAnalysis",
+                "type_": "MetaType",
+                "description": "Cyber threat analysis of network traffic observed at a specific time."
+              }
+            }
+          ],
+          "event_count": 9
+        }
+      ],
+      "method_aggregates": [
+        {
+          "count": 3,
+          "type_": "hHQyM6"
+        },
+        {
+          "count": 0,
+          "type_": "hHQyM7"
+        },
+        {
+          "count": 0,
+          "type_": "gTB8y2"
+        }
+      ],
+      "counts": [
+        {
+          "count": 6,
+          "type_": {
+            "id_": "type:InfrastructureAnalysis",
+            "name": "InfrastructureAnalysis",
+            "type_": "MetaType",
+            "description": "Cyber threat analysis of specific internet accessible infrastructure, such as a web pages and open ports."
+          }
+        },
+        {
+          "count": 3,
+          "type_": {
+            "id_": "type:NetworkTrafficAnalysis",
+            "name": "NetworkTrafficAnalysis",
+            "type_": "MetaType",
+            "description": "Cyber threat analysis of network traffic observed at a specific time."
+          }
+        }
+      ]
+    },
+    "enterprise_lists": null,
+    "threat_list": null,
+    "risk_mapping": null,
+    "dns_port_cert": null,
+    "location": null,
+    "risky_cidr_ips": null,
+    "scanner": null
+  }
+}

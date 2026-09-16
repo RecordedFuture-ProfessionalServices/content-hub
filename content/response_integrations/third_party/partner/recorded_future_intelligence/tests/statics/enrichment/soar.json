@@ -1,0 +1,1380 @@
+[
+    {
+        "entity": "83.229.126.183",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 99,
+                "level": 4,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 3
+                        }
+                    },
+                    "public": {
+                        "score": 99,
+                        "rule": {
+                            "maxCount": 81
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 5.0
+                            },
+                            {
+                                "level": 2.0,
+                                "count": 5.0
+                            },
+                            {
+                                "level": 4.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Validated C&C Server"
+                    },
+                    "c2": {
+                        "score": 93,
+                        "rule": {
+                            "count": 2,
+                            "maxCount": 7
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 11,
+                    "maxCount": 81,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 5.0
+                        },
+                        {
+                            "level": 2.0,
+                            "count": 5.0
+                        },
+                        {
+                            "level": 4.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Validated C&C Server",
+                    "evidence": [
+                        {
+                            "count": 4,
+                            "timestamp": "2025-12-06T13:47:10.227000Z",
+                            "description": "10 sightings on 4 sources: <e id=source:Y7TWfI>Telegram - Other Channels</e>, <e id=source:urX5Z9>RedPacket Security</e>, <e id=source:pupSAn>Mastodon</e>, <e id=source:MIKjae>GitHub</e>. 6 related intrusion methods including <e id=JLHNoH>Cobalt Strike</e>, <e id=QCqLhE>Backdoor</e>, <e id=E0yzG>Remote Access Trojan</e>, <e id=hzdgTv>Offensive Security Tools (OST)</e>, <e id=LnK3Q6>Cobalt Strike Beacon</e>. Most recent link (Dec 6, 2025): https://github.com/joeavanzato/recent_c2_infrastructure/commit/10e4af8d706c9b2e01d51a1fa90f8093f2fccea9",
+                            "rule": "Historically Linked to Intrusion Method",
+                            "sightings": 10,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedIntrusion"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-01T00:19:09.408000Z",
+                            "description": "48 sightings on 1 source: <e id=source:qU_q-9>Recorded Future Command & Control Reports</e>. <e id=ip:83.229.126.183>83.229.126.183</e>:<e id=-nJ-ws>80</e> was reported as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Nov 17, 2025",
+                            "rule": "Historically Reported C&C Server",
+                            "sightings": 48,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "reportedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-21T02:25:00.607000Z",
+                            "description": "4 sightings on 1 source: <e id=source:UZNze8>DHS Automated Indicator Sharing</e>. 4 reports including Malicious IPv4 address, from Forescout Research - Vedere Labs (Dec 21, 2025).",
+                            "rule": "Recently Reported by DHS AIS",
+                            "sightings": 4,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "recentDhsAis"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-11-22T00:00:32.459000Z",
+                            "description": "9 sightings on 1 source: <e id=source:UZNze8>DHS Automated Indicator Sharing</e>. 9 reports including Malicious IPv4 address, from Forescout Research - Vedere Labs (Nov 22, 2025).",
+                            "rule": "Historically Reported by DHS AIS",
+                            "sightings": 9,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "dhsAis"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-11-04T09:26:53.128000Z",
+                            "description": "1 sighting on 1 source: <e id=source:kBB1fk>External Sensor Data Analysis</e>. <e id=ip:83.229.126.183>83.229.126.183</e> was identified as <e id=mitre:T1584>botnets</e> in External Sensor data. Reported to Recorded Future on Nov 04, 2025.",
+                            "rule": "Historical Botnet Traffic",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "botnet"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-18T13:35:41.207000Z",
+                            "description": "2 sightings on 1 source: <e id=source:MIKjae>GitHub</e>. 5 related intrusion methods: <e id=JLHNoH>Cobalt Strike</e>, <e id=aaa7zE>Sliver</e>, <e id=E0yzG>Remote Access Trojan</e>, <e id=hzdgTv>Offensive Security Tools (OST)</e>, <e id=Kt5mXo>NetBus</e>. Most recent link (Dec 18, 2025): https://github.com/joeavanzato/recent_c2_infrastructure/commit/13265b0a703cf9dacfd97bd9c5444d2c89c38ef4",
+                            "rule": "Recently Linked to Intrusion Method",
+                            "sightings": 2,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "recentLinkedIntrusion"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T05:37:13Z",
+                            "description": "4 sightings on 1 source: <e id=source:qGriFQ>Insikt Group Command & Control Validation</e>. Recorded Future analysis validated <e id=ip:83.229.126.183>83.229.126.183</e>:<e id=-nJ-ws>80</e> as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Dec 22, 2025",
+                            "rule": "Validated C&C Server",
+                            "sightings": 4,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentValidatedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-03T13:30:45.074000Z",
+                            "description": "Previous sightings on 1 source: <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>. Observed between Dec 2, 2025, and Dec 3, 2025.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T02:05:01.570000Z",
+                            "description": "92 sightings on 1 source: <e id=source:gs6Zfb>Recorded Future Network Intelligence</e>. Multiple communications observed between\n        <e id=ip:24.199.119.223>24.199.119.223</e>\n         on 2 ports including\n        <e id=m3zFo2>38636</e>\n         and\n        <e id=ip:83.229.126.183>83.229.126.183</e>\n         (validated  C2 Server) on port\n        <e id=-nJ-ws>80</e>\n         on\n        2025-12-18 at 10:01 UTC.",
+                            "rule": "Recently Communicating Validated C&C Server",
+                            "sightings": 92,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "intermediateActiveCnc"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2025-12-09T00:24:20.974000Z",
+                            "description": "2 sightings on 2 sources: <e id=source:sIoEOQ>ThreatFox Infrastructure Analysis</e>, <e id=source:qs_-cU>Malware Patrol</e>. ThreatFox identified <e id=ip:83.229.126.183>83.229.126.183</e>:<e id=-nJ-ws>80</e> as possible <e id=mitre:TA0011>TA0011 (Command and Control)</e> for Cobalt Strike on November 25, 2025. Most recent link (Nov 25, 2025): https://threatfox.abuse.ch/ioc/1632776",
+                            "rule": "Historical Suspected C&C Server",
+                            "sightings": 2,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "suspectedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-20T05:36:37Z",
+                            "description": "119 sightings on 1 source: <e id=source:qGriFQ>Insikt Group Command & Control Validation</e>. Recorded Future analysis validated <e id=ip:83.229.126.183>83.229.126.183</e>:<e id=-nJ-ws>80</e> as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Dec 20, 2025",
+                            "rule": "Previously Validated C&C Server",
+                            "sightings": 119,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "validatedCnc"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "ip:83.229.126.183",
+                "name": "83.229.126.183",
+                "type": "IpAddress"
+            }
+        }
+    },
+    {
+        "entity": "virtualdataserver.com",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 98,
+                "level": 4,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 3
+                        }
+                    },
+                    "public": {
+                        "score": 98,
+                        "rule": {
+                            "maxCount": 51
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 3.0
+                            },
+                            {
+                                "level": 4.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Recent C&C DNS Name"
+                    },
+                    "c2": {
+                        "score": 90,
+                        "rule": {
+                            "count": 1,
+                            "maxCount": 2
+                        }
+                    },
+                    "malware": {
+                        "score": 90,
+                        "rule": {
+                            "count": 1,
+                            "maxCount": 3
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 4,
+                    "maxCount": 52,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 3.0
+                        },
+                        {
+                            "level": 4.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Recent C&C DNS Name",
+                    "evidence": [
+                        {
+                            "count": 6,
+                            "timestamp": "2023-08-08T07:31:42.748000Z",
+                            "description": "17 sightings on 6 sources including: <e id=idn:securityscorecard.com>securityscorecard.com</e>, <e id=source:s1FdiP>Palo Alto Networks</e>, <e id=idn:extrahop.com>extrahop.com</e>, <e id=source:PA-rR4>Talos Intel</e>, <e id=source:aKsgy0>AlienVault | Pulses</e>. Most recent link (Aug 8, 2023): https://www.guidepointsecurity.com/blog/analysis-of-the-solarwinds-supply-chain-attack/",
+                            "rule": "Historically Reported as a Defanged DNS Name",
+                            "sightings": 17,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "defanged"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2025-11-19T17:32:00.012000Z",
+                            "description": "Previous sightings on 2 sources: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>, <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>. Observed between Dec 20, 2023, and Jan 1, 2024.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2022-02-01T21:22:56.588000Z",
+                            "description": "1 sighting on 1 source: <e id=source:kBB1fk>External Sensor Data Analysis</e>. <e id=idn:virtualdataserver.com>virtualdataserver.com</e> is observed to be a <e id=mitre:T1204.001>malware site</e> domain that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+                            "rule": "Historically Detected Malware Operation",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "malwareSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T05:53:55.447000Z",
+                            "description": "1 sighting on 1 source: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>.",
+                            "rule": "Recent C&C DNS Name",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentCncSite"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "idn:virtualdataserver.com",
+                "name": "virtualdataserver.com",
+                "type": "InternetDomainName"
+            }
+        }
+    },
+    {
+        "entity": "XML External Entity (XXE) processing",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 24,
+                "level": 1,
+                "context": {
+                    "public": {
+                        "score": 24,
+                        "rule": {
+                            "maxCount": 23
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 3.0
+                            }
+                        ],
+                        "mostCriticalRule": "Linked to Historical Cyber Exploit"
+                    },
+                    "malware": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 1
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 3,
+                    "maxCount": 25,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 3.0
+                        }
+                    ],
+                    "mostCritical": "Linked to Historical Cyber Exploit",
+                    "evidence": [
+                        {
+                            "count": 2,
+                            "timestamp": "2025-08-28T21:49:33.107000Z",
+                            "description": "3 sightings on 2 sources: <e id=source:kDgkzS>Cyber SecurityWorks Blog</e>, <e id=source:MIKjae>GitHub</e>. 1 related malware family: <e id=dG-Bo9>Nefilim Ransomware</e>. Most recent link (Aug 28, 2025): https://github.com/center-for-threat-informed-defense/mappings-explorer/commit/ed018504cf33eb96fc26e05a9206e6bd61033d73",
+                            "rule": "Historically Linked to Ransomware",
+                            "sightings": 3,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedToRansomware"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2021-03-05T22:36:04Z",
+                            "description": "13 sightings on 2 sources: <e id=source:MIKjae>GitHub</e>, <e id=fweR5Y>@r3dbU7z</e>. 7 related malware families including <e id=dXkwxG>Kinsing</e>, <e id=Koaobw>WebShell</e>, <e id=vU0Glj>XZ-Utils</e>, <e id=0efpT>Trojan</e>, <e id=J0Nl-p>Ransomware</e>. Most recent tweet: <e id=cTYNzG>#kinsing</e> <e id=UJwF6H>#cryptojacking</e> ICYMI: ip: <e id=ip:194.38.20.199>194.38.20.199</e> Ref: <e id=ZqC8Au>XML External Entity (XXE) Processing</e> <e id=url:https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing>https://t.co/A8xjPUB7f3</e> <e id=url:https://twitter.com/r3dbU7z/status/1367967172211994625/photo/1>https://t.co/NzZN7mYVaZ</e>. Most recent link (Mar 5, 2021): https://twitter.com/r3dbU7z/statuses/1367967172211994625",
+                            "rule": "Historically Linked to Malware",
+                            "sightings": 13,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedToIntrusionMethod"
+                        },
+                        {
+                            "count": 5,
+                            "timestamp": "2024-12-06T07:20:37Z",
+                            "description": "8 sightings on 5 sources: <e id=source:lmoHXq>Malware Analysis News and Indicators Latest Posts</e>, <e id=source:jG-s0p>Cyble | Blog</e>, <e id=source:v55VGS>Hackyx</e>, <e id=source:gBDK5G>Malware News - Malware Analysis, News and Indicators</e>, <e id=idn:zeroscience.mk>zeroscience.mk</e>. Most recent link (Dec 6, 2024): https://malware.news/t/cisa-updates-known-exploited-vulnerabilities-catalog-adding-3-critical-flaws/89104#post_1",
+                            "rule": "Linked to Historical Cyber Exploit",
+                            "sightings": 8,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedToCyberExploit"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "ZqC8Au",
+                "name": "XML External Entity (XXE) processing",
+                "type": "CyberVulnerability"
+            }
+        }
+    },
+    {
+        "entity": "https://meta-support-entitylog.pages.dev/",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 15,
+                "level": 1,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 2
+                        }
+                    },
+                    "public": {
+                        "score": 15,
+                        "rule": {
+                            "maxCount": 34
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 3.0
+                            }
+                        ],
+                        "mostCriticalRule": "Historically Detected Phishing Techniques"
+                    },
+                    "c2": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 1
+                        }
+                    },
+                    "malware": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 6
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 3,
+                    "maxCount": 35,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 3.0
+                        }
+                    ],
+                    "mostCritical": "Historically Detected Phishing Techniques",
+                    "evidence": [
+                        {
+                            "count": 2,
+                            "timestamp": "2025-12-17T01:42:08.246000Z",
+                            "description": "7 sightings on 2 sources: <e id=source:eKv4Jm>Urlscan.io</e>, <e id=source:tDwRrI>Recorded Future Phishing Detection</e>. <e id=url:https://meta-support-entitylog.pages.dev/>https://meta-support-entitylog.pages.dev/</e>, which was impersonating <e id=B_E-a>facebook</e>, is no longer live as of September 30, 2025. Most recent link (Dec 10, 2025): https://urlscan.io/result/019b05af-d325-72fa-875d-8e53102b4d62/",
+                            "rule": "Historically Detected Phishing Techniques",
+                            "sightings": 7,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "phishingSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-09-28T18:55:08.783000Z",
+                            "description": "1 sighting on 1 source: <e id=source:tDwRrI>Recorded Future Phishing Detection</e>. <e id=url:https://meta-support-entitylog.pages.dev/>https://meta-support-entitylog.pages.dev/</e> was reported as phishing impersonating <e id=B_E-a>facebook</e> on September 28, 2025.",
+                            "rule": "Historically Suspected Phishing Techniques",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "phishingSiteSuspected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-10-19T19:09:01.442000Z",
+                            "description": "Previous sightings on 1 source: <e id=report:SD1opM>Recorded Future Phishing Detections</e>. Observed between Sep 28, 2025, and Oct 19, 2025.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "url:https://meta-support-entitylog.pages.dev/",
+                "name": "https://meta-support-entitylog.pages.dev/",
+                "type": "URL"
+            }
+        }
+    },
+    {
+        "entity": "thedoccloud.com",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 99,
+                "level": 4,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 3
+                        }
+                    },
+                    "public": {
+                        "score": 99,
+                        "rule": {
+                            "maxCount": 51
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 7.0
+                            },
+                            {
+                                "level": 3.0,
+                                "count": 1.0
+                            },
+                            {
+                                "level": 4.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Recent C&C DNS Name"
+                    },
+                    "c2": {
+                        "score": 90,
+                        "rule": {
+                            "count": 1,
+                            "maxCount": 2
+                        }
+                    },
+                    "malware": {
+                        "score": 91,
+                        "rule": {
+                            "count": 2,
+                            "maxCount": 3
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 9,
+                    "maxCount": 52,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 7.0
+                        },
+                        {
+                            "level": 3.0,
+                            "count": 1.0
+                        },
+                        {
+                            "level": 4.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Recent C&C DNS Name",
+                    "evidence": [
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-20T02:18:38.421000Z",
+                            "description": "1 sighting on 1 source: <e id=source:kBB1fk>External Sensor Data Analysis</e>. <e id=idn:thedoccloud.com>thedoccloud.com</e> is observed to be a <e id=mitre:T1204.001>malware site</e> domain that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+                            "rule": "Recently Detected Malware Operation",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 3,
+                            "type": "recentMalwareSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T01:08:51.106000Z",
+                            "description": "1 sighting on 1 source: <e id=idn:xpda.com>xpda.com</e>. Most recent link (Dec 22, 2025): https://xpda.com/junkmail/junk241/AA20-352A-APT_Compromise_of_Government_Agencies%2C_Critical%20Infrastructure%2C_and_Private_Sector_Organizations.pdf",
+                            "rule": "Recently Reported as a Defanged DNS Name",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "recentDefanged"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-11-21T00:27:48.109000Z",
+                            "description": "4 sightings on 1 source: <e id=source:kBB1fk>External Sensor Data Analysis</e>. <e id=idn:thedoccloud.com>thedoccloud.com</e> is observed to be a <e id=mitre:T1204.001>malware site</e> domain that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+                            "rule": "Historically Detected Malware Operation",
+                            "sightings": 4,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "malwareSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2021-02-03T21:32:08Z",
+                            "description": "2 sightings on 1 source: <e id=source:UZNze8>DHS Automated Indicator Sharing</e>. 2 reports including AA20-352A APT Compromise of Govt Agencies, Critical Infrastructure, and Private Sector Organizations, from CISA, Government Facilities Sector, CISA, Government Facilities Sector, NCCIC:STIX_Package-673aacd1-1852-4d44-bd93-0c44940a6358 (Feb 3, 2021).",
+                            "rule": "Historically Reported by DHS AIS",
+                            "sightings": 2,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "dhsAis"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T14:55:04.006000Z",
+                            "description": "1 sighting on 1 source: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>.",
+                            "rule": "Recent C&C DNS Name",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentCncSite"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2020-12-18T00:00:00Z",
+                            "description": "3 sightings on 1 source: <e id=source:VKz42X>Insikt Group</e>. 3 reports including CISA Warns of Attacks Targeting <e id=B_FAG>US</e> Government Sector, Critical Infrastructure Entities, and Private Sector Organizations. Most recent link (Dec 18, 2020): https://app.recordedfuture.com/portal/analyst-note/doc:gfT_OG",
+                            "rule": "Historically Reported by Insikt Group",
+                            "sightings": 3,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "analystNote"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2025-11-19T17:31:00.805000Z",
+                            "description": "Previous sightings on 2 sources: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>, <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>. Observed between May 29, 2025, and Jun 12, 2025.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2024-05-22T00:00:00Z",
+                            "description": "1 sighting on 1 source: <e id=source:tI3ayU>Proofpoint Reputation Feed</e>. <e id=idn:thedoccloud.com>thedoccloud.com</e> was identified as <e id=mitre:TA0011>a Known Trojan Command and Control Server</e> on 2024-05-22.",
+                            "rule": "Historical Suspected C&C DNS Name",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "suspectedCncDnsName"
+                        },
+                        {
+                            "count": 11,
+                            "timestamp": "2020-12-15T04:44:22Z",
+                            "description": "26 sightings on 11 sources including: <e id=source:Lad>CSO Online</e>, <e id=idn:extrahop.com>extrahop.com</e>, <e id=source:s1FdiP>Palo Alto Networks</e>, <e id=source:sQoNNc>Guidepoint Security | Blog</e>, <e id=source:485j-E>Nukib | Hrozby a zranitelnosti</e>. Most recent tweet: [<t>2/1</t>] Indicators for <e id=K38mge>#SolarWinds</e> <e id=KelmGY>#attack</e>: <e id=idn:deftsecurity.com>deftsecurity[.]com</e>,<e id=ip:13.59.205.66>13.59.205.66</e> <e id=idn:freescanonline.com>freescanonline[.]com</e>,<e id=ip:54.193.127.66>54.193.127.66</e> <e id=idn:thedoccloud.com>thedoccloud[.]com</e>,<e id=ip:54.215.192.52>54.215.192.52</e> <e id=idn:websitetheme.com>websitetheme[.]com</e>,<e id=ip:34.203.203.23>34.203.203.23</e> <e id=idn:highdatabase.com>highdatabase[.]com</e>,<e id=ip:139.99.115.204>139.99.115.204</e> <e id=LTrwP8>@NSDC_ua</e> <e id=Ok_Vn3>@cyberpoliceua</e> <e id=Y8elsc>#\u041d\u041a\u0426\u041a</e> <e id=LB86g2>#APT29</e> <e id=NpDYXQ>#cozybear</e> <e id=KejJaP>#malware</e> <e id=CTYAbt>#orion</e>. Most recent link (Dec 15, 2020): https://twitter.com/sky31337/statuses/1338706443839672320",
+                            "rule": "Historically Reported as a Defanged DNS Name",
+                            "sightings": 26,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "defanged"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "idn:thedoccloud.com",
+                "name": "thedoccloud.com",
+                "type": "InternetDomainName"
+            }
+        }
+    },
+    {
+        "entity": "CVE-2025-20393",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 0,
+                "level": 0,
+                "context": {
+                    "public": {
+                        "score": 0,
+                        "rule": {
+                            "maxCount": 23
+                        },
+                        "summary": [],
+                        "mostCriticalRule": ""
+                    },
+                    "malware": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 1
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 0,
+                    "maxCount": 25,
+                    "summary": [],
+                    "mostCritical": ""
+                }
+            },
+            "entity": {
+                "id": "ROY7kz",
+                "name": "CVE-2025-20393",
+                "type": "CyberVulnerability"
+            }
+        }
+    },
+    {
+        "entity": "116.198.233.179",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 99,
+                "level": 4,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 3
+                        }
+                    },
+                    "public": {
+                        "score": 99,
+                        "rule": {
+                            "maxCount": 81
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 8.0
+                            },
+                            {
+                                "level": 2.0,
+                                "count": 5.0
+                            },
+                            {
+                                "level": 3.0,
+                                "count": 1.0
+                            },
+                            {
+                                "level": 4.0,
+                                "count": 2.0
+                            }
+                        ],
+                        "mostCriticalRule": "Validated C&C Server"
+                    },
+                    "c2": {
+                        "score": 98,
+                        "rule": {
+                            "count": 3,
+                            "maxCount": 7
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 16,
+                    "maxCount": 81,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 8.0
+                        },
+                        {
+                            "level": 2.0,
+                            "count": 5.0
+                        },
+                        {
+                            "level": 3.0,
+                            "count": 1.0
+                        },
+                        {
+                            "level": 4.0,
+                            "count": 2.0
+                        }
+                    ],
+                    "mostCritical": "Validated C&C Server",
+                    "evidence": [
+                        {
+                            "count": 7,
+                            "timestamp": "2025-12-08T00:41:35Z",
+                            "description": "54 sightings on 7 sources including: <e id=idn:redpacketsecurity.com>redpacketsecurity.com</e>, <e id=source:Jv_xrR>PasteBin</e>, <e id=source:Y7TWfI>Telegram - Other Channels</e>, <e id=source:urX5Z9>RedPacket Security</e>, <e id=source:pupSAn>Mastodon</e>. 5 related intrusion methods: <e id=JLHNoH>Cobalt Strike</e>, <e id=QCqLhE>Backdoor</e>, <e id=E0yzG>Remote Access Trojan</e>, <e id=hzdgTv>Offensive Security Tools (OST)</e>, <e id=LnK3Q6>Cobalt Strike Beacon</e>. Most recent link (Dec 8, 2025): https://mastodon.social/@RedPacketSecurity/115681165038220172",
+                            "rule": "Historically Linked to Intrusion Method",
+                            "sightings": 54,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedIntrusion"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-09-01T09:07:37.057000Z",
+                            "description": "68 sightings on 1 source: <e id=source:qU_q-9>Recorded Future Command & Control Reports</e>. <e id=ip:116.198.233.179>116.198.233.179</e>:<e id=m3r60G>6666</e> was reported as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Aug 17, 2025",
+                            "rule": "Historically Reported C&C Server",
+                            "sightings": 68,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "reportedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T02:14:55.085000Z",
+                            "description": "10 sightings on 1 source: <e id=source:UZNze8>DHS Automated Indicator Sharing</e>. 10 reports including Malicious IPv4 address, from Forescout Research - Vedere Labs (Dec 22, 2025).",
+                            "rule": "Recently Reported by DHS AIS",
+                            "sightings": 10,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "recentDhsAis"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T18:29:29.188000Z",
+                            "description": "21 sightings on 1 source: <e id=source:gs6Zfb>Recorded Future Network Intelligence</e>. Multiple communications observed between\n        <e id=ip:24.199.81.60>24.199.81.60</e>\n         on 2 ports including\n        <e id=m3qZtL>26273</e>\n         and\n        <e id=ip:116.198.233.179>116.198.233.179</e>\n         (validated  C2 Server) on port\n        <e id=m3r60G>6666</e>\n         on\n        2025-12-21 at 04:14 UTC.",
+                            "rule": "Actively Communicating Validated C&C Server",
+                            "sightings": 21,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentActiveCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-08T00:02:20.758000Z",
+                            "description": "47 sightings on 1 source: <e id=source:UZNze8>DHS Automated Indicator Sharing</e>. 47 reports including Malicious IPv4 address, from Forescout Research - Vedere Labs (Dec 8, 2025).",
+                            "rule": "Historically Reported by DHS AIS",
+                            "sightings": 47,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "dhsAis"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T18:38:18.686000Z",
+                            "description": "1 sighting on 1 source: <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>. Observed in the wild by Recorded Future Telemetry.",
+                            "rule": "Observed in the Wild by Recorded Future Telemetry",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "observedTelemetry"
+                        },
+                        {
+                            "count": 3,
+                            "timestamp": "2025-12-19T00:25:37.727000Z",
+                            "description": "10 sightings on 3 sources: <e id=source:Y7TWfI>Telegram - Other Channels</e>, <e id=source:urX5Z9>RedPacket Security</e>, <e id=source:pupSAn>Mastodon</e>. 5 related intrusion methods: <e id=JLHNoH>Cobalt Strike</e>, <e id=QCqLhE>Backdoor</e>, <e id=E0yzG>Remote Access Trojan</e>, <e id=hzdgTv>Offensive Security Tools (OST)</e>, <e id=LnK3Q6>Cobalt Strike Beacon</e>. Most recent link (Dec 19, 2025): https://mastodon.social/@RedPacketSecurity/115743387662483730",
+                            "rule": "Recently Linked to Intrusion Method",
+                            "sightings": 10,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "recentLinkedIntrusion"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T05:28:42Z",
+                            "description": "7 sightings on 1 source: <e id=source:qGriFQ>Insikt Group Command & Control Validation</e>. Recorded Future analysis validated <e id=ip:116.198.233.179>116.198.233.179</e>:<e id=m3uiru>50050</e> as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Dec 22, 2025",
+                            "rule": "Validated C&C Server",
+                            "sightings": 7,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentValidatedCnc"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2025-10-30T00:43:11.310000Z",
+                            "description": "83 sightings on 2 sources: <e id=source:sIoEOQ>ThreatFox Infrastructure Analysis</e>, <e id=source:qs_-cU>Malware Patrol</e>. ThreatFox identified <e id=ip:116.198.233.179>116.198.233.179</e>:<e id=-nJ-UB>443</e> as possible <e id=mitre:TA0011>TA0011 (Command and Control)</e> for Cobalt Strike on October 16, 2025. Most recent link (Oct 16, 2025): https://threatfox.abuse.ch/ioc/1567756",
+                            "rule": "Historical Suspected C&C Server",
+                            "sightings": 83,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "suspectedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-20T05:24:52Z",
+                            "description": "791 sightings on 1 source: <e id=source:qGriFQ>Insikt Group Command & Control Validation</e>. Recorded Future analysis validated <e id=ip:116.198.233.179>116.198.233.179</e>:<e id=m3r60G>6666</e> as a command and control server for <e id=LnK3Q6>Cobalt Strike</e> on Dec 20, 2025",
+                            "rule": "Previously Validated C&C Server",
+                            "sightings": 791,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "validatedCnc"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-15T07:09:11.580000Z",
+                            "description": "1230 sightings on 1 source: <e id=source:x-zVXe>Insikt Group Vulnerability Scanner Validation</e>. Recorded Future validated <e id=ip:116.198.233.179>116.198.233.179</e> as high confidence <e id=67EAkf>Acunetix</e> <e id=yKj6C0>Vulnerability Scanner</e> on December 15, 2025",
+                            "rule": "Previously Validated Vulnerability Scanner Server",
+                            "sightings": 1230,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "validatedVulnerabilityScannerServer"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-08-16T09:20:35.827000Z",
+                            "description": "1 sighting on 1 source: <e id=source:kBB1fk>External Sensor Data Analysis</e>. <e id=ip:116.198.233.179>116.198.233.179</e> was identified as <e id=mitre:T1584>botnets</e> in External Sensor data. Reported to Recorded Future on Aug 16, 2025.",
+                            "rule": "Historical Botnet Traffic",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "botnet"
+                        },
+                        {
+                            "count": 3,
+                            "timestamp": "2025-12-07T20:48:45.683000Z",
+                            "description": "Previous sightings on 3 sources: <e id=report:SIuwrs>Shodan: Honeypot Hosts</e>, <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>, <e id=report:aD1qtM>Cobalt Strike Default Certificate Detected - Shodan / Recorded Future</e>. Observed between Oct 9, 2025, and Nov 11, 2025.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T08:06:52.895000Z",
+                            "description": "55 sightings on 1 source: <e id=source:x-zVXe>Insikt Group Vulnerability Scanner Validation</e>. Recorded Future validated <e id=ip:116.198.233.179>116.198.233.179</e> as high confidence <e id=67EAkf>Acunetix</e> <e id=yKj6C0>Vulnerability Scanner</e> on December 22, 2025",
+                            "rule": "Recent Validated Vulnerability Scanner Server",
+                            "sightings": 55,
+                            "mitigation": "",
+                            "level": 3,
+                            "type": "recentValidatedVulnerabilityScannerServer"
+                        },
+                        {
+                            "count": 3,
+                            "timestamp": "2025-09-18T23:56:59.166000Z",
+                            "description": "10 sightings on 3 sources: <e id=idn:redpacketsecurity.com>redpacketsecurity.com</e>, <e id=source:urX5Z9>RedPacket Security</e>, <e id=source:BV5>X (Twitter)</e>. Most recent link (Sep 18, 2025): https://www.redpacketsecurity.com/cobalt-strike-beacon-detected-116-198-233-179-port-443-2/",
+                            "rule": "Historically Reported as a Defanged IP",
+                            "sightings": 10,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "defanged"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T02:14:55.085000Z",
+                            "description": "81 sightings on 1 source: <e id=source:gs6Zfb>Recorded Future Network Intelligence</e>. Multiple communications observed between\n        <e id=ip:165.227.255.184>165.227.255.184</e>\n         on 2 ports including\n        <e id=m3vCnA>43455</e>\n         and\n        <e id=ip:116.198.233.179>116.198.233.179</e>\n         (validated  C2 Server) on port\n        <e id=m3r60G>6666</e>\n         on\n        2025-12-19 at 07:51 UTC.",
+                            "rule": "Recently Communicating Validated C&C Server",
+                            "sightings": 81,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "intermediateActiveCnc"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "ip:116.198.233.179",
+                "name": "116.198.233.179",
+                "type": "IpAddress"
+            }
+        }
+    },
+    {
+        "entity": "183925683483f7d79ca8033f07c7156db25426787234726b624380888ceb3f7b",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 89,
+                "level": 3,
+                "context": {
+                    "public": {
+                        "score": 89,
+                        "rule": {
+                            "maxCount": 15
+                        },
+                        "summary": [
+                            {
+                                "level": 2.0,
+                                "count": 1.0
+                            },
+                            {
+                                "level": 3.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Positive Malware Verdict"
+                    },
+                    "malware": {
+                        "score": 89,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 4
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 2,
+                    "maxCount": 17,
+                    "summary": [
+                        {
+                            "level": 2.0,
+                            "count": 1.0
+                        },
+                        {
+                            "level": 3.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Positive Malware Verdict",
+                    "evidence": [
+                        {
+                            "count": 1,
+                            "timestamp": "2025-03-03T11:21:41.190000Z",
+                            "description": "1 sighting on 1 source: <e id=source:MIKjae>GitHub</e>. 1 related malware family: <e id=s_vAGP>ClearFake</e>. Most recent link (Mar 3, 2025): https://github.com/mgitihubs/this/commit/6e818f42a23fd141c18873fff9eeaf6acbace5a4",
+                            "rule": "Linked to Malware",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "linkedToMalware"
+                        },
+                        {
+                            "count": 6,
+                            "timestamp": "2025-06-19T02:47:13.469000Z",
+                            "description": "8 sightings on 6 sources including: <e id=source:oWAWVb>Recorded Future Sandbox</e>, <e id=source:hzujmF>Joe Security Sandbox Analysis</e>, <e id=source:ndy5_2>Recorded Future Triage Malware Analysis</e>, <e id=source:hzRhwZ>Polyswarm Sandbox Analysis</e>, <e id=source:TAIz7D>Recorded Future Malware Detonation</e>. Malware sandbox report for <e id=content:183925683483f7d79ca8033f07c7156db25426787234726b624380888ceb3f7b>183925683483f7d79ca8033f07c7156db25426787234726b624380888ceb3f7b</e> on November 11, 2024.   Score: 10 (Known bad). Detections: <e id=iuiKOZ>Snake Keylogger</e>. Contains: 1 ATT&CK behavior, 0 command and control indicators, and 10 signatures. Most recent link (Jun 19, 2025): https://tria.ge/250619-c3h41ax1d1",
+                            "rule": "Positive Malware Verdict",
+                            "sightings": 8,
+                            "mitigation": "",
+                            "level": 3,
+                            "type": "positiveMalwareVerdict"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "hash:183925683483f7d79ca8033f07c7156db25426787234726b624380888ceb3f7b",
+                "name": "183925683483f7d79ca8033f07c7156db25426787234726b624380888ceb3f7b",
+                "type": "Hash"
+            }
+        }
+    },
+    {
+        "entity": "3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 89,
+                "level": 3,
+                "context": {
+                    "public": {
+                        "score": 89,
+                        "rule": {
+                            "maxCount": 15
+                        },
+                        "summary": [
+                            {
+                                "level": 2.0,
+                                "count": 1.0
+                            },
+                            {
+                                "level": 3.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Positive Malware Verdict"
+                    },
+                    "malware": {
+                        "score": 89,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 4
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 2,
+                    "maxCount": 17,
+                    "summary": [
+                        {
+                            "level": 2.0,
+                            "count": 1.0
+                        },
+                        {
+                            "level": 3.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Positive Malware Verdict",
+                    "evidence": [
+                        {
+                            "count": 1,
+                            "timestamp": "2024-10-15T09:06:13.186000Z",
+                            "description": "5 sightings on 1 source: <e id=source:doLlw5>PolySwarm</e>. Most recent link (Oct 15, 2024): https://polyswarm.network/scan/results/file/3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff",
+                            "rule": "Linked to Malware",
+                            "sightings": 5,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "linkedToMalware"
+                        },
+                        {
+                            "count": 6,
+                            "timestamp": "2025-10-16T10:48:45.075000Z",
+                            "description": "41 sightings on 6 sources including: <e id=source:oWAWVb>Recorded Future Sandbox</e>, <e id=source:hzRhwZ>Polyswarm Sandbox Analysis</e>, <e id=source:ndy5_2>Recorded Future Triage Malware Analysis</e>, <e id=source:o5W_VB>PolySwarm PolyUnite</e>, <e id=source:mbf07->URLHaus Infrastructure Analysis</e>. Malware sandbox report for <e id=content:3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff>3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff</e> on December 11, 2024.   Score: 10 (Known bad). Detections: <e id=KPTj03>Metasploit</e>. Contains: 1 ATT&CK behavior, 1 command and control indicator, and 3 signatures. Most recent link (Oct 16, 2025): https://tria.ge/251016-lx25csxjz2",
+                            "rule": "Positive Malware Verdict",
+                            "sightings": 41,
+                            "mitigation": "",
+                            "level": 3,
+                            "type": "positiveMalwareVerdict"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "hash:3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff",
+                "name": "3c3ce0355bfa42b379830b93a76cffd32fceed54e6b549ae4a1132ca30b392ff",
+                "type": "Hash"
+            }
+        }
+    },
+    {
+        "entity": "zupertech.com",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 99,
+                "level": 4,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 3
+                        }
+                    },
+                    "public": {
+                        "score": 99,
+                        "rule": {
+                            "maxCount": 51
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 6.0
+                            },
+                            {
+                                "level": 4.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Recent C&C DNS Name"
+                    },
+                    "c2": {
+                        "score": 90,
+                        "rule": {
+                            "count": 1,
+                            "maxCount": 2
+                        }
+                    },
+                    "malware": {
+                        "score": 90,
+                        "rule": {
+                            "count": 1,
+                            "maxCount": 3
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 7,
+                    "maxCount": 52,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 6.0
+                        },
+                        {
+                            "level": 4.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Recent C&C DNS Name",
+                    "evidence": [
+                        {
+                            "count": 2,
+                            "timestamp": "2022-01-30T00:00:00Z",
+                            "description": "18 sightings on 2 sources: <e id=source:kBB1fk>External Sensor Data Analysis</e>, <e id=source:d3Awkm>Bitdefender</e>. <e id=idn:zupertech.com>zupertech.com</e> is observed to be a <e id=mitre:T1204.001>malware site</e> domain that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+                            "rule": "Historically Detected Malware Operation",
+                            "sightings": 18,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "malwareSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2020-12-15T04:44:23Z",
+                            "description": "2 sightings on 1 source: <e id=eJKSDp>@sky31337</e>. Most recent tweet: [2/2] <e id=idn:incomeupdate.com>incomeupdate[.]com</e>,<e id=ip:5.252.177.25>5.252.177.25</e> <e id=idn:databasegalore.com>databasegalore[.]com</e>,<e id=ip:5.252.177.21>5.252.177.21</e> <e id=idn:panhardware.com>panhardware[.]com</e>,<e id=ip:204.188.205.176>204.188.205.176</e> <e id=idn:zupertech.com>zupertech[.]com</e>,<e id=ip:51.89.125.18>51.89.125.18</e> <e id=idn:zupertech.com>zupertech[.]com</e>,<e id=ip:167.114.213.199>167.114.213.199</e> <e id=LTrwP8>@NSDC_ua</e> <e id=Ok_Vn3>@CyberpoliceUA</e> <e id=Y8elsc>#\u041d\u041a\u0426\u041a</e> <e id=LB86g2>#APT29</e> <e id=NpDYXQ>#<i id=Gfmn-nA2aPC><e id=O7NRMb>CozyBear</e> <e id=KejJaP>#malware</e></i></e> <e id=CTYAbt>#Orion</e> <e id=K38mge>#SolarWinds</e>. Most recent link (Dec 15, 2020): https://twitter.com/sky31337/statuses/1338706444678549511",
+                            "rule": "Historically Linked to Cyber Attack",
+                            "sightings": 2,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "linkedToCyberAttack"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-12-22T17:56:57.710000Z",
+                            "description": "1 sighting on 1 source: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>.",
+                            "rule": "Recent C&C DNS Name",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 4,
+                            "type": "recentCncSite"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2020-12-15T00:00:00Z",
+                            "description": "2 sightings on 1 source: <e id=source:VKz42X>Insikt Group</e>. 2 reports including <e id=O7NRMb>UNC2452</e> (DarkHalo)'s <e id=gbo257>SUNBURST Backdoor</e>; Indicators and Infrastructure. Most recent link (Dec 15, 2020): https://app.recordedfuture.com/portal/analyst-note/doc:gcSJpz",
+                            "rule": "Historically Reported by Insikt Group",
+                            "sightings": 2,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "analystNote"
+                        },
+                        {
+                            "count": 2,
+                            "timestamp": "2025-11-19T17:31:27.827000Z",
+                            "description": "Previous sightings on 2 sources: <e id=report:QhR8Qs>Bambenek Consulting C&C Blocklist</e>, <e id=report:oJewMx>Recently Viewed Integrations Indicators</e>. Observed between Jul 1, 2024, and Jul 3, 2024.",
+                            "rule": "Historically Reported in Threat List",
+                            "sightings": -1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "historicalThreatListMembership"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2022-01-30T00:00:00Z",
+                            "description": "1 sighting on 1 source: <e id=source:d3Awkm>Bitdefender</e>. Detected malicious behavior from an endpoint agent via global telemetry. Last observed on Jan 30, 2022.",
+                            "rule": "Historically Suspected Malware Operation",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "malwareSiteSuspected"
+                        },
+                        {
+                            "count": 10,
+                            "timestamp": "2020-12-15T04:44:23Z",
+                            "description": "23 sightings on 10 sources including: <e id=idn:securityscorecard.com>securityscorecard.com</e>, <e id=idn:assets.kpmg>assets.kpmg</e>, <e id=source:Lad>CSO Online</e>, <e id=source:s1FdiP>Palo Alto Networks</e>, <e id=idn:extrahop.com>extrahop.com</e>. Most recent tweet: [2/2] <e id=idn:incomeupdate.com>incomeupdate[.]com</e>,<e id=ip:5.252.177.25>5.252.177.25</e> <e id=idn:databasegalore.com>databasegalore[.]com</e>,<e id=ip:5.252.177.21>5.252.177.21</e> <e id=idn:panhardware.com>panhardware[.]com</e>,<e id=ip:204.188.205.176>204.188.205.176</e> <e id=idn:zupertech.com>zupertech[.]com</e>,<e id=ip:51.89.125.18>51.89.125.18</e> <e id=idn:zupertech.com>zupertech[.]com</e>,<e id=ip:167.114.213.199>167.114.213.199</e> <e id=LTrwP8>@NSDC_ua</e> <e id=Ok_Vn3>@CyberpoliceUA</e> <e id=Y8elsc>#\u041d\u041a\u0426\u041a</e> <e id=LB86g2>#APT29</e> <e id=NpDYXQ>#<e id=O7NRMb>CozyBear</e></e> <e id=KejJaP>#malware</e> <e id=CTYAbt>#Orion</e> <e id=K38mge>#SolarWinds</e>. Most recent link (Dec 15, 2020): https://twitter.com/sky31337/statuses/1338706444678549511",
+                            "rule": "Historically Reported as a Defanged DNS Name",
+                            "sightings": 23,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "defanged"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "idn:zupertech.com",
+                "name": "zupertech.com",
+                "type": "InternetDomainName"
+            }
+        }
+    },
+    {
+        "entity": "https://meta-support-entitykey.pages.dev/",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 10,
+                "level": 1,
+                "context": {
+                    "phishing": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 2
+                        }
+                    },
+                    "public": {
+                        "score": 10,
+                        "rule": {
+                            "maxCount": 34
+                        },
+                        "summary": [
+                            {
+                                "level": 1.0,
+                                "count": 2.0
+                            }
+                        ],
+                        "mostCriticalRule": "Historically Detected Phishing Techniques"
+                    },
+                    "c2": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 1
+                        }
+                    },
+                    "malware": {
+                        "score": 0,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 6
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 2,
+                    "maxCount": 35,
+                    "summary": [
+                        {
+                            "level": 1.0,
+                            "count": 2.0
+                        }
+                    ],
+                    "mostCritical": "Historically Detected Phishing Techniques",
+                    "evidence": [
+                        {
+                            "count": 2,
+                            "timestamp": "2025-12-06T03:34:41.239000Z",
+                            "description": "9 sightings on 2 sources: <e id=source:eKv4Jm>URLScan Web Page Analysis</e>, <e id=source:tDwRrI>Recorded Future Phishing Detection</e>. <e id=url:https://meta-support-entitykey.pages.dev/>https://meta-support-entitykey.pages.dev/</e>, which was indicated as phishing, is no longer live as of October 02, 2025. Most recent link (Nov 29, 2025): https://urlscan.io/result/019acd57-635c-739b-b1e3-517218a94247/",
+                            "rule": "Historically Detected Phishing Techniques",
+                            "sightings": 9,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "phishingSiteDetected"
+                        },
+                        {
+                            "count": 1,
+                            "timestamp": "2025-10-01T06:40:19.697000Z",
+                            "description": "1 sighting on 1 source: <e id=source:tDwRrI>Recorded Future Phishing Detection</e>. <e id=url:https://meta-support-entitykey.pages.dev/>https://meta-support-entitykey.pages.dev/</e> was reported as phishing on October 01, 2025.",
+                            "rule": "Historically Suspected Phishing Techniques",
+                            "sightings": 1,
+                            "mitigation": "",
+                            "level": 1,
+                            "type": "phishingSiteSuspected"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "url:https://meta-support-entitykey.pages.dev/",
+                "name": "https://meta-support-entitykey.pages.dev/",
+                "type": "URL"
+            }
+        }
+    },
+    {
+        "entity": "016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2",
+        "is_enriched": true,
+        "content": {
+            "risk": {
+                "score": 89,
+                "level": 3,
+                "context": {
+                    "public": {
+                        "score": 89,
+                        "rule": {
+                            "maxCount": 15
+                        },
+                        "summary": [
+                            {
+                                "level": 2.0,
+                                "count": 1.0
+                            },
+                            {
+                                "level": 3.0,
+                                "count": 1.0
+                            }
+                        ],
+                        "mostCriticalRule": "Positive Malware Verdict"
+                    },
+                    "malware": {
+                        "score": 89,
+                        "rule": {
+                            "count": 0,
+                            "maxCount": 4
+                        }
+                    }
+                },
+                "rule": {
+                    "count": 2,
+                    "maxCount": 17,
+                    "summary": [
+                        {
+                            "level": 2.0,
+                            "count": 1.0
+                        },
+                        {
+                            "level": 3.0,
+                            "count": 1.0
+                        }
+                    ],
+                    "mostCritical": "Positive Malware Verdict",
+                    "evidence": [
+                        {
+                            "count": 1,
+                            "timestamp": "2021-08-15T14:20:13.927000Z",
+                            "description": "11 sightings on 1 source: <e id=source:doLlw5>PolySwarm</e>. 6 related malware families including <e id=0fK7b>Rootkit</e>, <e id=KeKuZ0>Winnti</e>, <e id=0efpT>Trojan</e>, <e id=QCqLhE>Backdoor</e>, <e id=E0yzG>Remote Access Trojan</e>. Most recent link (Aug 15, 2021): https://polyswarm.network/scan/results/file/016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2",
+                            "rule": "Linked to Malware",
+                            "sightings": 11,
+                            "mitigation": "",
+                            "level": 2,
+                            "type": "linkedToMalware"
+                        },
+                        {
+                            "count": 6,
+                            "timestamp": "2025-09-01T23:41:48.895000Z",
+                            "description": "10 sightings on 6 sources including: <e id=source:oWAWVb>Recorded Future Sandbox</e>, <e id=source:ndy5_2>Recorded Future Triage Malware Analysis</e>, <e id=source:hzRhwZ>Polyswarm Sandbox Analysis</e>, <e id=source:TAIz7D>Recorded Future Malware Detonation</e>, <e id=source:TbciDE>ReversingLabs</e>. Malware sandbox report for <e id=content:016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2>016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2</e> on October 16, 2024.   Score: 9 (Likely malicious). No malware detections. Contains: 6 ATT&CK behaviors, 0 command and control indicators, and 11 signatures. Most recent link (Sep 1, 2025): https://tria.ge/250901-3em16aan4t",
+                            "rule": "Positive Malware Verdict",
+                            "sightings": 10,
+                            "mitigation": "",
+                            "level": 3,
+                            "type": "positiveMalwareVerdict"
+                        }
+                    ]
+                }
+            },
+            "entity": {
+                "id": "hash:016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2",
+                "name": "016250b7d62e49ba386404cc6db38cb65323d26cf80bc94e2810d5ab9e59fff2",
+                "type": "Hash"
+            }
+        }
+    }
+]

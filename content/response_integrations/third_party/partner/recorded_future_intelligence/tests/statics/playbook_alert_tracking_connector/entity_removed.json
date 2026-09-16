@@ -1,0 +1,40 @@
+{
+  "status": {
+    "status_code": "Ok",
+    "status_message": "Playbook alert single lookup successful."
+  },
+  "data": {
+    "playbook_alert_id": "task:test-only-removed",
+    "panel_log_v2": [
+      {
+        "id": "uuid:test-removal-only",
+        "created": "2024-10-17T09:40:45.046Z",
+        "changes": [
+          {
+            "domain": "example.com",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:192.168.1.1",
+                  "name": "192.168.1.1",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:192.168.1.2",
+                  "name": "192.168.1.2",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [],
+            "type": "dns_change"
+          }
+        ]
+      }
+    ]
+  }
+}

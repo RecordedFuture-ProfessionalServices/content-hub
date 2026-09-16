@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import pytest
 from tests.test_widgets.common import (
+    DATA_MODEL_FINGERPRINTS,
     DATA_MODELS,
     JSON_RESULT_PLACEHOLDER,
     WIDGET_NAMES,
@@ -175,44 +176,74 @@ def test_widget_html_declares_the_json_placeholder_once(name: str) -> None:
 
 @pytest.mark.parametrize("name", WIDGET_NAMES)
 def test_widget_html_structure(name: str) -> None:
-    """The HTML is a complete document built from the tracked template."""
+    """The HTML is a complete, self-contained document.
+
+    The shipped files are generated with their comments stripped, so there is
+    no licence header or template marker to check here - only that the
+    document Google SecOps serves is whole.
+    """
     html = widget_html(name)
 
     assert "<!DOCTYPE html>" in html
     assert html.rstrip().endswith("</html>")
-    assert "Apache License" in html, "missing licence header"
-    # Records which template revision this widget was based on, so a future
-    # re-base can tell what it is upgrading from.
-    assert "Widget created by Enrichment Template" in html
+    assert "<body" in html, "no body to render"
+    assert "<script" in html, "no script to populate the body from the payload"
 
 
 @pytest.mark.parametrize("name", WIDGET_NAMES)
-def test_widget_declares_a_known_data_model(name: str) -> None:
-    """Each widget declares which Recorded Future payload shape it renders.
+def test_widget_is_routed_to_a_known_data_model(name: str) -> None:
+    """Every widget is routed to a data-contract module by `WIDGET_DATA_MODELS`.
 
-    The declaration is what routes a widget to its data-contract test module. A
-    widget that declares nothing, or declares a model no module tests, would be
-    built and shipped with its payload assumptions unchecked.
+    The routing is what subjects a widget to the payload assertions for the
+    shape it renders. An unrouted widget would be built and shipped with its
+    payload assumptions unchecked.
     """
     model = widget_data_model(name)
     assert model, (
-        f"{name}.html declares no data model, or declares one more than once. "
-        f"Add a single `<!-- Recorded Future data model: ... -->` comment; "
-        f"without it, nothing checks the payload assumptions the script makes."
+        f"{name} is not in WIDGET_DATA_MODELS, so no data-contract module "
+        f"tests it. Add it to the table in tests/test_widgets/common.py."
     )
     assert model in DATA_MODELS, (
-        f"{name}.html declares unknown data model {model!r}; "
+        f"WIDGET_DATA_MODELS routes {name} to unknown data model {model!r}; "
         f"known models: {list(DATA_MODELS)}. Add a data-contract test module "
         f"for a new model rather than widening this list alone."
     )
 
 
-def test_every_data_model_has_a_widget() -> None:
-    """No data model is left declared but unused.
+@pytest.mark.parametrize("name", WIDGET_NAMES)
+def test_widget_routing_matches_its_script_constants(name: str) -> None:
+    """The routing table agrees with the constants the widget's script declares.
 
-    A model in `DATA_MODELS` that no widget declares means its test module
+    `WIDGET_DATA_MODELS` is maintained by hand, so on its own it could drift
+    from the widgets and quietly route one to the wrong contract. Each payload
+    shape is identifiable from the constants its script needs - the sandbox
+    widgets alone read `SANDBOX_BANDS`, the enrichment widgets alone read
+    `CRITICALITY_BANDS` - so pinning the two together makes a mismatch fail
+    here rather than pass the wrong assertions elsewhere.
+    """
+    html = widget_html(name)
+    expected = set(DATA_MODEL_FINGERPRINTS[widget_data_model(name)])
+    declared = {
+        constant
+        for constants in DATA_MODEL_FINGERPRINTS.values()
+        for constant in constants
+        if f"const {constant} " in html
+    }
+
+    assert declared == expected, (
+        f"{name} is routed to {widget_data_model(name)!r}, whose fingerprint is "
+        f"{sorted(expected)}, but its script declares {sorted(declared)}. "
+        f"Either the widget changed payload shape and WIDGET_DATA_MODELS needs "
+        f"updating, or the routing was wrong."
+    )
+
+
+def test_every_data_model_has_a_widget() -> None:
+    """No data model is left routed to nothing.
+
+    A model in `DATA_MODELS` that no widget is routed to means its test module
     silently tests nothing, which reads as coverage it does not have.
     """
-    declared = {widget_data_model(name) for name in WIDGET_NAMES if (WIDGETS_DIR / f"{name}.html").is_file()}
-    unused = sorted(set(DATA_MODELS) - declared)
+    routed = {widget_data_model(name) for name in WIDGET_NAMES if (WIDGETS_DIR / f"{name}.html").is_file()}
+    unused = sorted(set(DATA_MODELS) - routed)
     assert not unused, f"data models with no widget: {unused}"

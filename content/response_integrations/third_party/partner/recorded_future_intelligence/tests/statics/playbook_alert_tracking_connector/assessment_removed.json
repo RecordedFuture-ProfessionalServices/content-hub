@@ -1,0 +1,84 @@
+{
+  "status": {
+    "status_code": "Ok",
+    "status_message": "Playbook alert single lookup successful."
+  },
+  "data": {
+    "playbook_alert_id": "task:9eed704f-24dd-431e-bb09-a2d2fd3b9d45",
+    "panel_log_v2": [
+      {
+        "id": "uuid:ae0e788a-d142-4be1-b2c6-55232139496e",
+        "created": "2024-10-23T17:12:58.518Z",
+        "changes": [
+          {
+            "old": "Informational",
+            "new": "Moderate",
+            "type": "priority_change"
+          },
+          {
+            "type": "assessment_ids_change",
+            "removed": "C&C Server"
+          },
+          {
+            "domain": "izubu.com",
+            "added": [
+              {
+                "url": "https://izubu.com/",
+                "screenshot_id": "img:85e6db0a-1425-4446-83c3-1e5e729ba971",
+                "document": "doc:zx_9Uo",
+                "analyzed": "2024-10-23T17:10:58.946Z",
+                "mentioned_entities": [],
+                "mentioned_texts": [
+                  {
+                    "text": "cookies",
+                    "reference": "HFAvgACqVyy",
+                    "fragment": "Domain: izubu.com - the competition. Grab this opportunity to own a dynamic and captivating domain name. Possible Uses We use essential cookies to make our site work. With your consent, we may also use non- essential cookies to improve user experience and analyze website traffic. By clicking \"Accept,\" you agree to our website's cookie use as described in our Cookie Policy. You can change your cookie settings at any time by clicking \"Preferences.\" Preferences Decline Accept E-Commerce & Retail m Personalized Nutrition And Fitness Plans And Many More Excellent ✶✶✶✶✶Trustpilot Make an offer for this domain $ Enter offer amount Make an Offer ✓ APPROVED ✶✶✶✶✶ WIRE VISA Pay PayPal 2,782 Ratings Have questions? (877) 355-3585 Live Chat Contact Us",
+                    "assessments": [
+                      {
+                        "id": "Custom Keyword Mention",
+                        "level": 2,
+                        "source": {
+                          "id": "img:85e6db0a-1425-4446-83c3-1e5e729ba971",
+                          "name": "85e6db0a-1425-4446-83c3-1e5e729ba971"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "text": "visa",
+                    "reference": "HFAvgACqVyy",
+                    "fragment": "Domain: izubu.com - the competition. Grab this opportunity to own a dynamic and captivating domain name. Possible Uses We use essential cookies to make our site work. With your consent, we may also use non- essential cookies to improve user experience and analyze website traffic. By clicking \"Accept,\" you agree to our website's cookie use as described in our Cookie Policy. You can change your cookie settings at any time by clicking \"Preferences.\" Preferences Decline Accept E-Commerce & Retail m Personalized Nutrition And Fitness Plans And Many More Excellent ✶✶✶✶✶Trustpilot Make an offer for this domain $ Enter offer amount Make an Offer ✓ APPROVED ✶✶✶✶✶ WIRE VISA Pay PayPal 2,782 Ratings Have questions? (877) 355-3585 Live Chat Contact Us",
+                    "assessments": [
+                      {
+                        "id": "Custom Keyword Mention",
+                        "level": 2,
+                        "source": {
+                          "id": "img:85e6db0a-1425-4446-83c3-1e5e729ba971",
+                          "name": "85e6db0a-1425-4446-83c3-1e5e729ba971"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "type": "screenshot_mentions_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:0594e41a-d85f-4640-801e-3278757fb375",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T17:43:49.307Z",
+        "changes": [
+          {
+            "old": "Moderate",
+            "new": "High",
+            "type": "priority_change"
+          }
+        ]
+      }
+    ]
+  }
+}

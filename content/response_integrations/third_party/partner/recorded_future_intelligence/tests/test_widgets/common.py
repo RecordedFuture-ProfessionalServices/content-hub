@@ -31,14 +31,6 @@ ALLOWLIST_PATTERN = re.compile(
     r"const\s+allowlistedFields\s*=\s*\[(?P<body>[^\]]*)\]\s*;",
 )
 
-# `<!-- Recorded Future data model: enrichment -->`
-#
-# Declared in the HTML rather than the metadata because `mp` validates the
-# metadata key set strictly and would reject an extra key.
-DATA_MODEL_PATTERN = re.compile(
-    r"<!--\s*Recorded Future data model:\s*(?P<model>[a-z-]+)\s*-->",
-)
-
 # The Recorded Future payload shapes the widgets render. Each is a different
 # endpoint with a different contract, so each gets its own data-contract test
 # module and none of them inherits assertions that do not apply to it.
@@ -48,6 +40,41 @@ DATA_MODELS = (
     "sandbox-detonation",
     "sandbox-hash-report",
 )
+
+# Which payload shape each widget renders, and so which data-contract module
+# tests it.
+#
+# This lives here rather than in the widgets because the shipped HTML is
+# generated with its comments stripped, leaving nowhere in the file to declare
+# it, and `mp` validates the metadata key set strictly so an extra YAML key
+# would be rejected at build time. The table is therefore the test suite's own
+# record, and `test_widget_routing_matches_its_script_constants` in
+# test_widget_metadata pins every entry to a constant the widget's script
+# actually declares, so a widget cannot be re-pointed at a different payload
+# without this table failing.
+WIDGET_DATA_MODELS = {
+    "DetonateFile": "sandbox-detonation",
+    "DetonateURL": "sandbox-detonation",
+    "EnrichCVE": "enrichment",
+    "EnrichHash": "enrichment",
+    "EnrichHost": "enrichment",
+    "EnrichIOC": "enrichment",
+    "EnrichIOCsBulk": "bulk-enrichment",
+    "EnrichIP": "enrichment",
+    "EnrichURL": "enrichment",
+    "SearchHashMalwareIntelligence": "sandbox-hash-report",
+}
+
+# The script constant that distinguishes each payload shape, used to verify
+# WIDGET_DATA_MODELS against the widgets themselves. `SANDBOX_BANDS` marks the
+# sandbox family and `CRITICALITY_BANDS` the enrichment family; within each,
+# the second constant separates the two members.
+DATA_MODEL_FINGERPRINTS = {
+    "enrichment": ("CRITICALITY_BANDS",),
+    "bulk-enrichment": ("CRITICALITY_BANDS", "INTEL_CARD_PREFIX"),
+    "sandbox-detonation": ("SANDBOX_BANDS", "IOC_TYPE_LABELS"),
+    "sandbox-hash-report": ("SANDBOX_BANDS",),
+}
 
 # `const SANDBOX_REPORT_PREFIX = "https://sandbox.recordedfuture.com/";`
 STRING_CONSTANT_TEMPLATE = r'const\s+{name}\s*=\s*"(?P<value>[^"]*)"\s*;'
@@ -84,20 +111,19 @@ def widget_allowlist(name: str) -> list[str]:
 
 
 def widget_data_model(name: str) -> str:
-    """Return the Recorded Future payload shape a widget declares it renders.
+    """Return the Recorded Future payload shape a widget renders.
 
-    Returns an empty string when the declaration is missing or duplicated rather
-    than raising, because the data-contract modules call this at import time to
-    route their parameters: raising here would turn a missing marker into a
-    collection error across three modules instead of one clear failure from
-    `test_widget_declares_a_known_data_model`.
+    Returns an empty string for an unrouted widget rather than raising, because
+    the data-contract modules call this at import time to route their
+    parameters: raising here would turn one missing table entry into a
+    collection error across three modules instead of a single clear failure
+    from `test_widget_is_routed_to_a_known_data_model`.
 
     Returns:
-        The declared data model name, or "" if it is missing or ambiguous.
+        The widget's data model name, or "" if the table does not route it.
 
     """
-    matches = DATA_MODEL_PATTERN.findall(widget_html(name))
-    return matches[0] if len(matches) == 1 else ""
+    return WIDGET_DATA_MODELS.get(name, "")
 
 
 def widgets_for_model(model: str) -> list[str]:

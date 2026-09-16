@@ -4113,6 +4113,12 @@ Refresh Playbook Alert:
     The action requires the Playbook Alert ID and Category to function correctly.
     It does not operate on existing case entities but rather enriches the case by
     adding new entities discovered in the updated alert details.
+
+
+    When `Fetch Screenshots` is enabled and the alert category is `domain_abuse`,
+    the action also downloads the screenshots attached to the alert and embeds them
+    in its JSON result as base64 data URIs, so the case view can render them. The
+    parameter is disabled by default and has no effect on other categories.
   ai_short_description: >-
     Fetches updated details for a specific Playbook Alert from Recorded Future and
     adds the retrieved information and entities to the case.
@@ -5322,6 +5328,204 @@ Search List:
     | List Type | String | No | List type to filter by. Ignored if None. |
 
     | Max Results | String | No | Maximum number of lists to return. |
+Submit Collective Insights:
+  ai_description: >-
+    ### General Description
+
+    Submits detections built from the case target entities back to Recorded Future
+    Collective Insights. The action is intended for contributing detections that
+    originate in source tools without a native Collective Insights integration, so
+    all detection and incident context describes the original source event rather
+    than the Google SecOps case.
+
+
+    ### Flow Description
+
+    1. Extracts the detection parameters (Detection Type, Detection Sub Type,
+    Detection ID, Detection Name), the incident parameters (Incident ID, Incident
+    Name, Incident Type), the IOC context parameters (Timestamp, IOC Field, IOC
+    Source Type, MITRE Codes, Malware), and the submission parameters (Organization
+    IDs, Debug).
+
+    2. Maps the case target entities onto the IOC types supported by Collective
+    Insights, recording any entity whose type has no equivalent as skipped.
+
+    3. Validates locally that at least one supported entity was found, and that
+    Detection ID and Detection Sub Type were supplied when Detection Type is
+    `detection_rule`.
+
+    4. Initializes the Recorded Future CollectiveInsights client and builds one
+    insight per mapped entity (`CollectiveInsights.create`).
+
+    5. Makes a single API call to Recorded Future
+    (`CollectiveInsights.submit`) to submit the whole batch of detections.
+
+    6. Returns the API submission summary along with the submitted insights and the
+    skipped entities as JSON.
+
+
+    ### Additional Notes
+
+    The action does not enrich or look up the entities; it only reports them as
+    observed detections. Comma separated values supplied for MITRE Codes, Malware
+    and Organization IDs are split into lists before submission. When Timestamp is
+    left blank the action run time is used as the detection time. Enabling Debug
+    flags the submission so it is not counted as a live detection in Recorded
+    Future.
+  ai_short_description: >-
+    Submits detections built from the case target entities to Recorded Future
+    Collective Insights.
+  capabilities:
+    can_create_case_comments: false
+    can_create_insight: false
+    can_modify_alert_data: false
+    can_mutate_external_data: true
+    can_mutate_internal_data: false
+    can_update_entities: false
+    external_data_mutation_explanation: >-
+      Submits new detections to the Recorded Future Collective Insights API.
+    fetches_data: false
+    internal_data_mutation_explanation: null
+    reasoning: >-
+      The action makes an API call to Recorded Future (`CollectiveInsights.submit`)
+      to record new detections, which mutates external data. It does not fetch
+      enrichment data, mutate internal SecOps data, update entities, or create
+      insights.
+  entity_usage:
+    entity_types:
+      address: true
+      alert: false
+      application: false
+      child_hash: false
+      child_process: false
+      cluster: false
+      container: false
+      credit_card: false
+      cve: true
+      cve_id: false
+      database: false
+      deployment: false
+      destination_domain: false
+      domain: true
+      email_message: false
+      event: false
+      file_hash: true
+      file_name: false
+      generic: false
+      host_name: true
+      ip_set: false
+      mac_address: false
+      parent_hash: false
+      parent_process: false
+      phone_number: false
+      pod: false
+      process: false
+      service: false
+      source_domain: false
+      threat_actor: false
+      threat_campaign: false
+      threat_signature: false
+      url: true
+      usb: false
+      user: false
+    filters_by_additional_properties: false
+    filters_by_alert_identifier: false
+    filters_by_case_identifier: false
+    filters_by_creation_time: false
+    filters_by_entity_type: true
+    filters_by_identifier: false
+    filters_by_is_artifact: false
+    filters_by_is_enriched: false
+    filters_by_is_internal: false
+    filters_by_is_pivot: false
+    filters_by_is_suspicious: false
+    filters_by_is_vulnerable: false
+    filters_by_modification_time: false
+    reasoning: >-
+      The action processes `siemplify.target_entities` and filters them by checking
+      if `entity.entity_type` is in `ENTITY_TYPE_ENRICHMENT_MAP` (ADDRESS, DOMAIN,
+      HOSTNAME, FILEHASH, URL, CVE). Entities of any other type are skipped and
+      reported in the JSON result.
+  outcome_categories:
+    add_alert_comment: false
+    add_ioc_to_allowlist: false
+    add_ioc_to_blocklist: false
+    contain_host: false
+    create_ticket: false
+    delete_email: false
+    disable_identity: false
+    download_file: false
+    enable_identity: false
+    enrich_asset: false
+    enrich_ioc: false
+    execute_command_on_the_host: false
+    get_alert_information: false
+    reasoning: >-
+      The action contributes detection telemetry about the target entities back to
+      Recorded Future. It does not enrich IOCs or assets, update alerts, manage
+      tickets, modify blocklists/allowlists, or perform any of the other specific
+      expected outcomes defined in the categories.
+    remove_ioc_from_allowlist: false
+    remove_ioc_from_blocklist: false
+    reset_identity_password: false
+    search_asset: false
+    search_email: false
+    search_events: false
+    send_email: false
+    send_message: false
+    submit_file: false
+    uncontain_host: false
+    update_alert: false
+    update_email: false
+    update_identity: false
+    update_ticket: false
+  parameters_description: >-
+    | Parameter | Type | Mandatory | Description |
+
+    | --- | --- | --- | --- |
+
+    | Detection Type | DDL | No | Type of detection that produced the event in the
+    source tool. When `detection_rule` is selected, Detection ID and Detection Sub
+    Type are mandatory. |
+
+    | Detection Sub Type | DDL | No | Rule format of the detection in the source
+    tool. Mandatory when Detection Type is `detection_rule`. |
+
+    | Detection ID | String | No | ID of the detection or rule in the source tool.
+    Mandatory when Detection Type is `detection_rule`. |
+
+    | Detection Name | String | No | Name of the detection or rule in the source
+    tool. |
+
+    | Incident ID | String | No | ID of the incident in the source tool that the
+    detection belongs to. |
+
+    | Incident Name | String | No | Name of the incident in the source tool that the
+    detection belongs to. |
+
+    | Incident Type | String | No | Type of the incident in the source tool that the
+    detection belongs to. |
+
+    | Timestamp | String | No | Timestamp of the source event in ISO 8601 format. If
+    not provided, the action run time is used. |
+
+    | IOC Field | String | No | Field in the source event in which the IOC was
+    observed. |
+
+    | IOC Source Type | String | No | Source type of the IOC, for example the log
+    source or product that observed it. |
+
+    | MITRE Codes | String | No | Comma separated list of MITRE ATT&CK technique or
+    tactic codes associated with the detection. |
+
+    | Malware | String | No | Comma separated list of malware families associated
+    with the detection. |
+
+    | Organization IDs | String | No | Comma separated list of Recorded Future
+    organization IDs to submit the detections under. |
+
+    | Debug | Boolean | No | If enabled, the submission is flagged as debug and is
+    not counted as a live detection in Recorded Future. |
 Update Alert:
   ai_description: >-
     Updates a specific classic alert in Recorded Future. This action modifies the

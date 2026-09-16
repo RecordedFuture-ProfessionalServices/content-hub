@@ -1,0 +1,1024 @@
+{
+  "entity": "http://alphastand.top/alien/fre.php",
+  "entity_type": "url",
+  "is_enriched": true,
+  "content": {
+    "ai_insights": null,
+    "analyst_notes": [],
+    "counts": [],
+    "entity": {
+      "id_": "url:http://alphastand.top/alien/fre.php",
+      "name": "http://alphastand.top/alien/fre.php",
+      "type_": "URL",
+      "description": null
+    },
+    "intel_card": null,
+    "metrics": [],
+    "related_entities": [],
+    "sightings": [],
+    "timestamps": {
+      "last_seen": "2025-12-22T23:59:59Z",
+      "first_seen": "2025-12-22T00:00:00Z"
+    },
+    "risk": {
+      "criticality_label": "Malicious",
+      "risk_string": "15/35",
+      "rules": 15,
+      "criticality": 3,
+      "risk_summary": "15 of 35 Risk Rules currently observed.",
+      "score": 82,
+      "evidence_details": [
+        {
+          "mitigation_string": "",
+          "evidence_string": "36 sightings on 7 sources including: CSIS Security Group, eclecticiq.com, PasteBin, Cyware, X (Twitter). Most recent link (Jul 23, 2024): https://twitter.com/ShanHolo/statuses/1815640008457404755",
+          "rule": "Historically Reported as a Defanged URL",
+          "criticality": 1,
+          "timestamp": "2024-07-23T06:48:05Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "15 sightings on 2 sources: External Sensor Data Analysis, Bitdefender. http://alphastand.top/alien/fre.php is observed to be a malware site URL that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+          "rule": "Historically Detected Malware Distribution",
+          "criticality": 1,
+          "timestamp": "2022-01-04T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "15 sightings on 1 source: External Sensor Data Analysis. http://alphastand.top/alien/fre.php is suspected to be a phishing URL/Domain that may be used in phishing campaigns.",
+          "rule": "Historically Suspected Phishing Techniques",
+          "criticality": 1,
+          "timestamp": "2025-10-19T20:30:49.010000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "6 sightings on 1 source: DHS Automated Indicator Sharing. 6 reports including IXR_2025_LS-13857_1, from DiligentWesternLowlandGorilla77 (Feb 20, 2025).",
+          "rule": "Historically Reported by DHS AIS",
+          "criticality": 1,
+          "timestamp": "2025-02-20T19:06:20.070000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "19 sightings on 1 source: External Sensor Data Analysis. http://alphastand.top/alien/fre.php is observed to be a botnet URL from which network attacks are launched. Attacks may include SPAM messages, DOS, SQL injections, proxy jacking, and other unsolicited contacts.",
+          "rule": "Historically Reported Botnet URL",
+          "criticality": 1,
+          "timestamp": "2025-10-19T20:30:49.010000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "38,680 sightings on 3 sources: ThreatFox Infrastructure Analysis, Recorded Future Triage Malware Analysis - Malware C2 Extractions, Recorded Future Sandbox - Malware C2 Extractions. ThreatFox identified http://alphastand.top/alien/fre.php as possible TA0011 (Command and Control) for LokiBot (Windows) on September 03, 2025. Most recent link (Sep 3, 2025): https://threatfox.abuse.ch/ioc/56",
+          "rule": "Historical Suspected C&C URL",
+          "criticality": 1,
+          "timestamp": "2025-09-03T06:47:22Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "55,943 sightings on 2 sources: Recorded Future Triage Malware Analysis - Malware C2 Extractions, Recorded Future Sandbox - Malware C2 Extractions. Malware sandbox analysis identified http://alphastand.top/alien/fre.php as possible TA0011 (Command and Control) for Lokibot (Windows) using configuration extraction on sample ba118e92532171c7e497ca51118009c9e0d93f5930a6673506095594699234a8.",
+          "rule": "Historical Reported C&C URL",
+          "criticality": 1,
+          "timestamp": "2025-02-27T09:18:28Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Insikt Group. 1 report: Insikt Validated TTP: Detecting Lokibot with Sigma. Most recent link (Nov 19, 2024): https://app.recordedfuture.com/portal/analyst-note/doc:0sOjZO",
+          "rule": "Historically Reported by Insikt Group",
+          "criticality": 1,
+          "timestamp": "2024-11-19T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "2 sightings on 1 source: Insikt Group. 2 reports including New Evasion Technique Used For Exploitation of CVE-2017-0199 and CVE-2017-11882. Most recent link (Oct 15, 2018): https://app.recordedfuture.com/portal/analyst-note/doc:XygRjY",
+          "rule": "Historically Referenced by Insikt Group",
+          "criticality": 1,
+          "timestamp": "2018-10-15T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Bitdefender. Detected malicious behavior from an endpoint agent via global telemetry. Last observed on Jan 4, 2022.",
+          "rule": "Historically Detected Phishing Techniques",
+          "criticality": 1,
+          "timestamp": "2022-01-04T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Bitdefender. Detected malicious behavior from an endpoint agent via global telemetry. Last observed on Jan 4, 2022.",
+          "rule": "Historically Suspected Malware Distribution",
+          "criticality": 1,
+          "timestamp": "2022-01-04T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: External Sensor Data Analysis. http://alphastand.top/alien/fre.php is suspected to be a phishing URL/Domain that may be used in phishing campaigns.",
+          "rule": "Recently Suspected Phishing Techniques",
+          "criticality": 2,
+          "timestamp": "2025-12-16T20:36:11.546000Z",
+          "criticality_label": "Suspicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: External Sensor Data Analysis. http://alphastand.top/alien/fre.php is observed to be a botnet URL from which network attacks are launched. Attacks may include SPAM messages, DOS, SQL injections, proxy jacking, and other unsolicited contacts.",
+          "rule": "Recently Reported Botnet URL",
+          "criticality": 2,
+          "timestamp": "2025-12-16T20:36:11.546000Z",
+          "criticality_label": "Suspicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: External Sensor Data Analysis. http://alphastand.top/alien/fre.php is observed to be a malware site URL that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+          "rule": "Recently Detected Malware Distribution",
+          "criticality": 3,
+          "timestamp": "2025-12-16T20:36:11.546000Z",
+          "criticality_label": "Malicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "28 sightings on 1 source: DHS Automated Indicator Sharing. 28 reports including IXR_2025_LS-24811_1, from CanaryOgopogo82 (Dec 18, 2025).",
+          "rule": "Recently Reported by DHS AIS",
+          "criticality": 3,
+          "timestamp": "2025-12-18T04:33:10.076000Z",
+          "criticality_label": "Malicious"
+        }
+      ]
+    },
+    "links": {
+      "hits": [
+        {
+          "sections": [
+            {
+              "section_id": {
+                "id_": "iU_ZsG",
+                "name": "Indicators & Detection Rules",
+                "type_": "Category"
+              },
+              "total_count": 68,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "hash:06ae4faea9488cbfd58a3814d29bdf8485bcdc7bb29ddbe6a0e40ff1e612f055",
+                      "name": "06ae4faea9488cbfd58a3814d29bdf8485bcdc7bb29ddbe6a0e40ff1e612f055",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:6458da48fde8b48546251db352af4afa8d12a47e45188e3fd2d576613f691709",
+                      "name": "6458da48fde8b48546251db352af4afa8d12a47e45188e3fd2d576613f691709",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:8ecca4bb514229fbbe43150472a27e1cdb56a84502dc38cd83bf5e7dda4ab1b9",
+                      "name": "8ecca4bb514229fbbe43150472a27e1cdb56a84502dc38cd83bf5e7dda4ab1b9",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:0e1a576ce4cb24edcf737a868b39a6338ac25c45f4e3e9c5029b1743dfebc9d0",
+                      "name": "0e1a576ce4cb24edcf737a868b39a6338ac25c45f4e3e9c5029b1743dfebc9d0",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:0fe4d2a2c44c64f770b179f6a727f985746d7105c8735c36d5fb585d3c03b19c",
+                      "name": "0fe4d2a2c44c64f770b179f6a727f985746d7105c8735c36d5fb585d3c03b19c",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:54f31266bd52ebc69aaba3b0df177582dca2daa348ace79839e3b8ecee30480b",
+                      "name": "54f31266bd52ebc69aaba3b0df177582dca2daa348ace79839e3b8ecee30480b",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:565ed42b39f29d9f4083f720f43a0d01adde9e9a7c7fc3757ad2311128b45bca",
+                      "name": "565ed42b39f29d9f4083f720f43a0d01adde9e9a7c7fc3757ad2311128b45bca",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:5e48227a72eca92dc4660485c03da6015b54029b4568d28dff5745b0a449d644",
+                      "name": "5e48227a72eca92dc4660485c03da6015b54029b4568d28dff5745b0a449d644",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:7d1a17aa9116532bfa61f011e6312daf9de18bcea30696cd35e68fdbb8d722b3",
+                      "name": "7d1a17aa9116532bfa61f011e6312daf9de18bcea30696cd35e68fdbb8d722b3",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:7dd6766fc4f04dce59eccc4829795d6b402fb35c77db4400c2b8bc788cce73f8",
+                      "name": "7dd6766fc4f04dce59eccc4829795d6b402fb35c77db4400c2b8bc788cce73f8",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:9012141cf25f3a724f4fcc43f477d1f12f9875d352a3b086fa1f4e54fc7c2bc9",
+                      "name": "9012141cf25f3a724f4fcc43f477d1f12f9875d352a3b086fa1f4e54fc7c2bc9",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:96a0233e3352998c72bb930b01646e258d062543ff031b849f0683ee8abcaa9a",
+                      "name": "96a0233e3352998c72bb930b01646e258d062543ff031b849f0683ee8abcaa9a",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:9dc74d24299eb956a5c8112f1eb9466b97a769b6b8d4b6768d33f64a78255a84",
+                      "name": "9dc74d24299eb956a5c8112f1eb9466b97a769b6b8d4b6768d33f64a78255a84",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:d62b5d0815a275c7f1a6356dda0dc101956acb18146fde2605bbd2f9b13d4eaa",
+                      "name": "d62b5d0815a275c7f1a6356dda0dc101956acb18146fde2605bbd2f9b13d4eaa",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:dbbd84eb684eacd5056214adfa1399149e3459a98d4f198ff54a8c869d2eed61",
+                      "name": "dbbd84eb684eacd5056214adfa1399149e3459a98d4f198ff54a8c869d2eed61",
+                      "type_": "Hash",
+                      "description": null
+                    },
+                    {
+                      "id_": "hash:3a092777b437406a9efb111b88decb38759e83260e6ad4954f43d37a114c2059",
+                      "name": "3a092777b437406a9efb111b88decb38759e83260e6ad4954f43d37a114c2059",
+                      "type_": "Hash",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 16,
+                  "type_": {
+                    "id_": "type:Hash",
+                    "name": "Hash",
+                    "type_": "MetaType",
+                    "description": "A hash value"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "url:alphastand.top/alien/fre.php",
+                      "name": "alphastand.top/alien/fre.php",
+                      "type_": "URL",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:URL",
+                    "name": "URL",
+                    "type_": "MetaType",
+                    "description": "A URL"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "BB0ByJi",
+                      "name": "Backdoor.Androm.adyb",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBysZsq",
+                      "name": "Backdoor.Androm.augq",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "jG7Jfl",
+                      "name": "Backdoor.Androm.xqq",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "jmrFSy",
+                      "name": "Backdoor.Generic.aqaj",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "nSKKIM",
+                      "name": "Gene.Win.Harmlet.2368-0",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "m0F7sQ",
+                      "name": "Gene.Win.Harmlet.636-0",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "osF36b",
+                      "name": "Gene.Win.Harmlet.73471-0",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBtWNWF",
+                      "name": "HEUR/QVM20.1.1C5D.Malware.Gen",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBvRTzi",
+                      "name": "HEUR/QVM20.1.20EC.Malware.Gen",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBMg-_G",
+                      "name": "HEUR/QVM20.1.CD9D.Malware.Gen",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "qlyLxr",
+                      "name": "Malicious",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "-nIpQ2",
+                      "name": "Safe",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hzWldC",
+                      "name": "Trojan-Spy.LokiBot",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hzeV-j",
+                      "name": "Trojan.Daum.631",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "-1HTK5",
+                      "name": "Trojan.Fareit.L.ysej",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BByfQ0V",
+                      "name": "Trojan.Generic.cfjxz",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "LAQNWQ",
+                      "name": "Trojan.Inject",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "LIyeg0",
+                      "name": "Trojan.Injector",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBy4QNk",
+                      "name": "Trojan.Injector.DWMY.cfwn",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "h2Y3Cb",
+                      "name": "Trojan.PWS.Siggen2.59088",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "RBOljv",
+                      "name": "Trojan.PWS.Stealer.17779",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "SgDDmg",
+                      "name": "Trojan.PWS.Stealer.18836",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hzk_Xj",
+                      "name": "Trojan.PWS.Stealer.23680",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "ly-ero",
+                      "name": "Trojan.PWS.Stealer.24168",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hzRFBZ",
+                      "name": "Trojan.VB.Crypt",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "mPOGOk",
+                      "name": "Trojan.Win32.Agent.a!c",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "m9x98d",
+                      "name": "Trojan.Win32.Androm.4!c",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BByZAC0",
+                      "name": "Trojan.Win32.Androm.eysbrw",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBysZss",
+                      "name": "Trojan.Win32.Androm.fjrxpi",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BB0ByJk",
+                      "name": "Trojan.Win32.Androm.fkevxy",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "mPiz_H",
+                      "name": "Trojan.Win32.Androm.m!c",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "tkDCTh",
+                      "name": "Trojan.Win32.Graftor.m!c",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "LRHjoJ",
+                      "name": "Trojan.Win32.Injector",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hznc6T",
+                      "name": "Trojan.Win32.Stealer.eshrhl",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BByfQ0X",
+                      "name": "Trojan.Win32.Stealer.fdvlso",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "miqGo7",
+                      "name": "Trojan.Win32.Yakes.4!c",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "-3tpwj",
+                      "name": "Trojan.Win32.naKocTb.tnB5",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "h0J9o0",
+                      "name": "Trojan.naKocTb.l",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "n853eg",
+                      "name": "Win.Dropper.LokiBot-9938605-0",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "mWKwbu",
+                      "name": "Win.Trojan.Autoit-7057866-1",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "LZu0Pz",
+                      "name": "Win32.Outbreak",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "mS1A8y",
+                      "name": "Win32/Backdoor.Androm.HgIASpkA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "sLT8Lf",
+                      "name": "Win32/Backdoor.Androm.HwoCjnsA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "ozlDv8",
+                      "name": "Win32/Botnet.Yakes.HgIASrkA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBrdZQ3",
+                      "name": "Win32/TrojanPSW.Primarypass.HxQBBwkA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBunbZ1",
+                      "name": "Win32/TrojanPSW.Primarypass.HxQBD3kA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBv9VkA",
+                      "name": "Win32/TrojanPSW.Primarypass.HxQBHF0A",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BB4b_wZ",
+                      "name": "Win32/TrojanPSW.Primarypass.HxQBIPgA",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "BBwKIR6",
+                      "name": "Win32/TrojanPSW.Primarypass.HxQBIf0A",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    },
+                    {
+                      "id_": "hzRYLu",
+                      "name": "win/malicious",
+                      "type_": "MalwareSignature",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 50,
+                  "type_": {
+                    "id_": "type:MalwareSignature",
+                    "name": "MalwareSignature",
+                    "type_": "MetaType",
+                    "description": "A Malware Signature"
+                  }
+                }
+              ]
+            },
+            {
+              "section_id": {
+                "id_": "iU_ZsE",
+                "name": "Actors, Tools & TTPs",
+                "type_": "Category"
+              },
+              "total_count": 29,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "mitre:T1003",
+                      "name": "T1003",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1005",
+                      "name": "T1005",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1010",
+                      "name": "T1010",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1012",
+                      "name": "T1012",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1027",
+                      "name": "T1027",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1027.002",
+                      "name": "T1027.002",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1036",
+                      "name": "T1036",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1055",
+                      "name": "T1055",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1057",
+                      "name": "T1057",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1071",
+                      "name": "T1071",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1082",
+                      "name": "T1082",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1112",
+                      "name": "T1112",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1114",
+                      "name": "T1114",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1204.001",
+                      "name": "T1204.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1497",
+                      "name": "T1497",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1547",
+                      "name": "T1547",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1547.001",
+                      "name": "T1547.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1548",
+                      "name": "T1548",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1552",
+                      "name": "T1552",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1552.001",
+                      "name": "T1552.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1555",
+                      "name": "T1555",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1555.003",
+                      "name": "T1555.003",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1566",
+                      "name": "T1566",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1584.005",
+                      "name": "T1584.005",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1614.001",
+                      "name": "T1614.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:TA0011",
+                      "name": "TA0011",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 26,
+                  "type_": {
+                    "id_": "type:MitreAttackIdentifier",
+                    "name": "MitreAttackIdentifier",
+                    "type_": "MetaType",
+                    "description": "A Mitre Att&ck Identifier"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "fnLmHK",
+                      "name": "LokiBot (Windows)",
+                      "type_": "Malware",
+                      "description": null
+                    },
+                    {
+                      "id_": "KeKua5",
+                      "name": "Matsnu",
+                      "type_": "Malware",
+                      "description": null
+                    },
+                    {
+                      "id_": "LSM8dl",
+                      "name": "Pony",
+                      "type_": "Malware",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 3,
+                  "type_": {
+                    "id_": "type:Malware",
+                    "name": "Malware",
+                    "type_": "MetaType",
+                    "description": "A malware"
+                  }
+                }
+              ]
+            }
+          ],
+          "start_date": "2025-12-16T00:00:00",
+          "stop_date": "2025-12-21T00:00:00",
+          "total_count": 19,
+          "sample_reference_ids": [
+            "HFCZgADPTvj",
+            "HFCZQAA15rG",
+            "HFCZAADgd1s",
+            "HFCZAADHbUW",
+            "HFCZAAD1D04",
+            "HFCYQAD7eXF",
+            "HFCYQAD7cfq",
+            "HFCYQAD7cMc"
+          ],
+          "counts": [
+            {
+              "count": 16,
+              "type_": {
+                "id_": "type:MalwareAnalysis",
+                "name": "MalwareAnalysis",
+                "type_": "MetaType",
+                "description": "Cyber threat analysis of a specific file, such as malware and malicious documents."
+              }
+            },
+            {
+              "count": 3,
+              "type_": {
+                "id_": "type:InfrastructureAnalysis",
+                "name": "InfrastructureAnalysis",
+                "type_": "MetaType",
+                "description": "Cyber threat analysis of specific internet accessible infrastructure, such as a web pages and open ports."
+              }
+            }
+          ],
+          "event_count": 19
+        },
+        {
+          "sections": [
+            {
+              "section_id": {
+                "id_": "iU_ZsE",
+                "name": "Actors, Tools & TTPs",
+                "type_": "Category"
+              },
+              "total_count": 13,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "mitre:T1012",
+                      "name": "T1012",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1055",
+                      "name": "T1055",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1059.001",
+                      "name": "T1059.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1071.001",
+                      "name": "T1071.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1074.001",
+                      "name": "T1074.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1105",
+                      "name": "T1105",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1106",
+                      "name": "T1106",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1120",
+                      "name": "T1120",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1134",
+                      "name": "T1134",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1140",
+                      "name": "T1140",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1218.005",
+                      "name": "T1218.005",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    },
+                    {
+                      "id_": "mitre:T1614.001",
+                      "name": "T1614.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 12,
+                  "type_": {
+                    "id_": "type:MitreAttackIdentifier",
+                    "name": "MitreAttackIdentifier",
+                    "type_": "MetaType",
+                    "description": "A Mitre Att&ck Identifier"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "fnLmHK",
+                      "name": "LokiBot (Windows)",
+                      "type_": "Malware",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:Malware",
+                    "name": "Malware",
+                    "type_": "MetaType",
+                    "description": "A malware"
+                  }
+                }
+              ]
+            }
+          ],
+          "start_date": "2024-11-19T00:00:00",
+          "stop_date": "2024-11-19T00:00:00",
+          "total_count": 1,
+          "sample_reference_ids": [
+            "HFA2QACjYuj"
+          ],
+          "counts": [
+            {
+              "count": 1,
+              "type_": {
+                "id_": "source:VKz42X",
+                "name": "Insikt Group",
+                "type_": "Source",
+                "description": null
+              }
+            }
+          ],
+          "event_count": 1
+        }
+      ],
+      "method_aggregates": [
+        {
+          "count": 2,
+          "type_": "hHQyM6"
+        },
+        {
+          "count": 1,
+          "type_": "hHQyM7"
+        },
+        {
+          "count": 16,
+          "type_": "gTB8y2"
+        }
+      ],
+      "counts": [
+        {
+          "count": 16,
+          "type_": {
+            "id_": "type:MalwareAnalysis",
+            "name": "MalwareAnalysis",
+            "type_": "MetaType",
+            "description": "Cyber threat analysis of a specific file, such as malware and malicious documents."
+          }
+        },
+        {
+          "count": 3,
+          "type_": {
+            "id_": "type:InfrastructureAnalysis",
+            "name": "InfrastructureAnalysis",
+            "type_": "MetaType",
+            "description": "Cyber threat analysis of specific internet accessible infrastructure, such as a web pages and open ports."
+          }
+        },
+        {
+          "count": 1,
+          "type_": {
+            "id_": "source:VKz42X",
+            "name": "Insikt Group",
+            "type_": "Source",
+            "description": null
+          }
+        }
+      ]
+    },
+    "enterprise_lists": null,
+    "risk_mapping": null
+  }
+}

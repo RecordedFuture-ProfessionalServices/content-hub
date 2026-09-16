@@ -184,12 +184,16 @@ def main():
 
     try:
         # parse emails from target entities
-        subjects = [
-            subject.identifier
-            for subject in siemplify.target_entities
-            if subject.entity_type == EntityTypes.EMAILMESSAGE
-        ] if is_target_entities else subjects
-        
+        subjects = (
+            [
+                subject.identifier
+                for subject in siemplify.target_entities
+                if subject.entity_type == EntityTypes.EMAILMESSAGE
+            ]
+            if is_target_entities
+            else subjects
+        )
+
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -218,9 +222,7 @@ def main():
         )
         data = [cred_result.json() for cred_result in lookup_resp]
         siemplify.result.add_result_json(data)
-        output_message += (
-            "Successfully searched credentials for the given subject(s)"
-        )
+        output_message += "Successfully searched credentials for the given subject(s)"
 
     except ValidationError as err:
         output_message = f"Error with Identity Manager parameters: {err}"

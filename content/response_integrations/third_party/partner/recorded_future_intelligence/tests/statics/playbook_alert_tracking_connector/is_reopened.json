@@ -1,0 +1,76 @@
+{
+  "status": {
+    "status_code": "Ok",
+    "status_message": "Playbook alert single lookup successful."
+  },
+  "data": {
+    "playbook_alert_id": "task:504940e4-3d0d-4641-9f60-c097a56a05ab",
+    "panel_log_v2": [
+      {
+        "id": "uuid:50bd75a4-9667-45ca-8a9c-e1937648f8a3",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T17:37:36.565Z",
+        "changes": [
+          {
+            "old": "New",
+            "new": "InProgress",
+            "actions_taken": [],
+            "type": "status_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:475e20f2-3fb3-4913-8d21-63e0c7f9fd3b",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T17:37:54.681Z",
+        "changes": [
+          {
+            "old": "InProgress",
+            "new": "Resolved",
+            "actions_taken": [
+              "domain_abuse.other"
+            ],
+            "type": "status_change"
+          },
+          {
+            "new": "SignificantUpdates",
+            "type": "reopen_strategy_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:46dd88a5-97af-4878-9105-b0dbdc0babd3",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-24T17:38:23.631Z",
+        "changes": [
+          {
+            "old": "Resolved",
+            "new": "InProgress",
+            "actions_taken": [],
+            "type": "status_change"
+          },
+          {
+            "old": "SignificantUpdates",
+            "type": "reopen_strategy_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:512748ad-86f7-42df-aac6-a687a33ca3d3",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T17:38:25.528Z",
+        "changes": [
+          {
+            "old": "Informational",
+            "new": "High",
+            "type": "priority_change"
+          }
+        ]
+      }
+    ]
+  }
+}

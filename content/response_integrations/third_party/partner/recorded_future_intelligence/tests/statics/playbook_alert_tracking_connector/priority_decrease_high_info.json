@@ -1,0 +1,640 @@
+{
+  "status": {
+    "status_code": "Ok",
+    "status_message": "Playbook alert single lookup successful."
+  },
+  "data": {
+    "playbook_alert_id": "task:852b74d2-40c5-47fb-a8bb-8173753c63e9",
+    "panel_log_v2": [
+      {
+        "id": "uuid:e4c2e1ce-572b-4a80-a4a3-313c5d1137e8",
+        "created": "2023-04-24T02:12:25.752Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [],
+            "added": [
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.dnsowl.com",
+                  "name": "ns2.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.dnsowl.com",
+                  "name": "ns1.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns3.dnsowl.com",
+                  "name": "ns3.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.123",
+                  "name": "91.195.240.123",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:a50493ac-1755-42e7-b42e-3a67521bae54",
+        "created": "2023-04-24T02:12:25.781Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [],
+            "added": [
+              {
+                "id": "ip:91.195.240.123",
+                "assessments": [
+                  {
+                    "id": "Phishing Host",
+                    "level": 3
+                  }
+                ]
+              }
+            ],
+            "type": "malicious_dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:980565ea-eb01-4c61-a291-2b2028df5fa2",
+        "created": "2023-04-24T02:13:57.918Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "new_record": {
+              "status": "addPeriod clientTransferProhibited serverTransferProhibited",
+              "registrar_name": "NameSilo, LLC",
+              "private_registration": false,
+              "name_servers": [
+                "ns1.dnsowl.com",
+                "ns2.dnsowl.com",
+                "ns3.dnsowl.com"
+              ],
+              "created": "2023-04-22T00:00:00.000Z"
+            },
+            "removed_contacts": [],
+            "added_contacts": [
+              {
+                "type": "administrativeContact"
+              },
+              {
+                "type": "technicalContact"
+              },
+              {
+                "type": "registrant",
+                "state": "AZ",
+                "country_code": "US",
+                "country": "United States"
+              }
+            ],
+            "type": "whois_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:5e72f8b7-d027-4671-97fb-30533db80ac3",
+        "created": "2023-05-03T10:45:47.725Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.dnsowl.com",
+                  "name": "ns1.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.dnsowl.com",
+                  "name": "ns2.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns3.dnsowl.com",
+                  "name": "ns3.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.123",
+                  "name": "91.195.240.123",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.dnsowl.com",
+                  "name": "ns1.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.dnsowl.com",
+                  "name": "ns2.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns3.dnsowl.com",
+                  "name": "ns3.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.123",
+                  "name": "91.195.240.123",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:bf7d7c47-42c4-4153-8dd0-b2fb4a6dc9c7",
+        "created": "2024-04-22T00:23:21.534Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "new_record": {
+              "status": "clientTransferProhibited",
+              "registrar_name": "NameSilo, LLC",
+              "private_registration": false,
+              "name_servers": [
+                "ns1.dnsowl.com",
+                "ns2.dnsowl.com",
+                "ns3.dnsowl.com"
+              ],
+              "created": "2023-04-22T00:00:00.000Z"
+            },
+            "removed_contacts": [],
+            "added_contacts": [],
+            "type": "whois_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:7849b1dc-ddd3-4bc6-b12f-b8739790a9e4",
+        "created": "2024-04-22T15:09:49.851Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [],
+            "added": [
+              {
+                "id": "idn:mail.eye-mail.net",
+                "assessments": [
+                  {
+                    "id": "Active Mail Server",
+                    "level": 2
+                  }
+                ]
+              }
+            ],
+            "type": "malicious_dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:84457070-4cd4-4ccd-bb3c-a1cf90864369",
+        "created": "2024-04-22T15:09:53.934Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.123",
+                  "name": "91.195.240.123",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "MX",
+                "entity": {
+                  "id": "idn:mail.eye-mail.net",
+                  "name": "mail.eye-mail.net",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.12",
+                  "name": "91.195.240.12",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:b11cb324-4fac-4ee8-82ba-1a443e0d0236",
+        "created": "2024-04-23T01:23:46.350Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "old_record": {
+              "status": "clientTransferProhibited",
+              "registrar_name": "NameSilo, LLC",
+              "private_registration": false,
+              "name_servers": [
+                "ns1.dnsowl.com",
+                "ns2.dnsowl.com",
+                "ns3.dnsowl.com"
+              ],
+              "created": "2023-04-22T00:00:00.000Z"
+            },
+            "new_record": {
+              "status": "autoRenewPeriod clientTransferProhibited",
+              "registrar_name": "NameSilo, LLC",
+              "private_registration": false,
+              "name_servers": [
+                "ns1.dnsowl.com",
+                "ns2.dnsowl.com",
+                "ns3.dnsowl.com"
+              ],
+              "created": "2023-04-22T00:00:00.000Z"
+            },
+            "removed_contacts": [],
+            "added_contacts": [],
+            "type": "whois_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:ecba7788-6cf2-454e-85d9-2643782afee4",
+        "created": "2024-04-23T01:23:46.350Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:91.195.240.12",
+                  "name": "91.195.240.12",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.dnsowl.com",
+                  "name": "ns2.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.dnsowl.com",
+                  "name": "ns1.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "MX",
+                "entity": {
+                  "id": "idn:mail.eye-mail.net",
+                  "name": "mail.eye-mail.net",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns3.dnsowl.com",
+                  "name": "ns3.dnsowl.com",
+                  "type": "InternetDomainName"
+                }
+              }
+            ],
+            "added": [],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:f97a54c6-8ed4-479f-97f1-0a9720a68f6a",
+        "created": "2024-07-02T03:25:58.859Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": {
+              "registrar": "qOxJxB",
+              "registrar_name": "NameSilo, LLC",
+              "iana_id": 1479,
+              "expiration": "2025-04-22T23:59:59.000Z"
+            },
+            "added": {
+              "registrar": "BBxnQA",
+              "registrar_name": "Communigal Communications Ltd",
+              "iana_id": 418,
+              "expiration": "2025-06-30T23:59:59.000Z"
+            },
+            "type": "reregistration_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:0305df3b-176a-448c-b6fa-f57c25241827",
+        "created": "2024-07-02T03:25:59.181Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.217",
+                  "name": "103.224.212.217",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "MX",
+                "entity": {
+                  "id": "idn:park-mx.above.com",
+                  "name": "park-mx.above.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.abovedomains.com",
+                  "name": "ns2.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.abovedomains.com",
+                  "name": "ns1.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:bca8d054-c1f9-4165-81c7-be233c93bf84",
+        "created": "2024-07-02T03:25:59.199Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "id": "idn:mail.eye-mail.net",
+                "assessments": [
+                  {
+                    "id": "Active Mail Server",
+                    "level": 2
+                  }
+                ]
+              }
+            ],
+            "added": [
+              {
+                "id": "idn:park-mx.above.com",
+                "assessments": [
+                  {
+                    "id": "Active Mail Server",
+                    "level": 2
+                  }
+                ]
+              }
+            ],
+            "type": "malicious_dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:184c0ef8-ff11-4b7f-b0d1-823a876d4de6",
+        "created": "2024-08-30T11:42:14.943Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.217",
+                  "name": "103.224.212.217",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.107",
+                  "name": "103.224.212.107",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:1dde4a69-8747-45fb-8b79-9165cad66bc1",
+        "created": "2024-09-01T17:40:49.922Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.107",
+                  "name": "103.224.212.107",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.217",
+                  "name": "103.224.212.217",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:398959bc-1f73-4653-a71d-2bfec178386f",
+        "created": "2024-09-20T03:11:51.339Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.217",
+                  "name": "103.224.212.217",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:170.178.183.18",
+                  "name": "170.178.183.18",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:a3d1708b-29fa-48f6-bc16-64b124a40c66",
+        "created": "2024-09-24T18:47:13.738Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:170.178.183.18",
+                  "name": "170.178.183.18",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:103.224.212.217",
+                  "name": "103.224.212.217",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:4c93ad4c-f459-4a34-bd84-8ff49d8be734",
+        "created": "2024-10-23T15:58:21.680Z",
+        "changes": [
+          {
+            "domain": "gamin.store",
+            "removed": [
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns1.abovedomains.com",
+                  "name": "ns1.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns2.abovedomains.com",
+                  "name": "ns2.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              }
+            ],
+            "added": [
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns16.abovedomains.com",
+                  "name": "ns16.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              },
+              {
+                "type": "NS",
+                "entity": {
+                  "id": "idn:ns15.abovedomains.com",
+                  "name": "ns15.abovedomains.com",
+                  "type": "InternetDomainName"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:20425f97-3cb0-44ce-8595-f0cec8484581",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T18:00:59.445Z",
+        "changes": [
+          {
+            "old": "High",
+            "new": "Informational",
+            "type": "priority_change"
+          }
+        ]
+      }
+    ]
+  }
+}

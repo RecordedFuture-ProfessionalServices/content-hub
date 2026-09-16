@@ -83,10 +83,7 @@ def main():
 
         is_success = True
         status = EXECUTION_STATE_COMPLETED
-        output_message = (
-            "Successfully fetched the following Alert ID details "
-            f"from Recorded Future: \n{alert_id}"
-        )
+        output_message = f"Successfully fetched the following Alert ID details from Recorded Future: \n{alert_id}"
 
     except RecordedFutureUnauthorizedError as e:
         output_message = f"Unauthorized - please check your API token and try again. {e}"

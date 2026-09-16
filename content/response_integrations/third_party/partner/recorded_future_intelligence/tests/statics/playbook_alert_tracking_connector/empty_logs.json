@@ -1,0 +1,11 @@
+{
+    "status": {
+      "status_code": "Ok",
+      "status_message": "Playbook alert single lookup successful."
+    },
+    "data": {
+      "playbook_alert_id": "task:504940e4-3d0d-4641-9f60-c097a56a05ab",
+      "panel_log_v2": []
+    }
+  }
+  

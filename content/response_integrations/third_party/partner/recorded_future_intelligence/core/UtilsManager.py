@@ -20,6 +20,8 @@ from .constants import (
     ENTITY_PREFIX_TYPE_MAP_LIST_OPS,
     PBA_SEVERITY_MAP_INTEGER,
     SANDBOX_TIMEOUT_THRESHOLD_IN_MIN,
+    SCREENSHOT_DEFAULT_MIME_TYPE,
+    SCREENSHOT_MIME_TYPE_SIGNATURES,
 )
 from .exceptions import (
     RecordedFutureManagerError,
@@ -59,6 +61,28 @@ def format_timestamp(timestamp):
             timestamp = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
 
     return timestamp.strftime(DATETIME_READABLE_FORMAT)
+
+
+def detect_image_mime_type(image_bytes):
+    """Identifies an image's MIME type from its magic bytes.
+
+    The playbook alert image endpoint serves raw content and psengine returns
+    only the response body, discarding the Content-Type header, so the type has
+    to be recovered from the payload itself to build a usable data URI.
+
+    :param image_bytes: {bytes} Raw image content.
+    :return: {str} Detected MIME type, defaulting to PNG when unrecognised.
+    """
+    for signature, mime_type in SCREENSHOT_MIME_TYPE_SIGNATURES:
+        if image_bytes.startswith(signature):
+            return mime_type
+
+    # WebP carries its marker after a 4 byte length field, so it cannot be
+    # matched on a plain prefix like the others.
+    if image_bytes[:4] == b"RIFF" and image_bytes[8:12] == b"WEBP":
+        return "image/webp"
+
+    return SCREENSHOT_DEFAULT_MIME_TYPE
 
 
 def check_errors_in_response(response):
@@ -102,10 +126,7 @@ def is_reopened(playbook_alert_logs: list) -> bool:
     if not playbook_alert_logs:
         return False
     status_change_logs = [
-        log
-        for log in playbook_alert_logs
-        for change in log["changes"]
-        if change["type"] == "status_change"
+        log for log in playbook_alert_logs for change in log["changes"] if change["type"] == "status_change"
     ]
     if not status_change_logs:
         return False
@@ -135,10 +156,7 @@ def is_priority_increase(playbook_alert_logs: list) -> bool:
     if not playbook_alert_logs:
         return False
     priority_change_logs = [
-        log
-        for log in playbook_alert_logs
-        for change in log["changes"]
-        if change["type"] == "priority_change"
+        log for log in playbook_alert_logs for change in log["changes"] if change["type"] == "priority_change"
     ]
     if not priority_change_logs:
         return False
@@ -219,11 +237,7 @@ def is_entity_added(playbook_alert_logs: list) -> bool:
     playbook_alert_log = entity_added_logs[0]
     changes = playbook_alert_log["changes"]
     if len(changes) > 1:
-        changes = [
-            change
-            for change in changes
-            if change["type"] in ENTITY_CHANGE_CASES and change.get("added")
-        ]
+        changes = [change for change in changes if change["type"] in ENTITY_CHANGE_CASES and change.get("added")]
     return bool(changes)
 
 
@@ -249,10 +263,7 @@ def is_create_new_case(playbook_alert_logs, active_filters) -> bool:
 
 
 def is_async_action_global_timeout_approaching(siemplify, start_time):
-    return (
-        siemplify.execution_deadline_unix_time_ms - start_time
-        < SANDBOX_TIMEOUT_THRESHOLD_IN_MIN * 60
-    )
+    return siemplify.execution_deadline_unix_time_ms - start_time < SANDBOX_TIMEOUT_THRESHOLD_IN_MIN * 60
 
 
 def map_secops_entities_to_rf(entities: list) -> list[str]:

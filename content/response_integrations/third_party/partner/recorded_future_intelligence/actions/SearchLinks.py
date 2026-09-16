@@ -162,7 +162,7 @@ def main():
     try:
         # resolve target entities
         entities = map_secops_entities_to_rf(siemplify.target_entities) if is_target_entities else entities
-        
+
         siemplify.LOGGER.info("Initializing psengine configuration")
         Config.init(
             client_verify_ssl=verify_ssl,
@@ -185,9 +185,7 @@ def main():
         )
         data = [links_result.json() for links_result in search_resp]
         siemplify.result.add_result_json(data)
-        output_message += (
-            "Successfully searched links for the given target(s)"
-        )
+        output_message += "Successfully searched links for the given target(s)"
 
     except ValidationError as err:
         output_message = f"Error with Links Manager parameters: {err}"

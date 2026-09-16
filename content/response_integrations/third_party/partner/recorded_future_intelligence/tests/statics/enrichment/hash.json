@@ -1,0 +1,179 @@
+{
+  "entity": "389e03b1a1fd1c527d48df74d3c26a0483a5b105f36841193172f1ee80e62c1b",
+  "entity_type": "hash",
+  "is_enriched": true,
+  "content": {
+    "ai_insights": null,
+    "analyst_notes": [],
+    "counts": [],
+    "entity": {
+      "id_": "hash:389e03b1a1fd1c527d48df74d3c26a0483a5b105f36841193172f1ee80e62c1b",
+      "name": "389e03b1a1fd1c527d48df74d3c26a0483a5b105f36841193172f1ee80e62c1b",
+      "type_": "Hash",
+      "description": null
+    },
+    "intel_card": null,
+    "metrics": [],
+    "related_entities": [],
+    "sightings": [],
+    "timestamps": {
+      "last_seen": "2025-11-25T10:45:29.041000Z",
+      "first_seen": "2020-11-24T01:29:51.102000Z"
+    },
+    "risk": {
+      "criticality_label": "Malicious",
+      "risk_string": "4/17",
+      "rules": 4,
+      "criticality": 3,
+      "risk_summary": "4 of 17 Risk Rules currently observed.",
+      "score": 89,
+      "evidence_details": [
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Security Boulevard.",
+          "rule": "Threat Researcher",
+          "criticality": 1,
+          "timestamp": "2025-12-21T07:36:42.849000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "Previous sightings on 1 source: Recently Viewed Integrations Indicators. Observed between Oct 2, 2025, and Oct 9, 2025.",
+          "rule": "Historically Reported in Threat List",
+          "criticality": 1,
+          "timestamp": "2025-12-21T07:36:42.892000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "46 sightings on 8 sources including: Security Boulevard, PolySwarm, Cybereason, securin.io, PasteBin. 4 related malware families: Trojan.Encoder, Trojan, Ransomware, Clop Ransomware. Most recent tweet: #ransomware 968307a367471e25bef58b0d4687ab4fdf34539bbfb603b5b19ae99d4d0c0340 389e03b1a1fd1c527d48df74d3c26a0483a5b105f36841193172f1ee80e62c1b 94b76ce34e5493bb59586b41f41b23baa07a55f2397e80775573714b1311103c 6a15e26804644d8c13c19260e449186899050e513b6be6ae5ef65ed799906dca. Most recent link (Nov 25, 2020): https://twitter.com/RedBeardIOCs/statuses/1331489716219371520",
+          "rule": "Linked to Malware",
+          "criticality": 2,
+          "timestamp": "2020-11-25T06:47:40Z",
+          "criticality_label": "Suspicious"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "16 sightings on 5 sources: Recorded Future Sandbox, Polyswarm Sandbox Analysis, Recorded Future Triage Malware Analysis, Recorded Future Malware Detonation, PolySwarm. Malware sandbox report for 389e03b1a1fd1c527d48df74d3c26a0483a5b105f36841193172f1ee80e62c1b on December 21, 2025.   Score: 10 (Known bad). Detections: Clop Ransomware. Contains: 1 ATT&CK behavior, 0 command and control indicators, and 4 signatures. Most recent link (Aug 4, 2022): https://tria.ge/220804-lcsp7aedcp#clop",
+          "rule": "Positive Malware Verdict",
+          "criticality": 3,
+          "timestamp": "2022-08-04T09:24:59Z",
+          "criticality_label": "Malicious"
+        }
+      ]
+    },
+    "links": {
+      "hits": [
+        {
+          "sections": [
+            {
+              "section_id": {
+                "id_": "iU_ZsG",
+                "name": "Indicators & Detection Rules",
+                "type_": "Category"
+              },
+              "total_count": 1,
+              "lists": []
+            },
+            {
+              "section_id": {
+                "id_": "iU_ZsE",
+                "name": "Actors, Tools & TTPs",
+                "type_": "Category"
+              },
+              "total_count": 2,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "mitre:T1614.001",
+                      "name": "T1614.001",
+                      "type_": "MitreAttackIdentifier",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:MitreAttackIdentifier",
+                    "name": "MitreAttackIdentifier",
+                    "type_": "MetaType",
+                    "description": "A Mitre Att&ck Identifier"
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "ZBaV1_",
+                      "name": "Clop Ransomware",
+                      "type_": "Malware",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 1,
+                  "type_": {
+                    "id_": "type:Malware",
+                    "name": "Malware",
+                    "type_": "MetaType",
+                    "description": "A malware"
+                  }
+                }
+              ]
+            }
+          ],
+          "start_date": "2025-12-20T00:00:00",
+          "stop_date": "2025-12-21T00:00:00",
+          "total_count": 8,
+          "sample_reference_ids": [
+            "HFCZgAA9nst",
+            "HFCZgAA9jMg",
+            "HFCZgAA8AFr",
+            "HFCZgAA79ut",
+            "HFCZQABImzP"
+          ],
+          "counts": [
+            {
+              "count": 8,
+              "type_": {
+                "id_": "type:MalwareAnalysis",
+                "name": "MalwareAnalysis",
+                "type_": "MetaType",
+                "description": "Cyber threat analysis of a specific file, such as malware and malicious documents."
+              }
+            }
+          ],
+          "event_count": 8
+        }
+      ],
+      "method_aggregates": [
+        {
+          "count": 0,
+          "type_": "hHQyM6"
+        },
+        {
+          "count": 0,
+          "type_": "hHQyM7"
+        },
+        {
+          "count": 0,
+          "type_": "gTB8y2"
+        }
+      ],
+      "counts": [
+        {
+          "count": 8,
+          "type_": {
+            "id_": "type:MalwareAnalysis",
+            "name": "MalwareAnalysis",
+            "type_": "MetaType",
+            "description": "Cyber threat analysis of a specific file, such as malware and malicious documents."
+          }
+        }
+      ]
+    },
+    "enterprise_lists": null,
+    "threat_list": null,
+    "risk_mapping": null,
+    "hash_algorithm": null,
+    "file_hashes": null
+  }
+}

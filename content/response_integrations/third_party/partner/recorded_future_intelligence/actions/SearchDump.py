@@ -82,9 +82,7 @@ def main():
         search_dump_resp = identity_mgr.search_dump(names=names, max_results=max_results)
         data = [dump.json() for dump in search_dump_resp]
         siemplify.result.add_result_json(data)
-        output_message = (
-            f"Successfully ran Search Dump action. Found {len(data)} dump(s)."
-        )
+        output_message = f"Successfully ran Search Dump action. Found {len(data)} dump(s)."
 
     except ValidationError as err:
         output_message = f"Error with Identity Manager parameters: {err}"

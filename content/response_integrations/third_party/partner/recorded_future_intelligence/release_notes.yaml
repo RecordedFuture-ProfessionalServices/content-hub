@@ -137,3 +137,13 @@
   item_type: Integration
   publish_time: '2026-07-17'
   ticket_number: ''
+- description: 'New Jobs Added to sync Classic and Playbook Alert Status.
+    Added predefined widgets for enrichment and sandbox actions.
+    Refresh Playbook Alert can now fetch Domain Abuse screenshots for display in
+    the case view, via the new optional Fetch Screenshots parameter.'
+  version: 16.0
+  item_name: RecordedFutureIntelligence
+  item_type: Integration
+  publish_time: '2026-09-30'
+  ticket_number: ''
+

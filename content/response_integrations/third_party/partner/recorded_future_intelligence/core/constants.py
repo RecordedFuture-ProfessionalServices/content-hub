@@ -34,6 +34,7 @@ ADD_ANALYST_NOTE_SCRIPT_NAME = f"{PROVIDER_NAME} - Add Analyst Note"
 REFRESH_PBA_DETAILS_SCRIPT_NAME = f"{PROVIDER_NAME} - Refresh Playbook Alert"
 UPDATE_ALERT_SCRIPT_NAME = f"{PROVIDER_NAME} - Update Alert"
 UPDATE_PBA_SCRIPT_NAME = f"{PROVIDER_NAME} - Update Playbook Alert"
+SUBMIT_CI_SCRIPT_NAME = f"{PROVIDER_NAME} - Submit Collective Insights"
 
 # Connector
 CONNECTOR_NAME = "Recorded Future - Security Alerts Connector"
@@ -56,6 +57,9 @@ PING_IP = "8.8.8.8"
 # Collective Insights
 CI_DETECTION_TYPE = "playbook"
 CI_INCIDENT_TYPE = "google-secops-threat-detection"
+CI_DETECTION_TYPE_RULE = "detection_rule"
+CI_DETECTION_TYPES = ["playbook", "correlation", "detection_rule", "sandbox"]
+CI_DETECTION_RULE_SUB_TYPES = ["sigma", "yara", "snort"]
 
 # Detection Rules
 DETECTION_RULE_TYPES = ["yara", "snort", "sigma"]
@@ -147,6 +151,43 @@ ENTITY_PREFIX_TYPE_MAP_LIST_OPS = {
 CLASSIC_ALERT_DEFAULT_STATUSES = ["New"]
 CLASSIC_ALERT_STATUSES = ["New", "Pending", "Resolved", "Dismissed", "Flag for Tuning"]
 
+# Alert Status Sync Jobs
+CLASSIC_ALERT_SYNC_JOB_SCRIPT_NAME = "Recorded Future - Classic Alert Status Sync"
+PLAYBOOK_ALERT_SYNC_JOB_SCRIPT_NAME = "Recorded Future - Playbook Alert Status Sync"
+CLASSIC_ALERT_SYNC_CONTEXT_KEY = "recorded_future_classic_alert_status_sync"
+PLAYBOOK_ALERT_SYNC_CONTEXT_KEY = "recorded_future_playbook_alert_status_sync"
+
+# Suffix appended to a sync job's context identifier to store the per-alert sync
+# state (last observed Recorded Future status, and whether the job closed the
+# Google SecOps alert itself). This state is what prevents the two sync
+# directions from re-triggering each other on every iteration.
+SYNC_STATE_CONTEXT_SUFFIX = "_alert_state"
+SYNC_STATE_STATUS_KEY = "recorded_future_status"
+SYNC_STATE_CLOSED_BY_JOB_KEY = "closed_by_job"
+SYNC_STATE_PRODUCT_ID_KEY = "recorded_future_alert_id"
+
+# Recorded Future statuses that represent a terminal (closed) alert. Applies to
+# both classic and playbook alerts.
+SYNC_TERMINAL_STATUSES = frozenset({"Resolved", "Dismissed"})
+
+# Status written back to Recorded Future when a Google SecOps alert or case is
+# closed by an analyst.
+SYNC_OUTBOUND_CLOSED_STATUS = "Resolved"
+
+# Google SecOps alert status values that represent a closed alert.
+SOAR_CLOSED_ALERT_STATUSES = frozenset({"close", "closed"})
+
+SYNC_COMMENT_PREFIX = "[Recorded Future Status Sync]"
+SYNC_DEFAULT_MAX_HOURS_BACKWARDS = 24
+SYNC_MIN_HOURS_BACKWARDS = 1
+SYNC_MAX_HOURS_BACKWARDS = 720
+SYNC_DEFAULT_CLOSE_REASON = "Inconclusive"
+SYNC_DEFAULT_CLOSE_ROOT_CAUSE = "No clear conclusion"
+SYNC_CASE_CLOSE_REASON = "Closed by Recorded Future Status Sync"
+SYNC_REOPEN_ALERT_ENDPOINT = "external/v1/dynamic-cases/ReopenAlert"
+SYNC_REOPEN_CASE_ENDPOINT = "external/v1/cases/ExecuteBulkReopenCase"
+SYNC_PRODUCT_FETCH_MAX_WORKERS = 10
+
 # Playbook Alerts Connector
 PLAYBOOK_ALERT_API_LIMIT = 200
 PLAYBOOK_ALERT_CATEGORIES = [
@@ -171,6 +212,22 @@ ENTITY_CHANGE_CASES = [
     "related_entities_change",
 ]
 
+# Domain Abuse Screenshots
+# Screenshots ride along inside the action's JSON result as base64, and the
+# platform fails the action outright when that result exceeds
+# `max_json_result_size` (15MB by default). The budget is deliberately well
+# under it so a screenshot-heavy alert still refreshes: losing an image is
+# recoverable, losing the refresh leaves the case with stale data. It is
+# measured after encoding, which inflates the payload by roughly a third.
+SCREENSHOT_B64_BUDGET = 5 * 1024 * 1024
+SCREENSHOT_DEFAULT_MIME_TYPE = "image/png"
+SCREENSHOT_MIME_TYPE_SIGNATURES = (
+    (b"\x89PNG\r\n\x1a\n", "image/png"),
+    (b"\xff\xd8\xff", "image/jpeg"),
+    (b"GIF87a", "image/gif"),
+    (b"GIF89a", "image/gif"),
+)
+
 # HTML Text
 INSIKT_VULNERABILITY_NOTE_HTML = """
 <div class="note">
@@ -186,6 +243,16 @@ INSIKT_VULNERABILITY_NOTE_HTML = """
     <div class="divider"></div>
 </div>
 """  # noqa: E501
+
+DOMAIN_ABUSE_SCREENSHOT_HTML = """
+<figure class="screenshot" data-image-id="{}">
+    <img src="data:{};base64,{}" alt="{}" loading="lazy">
+    <figcaption>
+        <p><span class="label">Description:</span> {}</p>
+        <p><span class="label">Captured:</span> {}</p>
+    </figcaption>
+</figure>
+"""
 
 # Sandbox Actions
 SANDBOX_SLEEP = 30

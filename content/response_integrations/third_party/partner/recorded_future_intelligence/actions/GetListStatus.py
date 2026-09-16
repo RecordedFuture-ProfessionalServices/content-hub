@@ -67,9 +67,7 @@ def main():
         status_resp = fetch_resp.status()
         data = status_resp.json()
         siemplify.result.add_result_json(data)
-        output_message += (
-            f"Successfully fetched list status from Recorded Future: {fetch_resp.id_}."
-        )
+        output_message += f"Successfully fetched list status from Recorded Future: {fetch_resp.id_}."
 
     except ValidationError as err:
         output_message = f"Error with List Manager parameters: {err}"

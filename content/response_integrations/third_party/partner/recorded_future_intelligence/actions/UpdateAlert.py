@@ -94,9 +94,7 @@ def main():
             "statusInPortal": clean_input(alert_status) or None,
         }
         siemplify.LOGGER.info(f"Updating Classic Alert: {alert_id}")
-        update_alert_resp = alert_mgr.update(
-            updates=[{k: v for k, v in updates.items() if v is not None}]
-        )
+        update_alert_resp = alert_mgr.update(updates=[{k: v for k, v in updates.items() if v is not None}])
         siemplify.LOGGER.info(f"Classic Alert Update response: {update_alert_resp}")
 
         siemplify.result.add_result_json({"success": {"id": alert_id}})

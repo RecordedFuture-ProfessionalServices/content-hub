@@ -117,9 +117,7 @@ class RecordedFutureCommon:
                 if unix_now() >= self.siemplify.execution_deadline_unix_time_ms:
                     self.siemplify.LOGGER.error(
                         "Timed out. execution deadline ({}) has passed".format(
-                            convert_unixtime_to_datetime(
-                                self.siemplify.execution_deadline_unix_time_ms
-                            )
+                            convert_unixtime_to_datetime(self.siemplify.execution_deadline_unix_time_ms)
                         )
                     )
                     status = EXECUTION_STATE_TIMEDOUT
@@ -159,8 +157,9 @@ class RecordedFutureCommon:
                             # If there is no score in the report, the default score will be used
                             score = DEFAULT_SCORE
                             self.siemplify.LOGGER.info(
-                                "There is no score for the entity {}, the default score: "
-                                "{} will be used.".format(entity.identifier, DEFAULT_SCORE)
+                                "There is no score for the entity {}, the default score: {} will be used.".format(
+                                    entity.identifier, DEFAULT_SCORE
+                                )
                             )
 
                         if int(score) > threshold:
@@ -185,9 +184,7 @@ class RecordedFutureCommon:
                         entity.is_enriched = True
                         entity.is_risky = is_risky
                         successful_entities.append(entity)
-                        self.siemplify.LOGGER.info(
-                            f"Finished processing entity {entity.identifier}"
-                        )
+                        self.siemplify.LOGGER.info(f"Finished processing entity {entity.identifier}")
                     except RecordedFutureNotFoundError:
                         not_found_entities.append(entity)
                         self.siemplify.LOGGER.info(f"No data found for entity {entity.identifier}")
@@ -196,9 +193,7 @@ class RecordedFutureCommon:
                         self.siemplify.LOGGER.error(f"Error fetching entity {entity.identifier}")
                     except Exception as e:
                         failed_entities.append(entity)
-                        self.siemplify.LOGGER.error(
-                            f"An error occurred on entity {entity.identifier}"
-                        )
+                        self.siemplify.LOGGER.error(f"An error occurred on entity {entity.identifier}")
                         self.siemplify.LOGGER.exception(e)
 
             if successful_entities:
@@ -231,9 +226,7 @@ class RecordedFutureCommon:
             output_message = f"An error occurred while running action: {e}"
 
         self.siemplify.LOGGER.info("----------------- Main - Finished -----------------")
-        self.siemplify.LOGGER.info(
-            f"\nstatus: {status}\nis_risky: {is_risky}\noutput_message: {output_message}"
-        )
+        self.siemplify.LOGGER.info(f"\nstatus: {status}\nis_risky: {is_risky}\noutput_message: {output_message}")
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_risky, status)
 
@@ -325,9 +318,7 @@ class RecordedFutureCommon:
                     self.siemplify.create_case_insight(
                         PROVIDER_NAME,
                         "Enriched by Reported Future Malware Intelligence",
-                        self.get_insight_content_sandbox(
-                            hash_report, start_date, end_date, my_enterprise
-                        ),
+                        self.get_insight_content_sandbox(hash_report, start_date, end_date, my_enterprise),
                         entity.identifier,
                         1,
                         1,
@@ -349,9 +340,7 @@ class RecordedFutureCommon:
         self.siemplify.result.add_result_json(convert_dict_to_json_result_dict(json_results))
         self.siemplify.end(output_message, is_success, status)
 
-    def get_insight_content_sandbox(
-        self, hash_report: HashReport, start_date, end_date, my_enterprise
-    ):
+    def get_insight_content_sandbox(self, hash_report: HashReport, start_date, end_date, my_enterprise):
         """Create the HTML for the insight."""
         end_date = end_date or "today"
         if not hash_report.found:
@@ -361,20 +350,13 @@ class RecordedFutureCommon:
                 _title("Recorded Future Sandbox Hash Search Details"),
                 _title_and_content(
                     "Hash",
-                    (
-                        f"No data found for {hash_report.id} "
-                        f"between {start_date} and {end_date}{my_ent_str}"
-                    ),
+                    (f"No data found for {hash_report.id} between {start_date} and {end_date}{my_ent_str}"),
                 ),
             ])
         analysis = []
         for report in hash_report.reports_summary:
             tags = _title_and_content("Tags", ", ".join(report["tags"])) if report["tags"] else ""
-            ext = (
-                _title_and_content("File Extensions", ", ".join(report["extensions"]))
-                if report["extensions"]
-                else ""
-            )
+            ext = _title_and_content("File Extensions", ", ".join(report["extensions"])) if report["extensions"] else ""
             data = [
                 _subtitle(f"Analysis {report['id']}"),
                 _title_and_content("Link", f"https://sandbox.recordedfuture.com/{report['id']}"),
@@ -437,9 +419,7 @@ class RecordedFutureCommon:
         content = ""
 
         evidence_details = (
-            entity_report.raw_data[0].get("risk", {}).get("evidenceDetails")
-            if entity_report.raw_data
-            else []
+            entity_report.raw_data[0].get("risk", {}).get("evidenceDetails") if entity_report.raw_data else []
         )
         evidence_details.sort(key=lambda y: y["criticality"], reverse=True)
 
@@ -580,9 +560,7 @@ class RecordedFutureSandboxCommon:
             self.siemplify.LOGGER.info(
                 f"Submission {sample_id} for {sample_target} is fully processed.",
             )
-            self.action_context["submissions"][sample_target]["pending_submissions"].remove(
-                sample_id
-            )
+            self.action_context["submissions"][sample_target]["pending_submissions"].remove(sample_id)
 
             reports = self.action_context["submissions"][sample_target].get(
                 "finished_submissions",
@@ -597,18 +575,14 @@ class RecordedFutureSandboxCommon:
             self.siemplify.LOGGER.info(
                 f"Submission for {submission_data.id} have failed.",
             )
-            self.action_context["submissions"][sample_target]["pending_submissions"].remove(
-                submission_data.id
-            )
+            self.action_context["submissions"][sample_target]["pending_submissions"].remove(submission_data.id)
 
             failed_submissions = self.action_context["submissions"][entity_name].get(
                 "failed_submissions",
                 [],
             )
             failed_submissions.append(submission_data.get_entity_name())
-            self.action_context["submissions"][entity_name]["failed_submissions"] = (
-                failed_submissions
-            )
+            self.action_context["submissions"][entity_name]["failed_submissions"] = failed_submissions
 
         # Return is the process finished for all pending submissions
         return self.is_all_reported()
@@ -696,9 +670,7 @@ class RecordedFutureSandboxCommon:
                 f"https://sandbox.recordedfuture.com/{sample.get('id')}",  # TODO base URL
             ),
             "<hr>",
-            _title_and_content("Tags", ", ".join(tags))
-            if (tags := data.get("analysis", {}).get("tags", []))
-            else "",
+            _title_and_content("Tags", ", ".join(tags)) if (tags := data.get("analysis", {}).get("tags", [])) else "",
         ]
 
         if signatures := self._get_signatures(data):
@@ -738,9 +710,7 @@ class RecordedFutureSandboxCommon:
                     {item.split("?")[0] for item in ioc_list},
                 )
 
-            targets.extend(
-                _title_and_content(k, _list(v) + "</br>") for k, v in transformed_iocs.items()
-            )
+            targets.extend(_title_and_content(k, _list(v) + "</br>") for k, v in transformed_iocs.items())
 
         if targets:
             content.extend(targets)
@@ -757,11 +727,7 @@ class RecordedFutureSandboxCommon:
         for sign in signature_data:
             name = _title_and_content("Name", s_name) if (s_name := sign.get("name", "")) else ""
             score = _title_and_content("Score", sign.get("score", 0))
-            ttp = (
-                _title_and_content("TTP", ", ".join(s_ttp))
-                if (s_ttp := sign.get("ttp", []))
-                else ""
-            )
+            ttp = _title_and_content("TTP", ", ".join(s_ttp)) if (s_ttp := sign.get("ttp", [])) else ""
             html += f"{name}{score}{ttp}</br>"
 
         return html

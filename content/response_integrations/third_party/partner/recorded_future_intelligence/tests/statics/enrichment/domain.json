@@ -1,0 +1,201 @@
+{
+  "entity": "zupertech.com",
+  "entity_type": "domain",
+  "is_enriched": true,
+  "content": {
+    "ai_insights": null,
+    "analyst_notes": [],
+    "counts": [],
+    "entity": {
+      "id_": "idn:zupertech.com",
+      "name": "zupertech.com",
+      "type_": "InternetDomainName",
+      "description": null
+    },
+    "intel_card": null,
+    "metrics": [],
+    "related_entities": [],
+    "sightings": [],
+    "timestamps": {
+      "last_seen": "2025-12-22T17:37:57.122000Z",
+      "first_seen": "2020-12-14T08:46:12.085000Z"
+    },
+    "risk": {
+      "criticality_label": "Very Malicious",
+      "risk_string": "7/52",
+      "rules": 7,
+      "criticality": 4,
+      "risk_summary": "7 of 52 Risk Rules currently observed.",
+      "score": 99,
+      "evidence_details": [
+        {
+          "mitigation_string": "",
+          "evidence_string": "18 sightings on 2 sources: External Sensor Data Analysis, Bitdefender. zupertech.com is observed to be a malware site domain that navigates to malicious content including executables, drive-by infection sites, malicious scripts, viruses, trojans, or code.",
+          "rule": "Historically Detected Malware Operation",
+          "criticality": 1,
+          "timestamp": "2022-01-30T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "23 sightings on 10 sources including: securityscorecard.com, assets.kpmg, CSO Online, Palo Alto Networks, extrahop.com. Most recent tweet: [2/2] incomeupdate[.]com,5.252.177.25 databasegalore[.]com,5.252.177.21 panhardware[.]com,204.188.205.176 zupertech[.]com,51.89.125.18 zupertech[.]com,167.114.213.199 @NSDC_ua @CyberpoliceUA #НКЦК #APT29 #CozyBear #malware #Orion #SolarWinds. Most recent link (Dec 15, 2020): https://twitter.com/sky31337/statuses/1338706444678549511",
+          "rule": "Historically Reported as a Defanged DNS Name",
+          "criticality": 1,
+          "timestamp": "2020-12-15T04:44:23Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "2 sightings on 1 source: @sky31337. Most recent tweet: [2/2] incomeupdate[.]com,5.252.177.25 databasegalore[.]com,5.252.177.21 panhardware[.]com,204.188.205.176 zupertech[.]com,51.89.125.18 zupertech[.]com,167.114.213.199 @NSDC_ua @CyberpoliceUA #НКЦК #APT29 #CozyBear #malware #Orion #SolarWinds. Most recent link (Dec 15, 2020): https://twitter.com/sky31337/statuses/1338706444678549511",
+          "rule": "Historically Linked to Cyber Attack",
+          "criticality": 1,
+          "timestamp": "2020-12-15T04:44:23Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "2 sightings on 1 source: Insikt Group. 2 reports including UNC2452 (DarkHalo)'s SUNBURST Backdoor; Indicators and Infrastructure. Most recent link (Dec 15, 2020): https://app.recordedfuture.com/portal/analyst-note/doc:gcSJpz",
+          "rule": "Historically Reported by Insikt Group",
+          "criticality": 1,
+          "timestamp": "2020-12-15T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "Previous sightings on 2 sources: Bambenek Consulting C&C Blocklist, Recently Viewed Integrations Indicators. Observed between Jul 1, 2024, and Jul 3, 2024.",
+          "rule": "Historically Reported in Threat List",
+          "criticality": 1,
+          "timestamp": "2025-12-22T17:56:57.742000Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Bitdefender. Detected malicious behavior from an endpoint agent via global telemetry. Last observed on Jan 30, 2022.",
+          "rule": "Historically Suspected Malware Operation",
+          "criticality": 1,
+          "timestamp": "2022-01-30T00:00:00Z",
+          "criticality_label": "Unusual"
+        },
+        {
+          "mitigation_string": "",
+          "evidence_string": "1 sighting on 1 source: Bambenek Consulting C&C Blocklist.",
+          "rule": "Recent C&C DNS Name",
+          "criticality": 4,
+          "timestamp": "2025-12-22T17:56:57.710000Z",
+          "criticality_label": "Very Malicious"
+        }
+      ]
+    },
+    "links": {
+      "hits": [
+        {
+          "sections": [
+            {
+              "section_id": {
+                "id_": "iU_ZsE",
+                "name": "Actors, Tools & TTPs",
+                "type_": "Category"
+              },
+              "total_count": 4,
+              "lists": [
+                {
+                  "entities": [
+                    {
+                      "id_": "O7NRMb",
+                      "name": "BlueBravo",
+                      "type_": "Organization",
+                      "description": null
+                    },
+                    {
+                      "id_": "S3DWa3",
+                      "name": "Foreign Intelligence Service (Russia) ",
+                      "type_": "Organization",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 2,
+                  "type_": {
+                    "id_": "JW2OHE",
+                    "name": "Threat Actor",
+                    "type_": "Position",
+                    "description": null
+                  }
+                },
+                {
+                  "entities": [
+                    {
+                      "id_": "LnK3Q6",
+                      "name": "Cobalt Strike Beacon",
+                      "type_": "Malware",
+                      "description": null
+                    },
+                    {
+                      "id_": "gbo257",
+                      "name": "SUNBURST",
+                      "type_": "Malware",
+                      "description": null
+                    }
+                  ],
+                  "total_count": 2,
+                  "type_": {
+                    "id_": "type:Malware",
+                    "name": "Malware",
+                    "type_": "MetaType",
+                    "description": "A malware"
+                  }
+                }
+              ]
+            }
+          ],
+          "start_date": "2020-12-13T00:00:00",
+          "stop_date": "2020-12-15T00:00:00",
+          "total_count": 2,
+          "sample_reference_ids": [
+            "GfmLFTDTczc",
+            "GfmkuPAFfP0"
+          ],
+          "counts": [
+            {
+              "count": 2,
+              "type_": {
+                "id_": "source:VKz42X",
+                "name": "Insikt Group",
+                "type_": "Source",
+                "description": null
+              }
+            }
+          ],
+          "event_count": 2
+        }
+      ],
+      "method_aggregates": [
+        {
+          "count": 0,
+          "type_": "hHQyM6"
+        },
+        {
+          "count": 2,
+          "type_": "hHQyM7"
+        },
+        {
+          "count": 0,
+          "type_": "gTB8y2"
+        }
+      ],
+      "counts": [
+        {
+          "count": 2,
+          "type_": {
+            "id_": "source:VKz42X",
+            "name": "Insikt Group",
+            "type_": "Source",
+            "description": null
+          }
+        }
+      ]
+    },
+    "enterprise_lists": null,
+    "threat_lists": null,
+    "risk_mapping": null
+  }
+}

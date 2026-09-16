@@ -1,0 +1,417 @@
+{
+  "status": {
+    "status_code": "Ok",
+    "status_message": "Playbook alert single lookup successful."
+  },
+  "data": {
+    "playbook_alert_id": "task:b26e8e74-1450-499f-bc96-7ad0e346db44",
+    "panel_log_v2": [
+      {
+        "id": "uuid:92171f29-0eb8-4c1e-ad83-bcec8faff6ba",
+        "created": "2024-10-01T09:55:42.816Z",
+        "changes": [
+          {
+            "domain": "www.taacx.com",
+            "removed": [],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.97.84.78",
+                  "name": "211.97.84.78",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:116.153.4.95",
+                  "name": "116.153.4.95",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:36.249.64.237",
+                  "name": "36.249.64.237",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.240.220.124",
+                  "name": "61.240.220.124",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:42.177.83.125",
+                  "name": "42.177.83.125",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:123.6.40.243",
+                  "name": "123.6.40.243",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:113.194.51.102",
+                  "name": "113.194.51.102",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.93.211.104",
+                  "name": "211.93.211.104",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:221.204.43.212",
+                  "name": "221.204.43.212",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:101.72.224.113",
+                  "name": "101.72.224.113",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:60.28.220.234",
+                  "name": "60.28.220.234",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:119.188.123.202",
+                  "name": "119.188.123.202",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.241.148.61",
+                  "name": "61.241.148.61",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:d2c12630-4929-45d5-b563-e5aa6be845b9",
+        "created": "2024-10-16T09:46:37.119Z",
+        "changes": [
+          {
+            "domain": "www.taacx.com",
+            "removed": [],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:58.251.87.153",
+                  "name": "58.251.87.153",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:ba3a17c7-14bd-4d73-8e34-c8ba3aaa9be0",
+        "created": "2024-10-17T09:40:45.046Z",
+        "changes": [
+          {
+            "domain": "www.taacx.com",
+            "removed": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.97.84.78",
+                  "name": "211.97.84.78",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:116.153.4.95",
+                  "name": "116.153.4.95",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:36.249.64.237",
+                  "name": "36.249.64.237",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.240.220.124",
+                  "name": "61.240.220.124",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:42.177.83.125",
+                  "name": "42.177.83.125",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:123.6.40.243",
+                  "name": "123.6.40.243",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:113.194.51.102",
+                  "name": "113.194.51.102",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.93.211.104",
+                  "name": "211.93.211.104",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:221.204.43.212",
+                  "name": "221.204.43.212",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:58.251.87.153",
+                  "name": "58.251.87.153",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:101.72.224.113",
+                  "name": "101.72.224.113",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:60.28.220.234",
+                  "name": "60.28.220.234",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:119.188.123.202",
+                  "name": "119.188.123.202",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.241.148.61",
+                  "name": "61.241.148.61",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "added": [],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:c9a84c88-9f24-4c49-9bad-ffd5603228f4",
+        "created": "2024-10-21T14:12:31.146Z",
+        "changes": [
+          {
+            "domain": "www.taacx.com",
+            "removed": [],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.97.84.78",
+                  "name": "211.97.84.78",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:116.153.4.95",
+                  "name": "116.153.4.95",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:36.249.64.237",
+                  "name": "36.249.64.237",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.240.220.124",
+                  "name": "61.240.220.124",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:123.6.40.243",
+                  "name": "123.6.40.243",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:113.194.51.102",
+                  "name": "113.194.51.102",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:211.93.211.104",
+                  "name": "211.93.211.104",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:58.251.87.153",
+                  "name": "58.251.87.153",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:101.72.224.113",
+                  "name": "101.72.224.113",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:60.28.220.234",
+                  "name": "60.28.220.234",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:119.188.123.202",
+                  "name": "119.188.123.202",
+                  "type": "IpAddress"
+                }
+              },
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:61.241.148.61",
+                  "name": "61.241.148.61",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:9efc99f1-e516-4b70-8939-c4ed0daa2c7f",
+        "created": "2024-10-23T16:47:14.074Z",
+        "changes": [
+          {
+            "domain": "www.taacx.com",
+            "removed": [],
+            "added": [
+              {
+                "type": "A",
+                "entity": {
+                  "id": "ip:116.169.184.51",
+                  "name": "116.169.184.51",
+                  "type": "IpAddress"
+                }
+              }
+            ],
+            "type": "dns_change"
+          }
+        ]
+      },
+      {
+        "id": "uuid:572548db-c108-4e97-b2cf-2171fe6ac7e0",
+        "author_id": "uhash:6XbKRl8RGL",
+        "author_name": "Recorded Future",
+        "created": "2024-10-23T17:54:56.966Z",
+        "changes": [
+          {
+            "old": "Informational",
+            "new": "Moderate",
+            "type": "priority_change"
+          }
+        ]
+      }
+    ]
+  }
+}

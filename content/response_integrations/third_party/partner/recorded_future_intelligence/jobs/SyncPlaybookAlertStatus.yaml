@@ -1,0 +1,61 @@
+name: Recorded Future - Playbook Alert Status Sync
+parameters:
+-   name: Environment Name
+    default_value: Default Environment
+    type: string
+    description: Name of the environment in which to sync cases.
+    is_mandatory: true
+-   name: API URL
+    default_value: https://api.recordedfuture.com
+    type: string
+    description: API Root of the Recorded Future instance.
+    is_mandatory: true
+-   name: API Key
+    default_value: ''
+    type: password
+    description: API Key from Recorded Future.
+    is_mandatory: true
+-   name: Verify SSL
+    default_value: 'true'
+    type: boolean
+    description: If enabled, verify that the SSL certificate for the connection to
+        the Recorded Future server is valid.
+    is_mandatory: false
+-   name: Max Hours Backwards
+    default_value: '24'
+    type: integer
+    description: 'Number of hours before the first job iteration to retrieve updated
+        cases from (range: 1 to 720). Applies to the first run, or as a fallback if
+        the last run timestamp is reset.'
+    is_mandatory: false
+-   name: Closed Alert Reason
+    default_value: Inconclusive
+    type: string
+    description: Reason recorded on a Google SecOps alert that this job closes because
+        its Recorded Future playbook alert was resolved or dismissed. Must be a reason
+        that is valid in your Google SecOps environment.
+    is_mandatory: false
+-   name: Closed Alert Root Cause
+    default_value: No clear conclusion
+    type: string
+    description: Root cause recorded on a Google SecOps alert or case that this job
+        closes. Must be a root cause that is configured in your Google SecOps environment.
+    is_mandatory: false
+-   name: Close Case When All Alerts Closed
+    default_value: 'false'
+    type: boolean
+    description: If enabled, close the Google SecOps case once every alert on it is
+        closed. Disabled by default, so the job only changes alert status. Cases are
+        always reopened when this job reopens an alert inside them, regardless of this
+        setting.
+    is_mandatory: false
+description: 'Keeps the status of Recorded Future playbook alerts and their Google
+    SecOps alerts in sync, in both directions. When a playbook alert is set to Resolved
+    or Dismissed in Recorded Future, the matching Google SecOps alert is closed; if
+    it later returns to New or InProgress, an alert that this job closed is reopened.
+    When an analyst closes the Google SecOps alert or case, the playbook alert is set
+    to Resolved in Recorded Future. Requires the Recorded Future - Playbook Alerts
+    Connector to have created the cases.'
+integration: RecordedFutureIntelligence
+documentation_link: https://assets.recordedfuture.com/Install%20Guides/Recorded-Future-for-Google-Security-Operations-Install-Guide.pdf
+creator: admin

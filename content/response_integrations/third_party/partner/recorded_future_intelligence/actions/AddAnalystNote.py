@@ -76,9 +76,7 @@ def main() -> None:
         analyst_note_resp = note_mgr.publish(title=note_title, text=note_text, topic=topic)
         data = analyst_note_resp.json()
         siemplify.result.add_result_json(data)
-        output_message += (
-            f"Successfully published Analyst Note {analyst_note_resp.note_id} in Recorded Future."
-        )
+        output_message += f"Successfully published Analyst Note {analyst_note_resp.note_id} in Recorded Future."
 
     except ValueError as err:
         output_message = f"Analyst Note Manager ValueError: {err}"

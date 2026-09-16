@@ -72,6 +72,12 @@ def main():
         is_mandatory=True,
     )
     category = extract_action_param(siemplify, param_name="Category", is_mandatory=True)
+    fetch_screenshots = extract_action_param(
+        siemplify,
+        param_name="Fetch Screenshots",
+        default_value=False,
+        input_type=bool,
+    )
 
     siemplify.LOGGER.info("----------------- Main - Started -----------------")
 
@@ -84,10 +90,7 @@ def main():
         )
     if not category:
         raise RecordedFutureInvalidCaseTypeError(
-            (
-                f"Label {siemplify.current_alert.rule_generator} is not "
-                f"one of accepted types: {LABEL_MAP.keys()!s}"
-            )
+            (f"Label {siemplify.current_alert.rule_generator} is not one of accepted types: {LABEL_MAP.keys()!s}")
         )
 
     is_success = False
@@ -100,16 +103,17 @@ def main():
             verify_ssl=verify_ssl,
             siemplify=siemplify,
         )
-        alert_object = recorded_future_manager.refresh_pba_case(alert_id, category)
+        alert_object = recorded_future_manager.refresh_pba_case(
+            alert_id,
+            category,
+            fetch_screenshots=fetch_screenshots,
+        )
         siemplify.result.add_result_json(alert_object.create_events_with_html())
         siemplify.result.add_link("Web Report Link:", alert_object.alert_url)
 
         is_success = True
         status = EXECUTION_STATE_COMPLETED
-        output_message = (
-            "Successfully fetched the following Alert ID "
-            f"details from Recorded Future: \n{alert_id}"
-        )
+        output_message = f"Successfully fetched the following Alert ID details from Recorded Future: \n{alert_id}"
 
     except RecordedFutureUnauthorizedError as e:
         output_message = f"Unauthorized - please check your API token and try again. {e}"

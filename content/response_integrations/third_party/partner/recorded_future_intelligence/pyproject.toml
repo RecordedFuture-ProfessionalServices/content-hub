@@ -1,6 +1,6 @@
 [project]
 name = "RecordedFutureIntelligence"
-version = "15.0"
+version = "16.0"
 description = "Recorded Future's unique technology collects and analyzes vast amounts of data to deliver relevant cyber threat insights in real-time. For support please contact support@recordedfuture.com"
 requires-python = ">=3.11,<3.12"
 dependencies = [
@@ -18,13 +18,16 @@ dependencies = [
 [dependency-groups]
 dev = [
     "environmentcommon",
+    "integration-testing",
     "pytest-json-report>=1.5.0",
     "pytest>=8.3.5",
+    "pyyaml",
     "soar-sdk",
 ]
 
 [tool.uv.sources]
 soar-sdk = { git = "https://github.com/chronicle/soar-sdk.git" }
+integration-testing = { path = "../../../../../packages/integration_testing_whls/integration_testing-2.4.5-py3-none-any.whl" }
 environmentcommon = { path = "../../../../../packages/envcommon/whls/EnvironmentCommon-1.0.3-py3-none-any.whl" }
 tipcommon = { path = "../../../../../packages/tipcommon/whls/TIPCommon-2.3.6-py3-none-any.whl" }
 antlr4-python3-runtime = { url = "https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d19459005ca000b6e7012f2f1ca597746cbcd1fbfe5e/antlr4-python3-runtime-4.9.3.tar.gz" }
